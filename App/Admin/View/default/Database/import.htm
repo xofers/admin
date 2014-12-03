@@ -1,0 +1,99 @@
+<extend name="Public:base" />
+
+<block name="style">
+	<style>
+		.table-bordered > thead > tr > td,
+		.table-bordered > tbody > tr > td,
+		.table-bordered > tfoot > tr > td {
+			border: none;
+			border-bottom: 1px solid #DDD;
+		}
+	</style>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-12">
+			<form id="export-form" action="{:U('Database/export')}" method="post">
+				<table class="table table-advance table-bordered">
+					<tr class="bg-grey">
+						<th colspan="7">
+							<i class="fa fa-cloud"></i>&nbsp;数据备份信息
+						</th>
+					</tr>
+					<tr class="bg-grey">
+	                    <td width="200">备份名称</td>
+	                    <td width="80">卷数</td>
+	                    <td width="80">压缩</td>
+	                    <td width="80">数据大小</td>
+	                    <td width="200">备份时间</td>
+	                    <td>状态</th>
+	                    <td width="150">操作</td>
+	                </tr>
+					<volist name="list" id="DatabaseList">
+						<tr>
+							<td>{$DatabaseList.time|date='Ymd-His',###}</td>
+                        	<td>{$DatabaseList.part}</td>
+                        	<td>{$DatabaseList.compress}</td>
+                        	<td>{$DatabaseList.size|format_bytes}</td>
+                        	<td>{$key}</td>
+                        	<td><span class="badge badge-default">-</span></td>
+							<td>
+								<a href="{:U('import?time='.$DatabaseList['time'])}" class="badge badge-success db-import" ajax-confirm='确定还原该备份嘛?'>还原</a>&emsp;
+								<a href="{:U('del',array('time'=>$DatabaseList['time']))}" class="badge badge-success ajax-get" ajax-confirm='确定删除该备份嘛?'>删除</a>&emsp;
+							</td>
+						</tr>
+					</volist>
+				</table>
+			</form>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+        $(".db-import").click(function(){
+            var self = this, status = ".";
+            $.get(self.href, success, "json");
+            window.onbeforeunload = function(){ return "正在还原数据库，请不要关闭！" }
+            return false;
+            
+            function success(data){
+                if(data.status){
+                    if(data.gz){
+                        data.info += status;
+                        if(status.length === 5){
+                            status = ".";
+                        } else {
+                            status += ".";
+                        }
+                    }
+                    $(self).parent().prev().html("<span class='badge badge-success'>"+data.info+"</span>");
+                    if(data.part){
+                        $.get(self.href,
+                            {"part" : data.part, "start" : data.start},
+                            success,
+                            "json"
+                        );
+                    }  else {
+                        window.onbeforeunload = function(){ return null; }
+                    }
+                } else {
+					Message.error({message:data.info});
+                }
+            }
+        });
+    </script>
+</block>

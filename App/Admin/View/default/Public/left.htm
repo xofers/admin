@@ -1,0 +1,88 @@
+<div class="page-sidebar-wrapper">
+	<div class="page-sidebar navbar-collapse collapse">
+		<!-- add "navbar-no-scroll" class to disable the scrolling of the sidebar menu -->
+		<!-- BEGIN SIDEBAR MENU -->
+		<ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+			<li class="start active ">
+				<a href="{:U('Index/index')}">
+					<i class="fa fa-home"></i>
+					<span class="title">系统首页</span>
+					<span class="selected"></span>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<i class="fa fa-cogs"></i>
+					<span class="title">系统设置</span>
+					<span class="arrow "></span>
+				</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="{:U('Config/group')}">
+							<i class="fa fa-bullhorn"></i> 网站设置
+						</a>
+					</li>
+					<li>
+						<a href="javascript:;">
+							<i class="fa fa-cog"></i> 配置管理
+						</a>
+					</li>
+					<li>
+						<a href="javascript:;">
+							<i class="fa fa-tags"></i> 菜单管理
+						</a>
+					</li>
+					<li>
+						<a href="javascript:;">
+							<i class="fa fa-sitemap"></i> 权限管理
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<i class="fa fa-sun-o"></i>
+					<span class="title">数据管理</span>
+					<span class="arrow"></span>
+				</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="{:U('Database/index',array('type'=>'export'))}">
+							<i class="fa fa-cloud"></i> 备份数据库
+						</a>
+					</li>
+					<li>
+						<a href="{:U('Database/index',array('type'=>'import'))}">
+							<i class="fa fa-retweet"></i> 还原数据库
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<i class="fa fa-users"></i>
+					<span class="title">用户中心</span>
+					<span class="arrow "></span>
+				</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="{:U('User/Index')}"><i class="fa fa-location-arrow"></i> 所有用户</a>
+					</li>
+					<li>
+						<a href="javascript:;"><i class="fa fa-eye"></i> 第三方用户</a>
+					</li>
+					<li>
+						<a href="javascript:;"><i class="fa fa-user-md"></i> 管理员列表</a>
+					</li>
+				</ul>
+			</li>
+			<li class="last">
+				<a href="javascript:;">
+					<i class="fa fa-bar-chart-o"></i>
+					<span class="title">网站统计</span>
+				</a>
+			</li>
+		</ul>
+		<!-- END SIDEBAR MENU -->
+	</div>
+</div>

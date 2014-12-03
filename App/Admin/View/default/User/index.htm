@@ -1,0 +1,98 @@
+<extend name="Public:base" />
+
+<block name="style">
+	<style>
+		.table-bordered > thead > tr > td,
+		.table-bordered > tbody > tr > td,
+		.table-bordered > tfoot > tr > td {
+			border: none;
+			border-bottom: 1px solid #DDD;
+		}
+	</style>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-12">
+			<a id="export" href="javascript:;" class="btn green">
+				<i class="fa fa-plus"> 新增</i>
+  			</a>
+  			<a id="optimize" href="{:U('optimize')}" class="btn blue">
+				<i class="fa fa-unlock"> 启用</i>
+			</a>
+			<a id="optimize" href="{:U('optimize')}" class="btn yellow">
+				<i class="fa fa-minus-circle"> 禁用</i>
+			</a>
+			<a id="optimize" href="{:U('optimize')}" class="btn red">
+				<i class="fa fa-trash-o"> 删除</i>
+  			</a>
+			<form id="export-form" action="{:U('Database/export')}" method="post">
+				<table class="table table-advance table-bordered margin-top-10">
+					<tr class="bg-grey">
+						<th colspan="9">
+							<i class="fa fa-cloud"></i>&nbsp;用户信息
+						</th>
+					</tr>
+					<tr class="bg-grey">
+						<th width="20">
+							<input onchange="Index.checkAll(this,'id[]')" value="" type="checkbox">
+						</th>
+						<td width="50" class="text-center">UID</td>
+						<td>昵称</td>
+						<td width="80">积分</td>
+						<td width="100">登录次数</td>
+						<td width="150">最后登录时间</td>
+						<td width="150">最后登录IP</td>
+						<td width="100">状态</td>
+						<td width="200">操作</td>
+					</tr>
+					<notempty name="_list">
+						<volist name="_list" id="vo">
+							<tr>
+					            <td><input class="ids" type="checkbox" name="id[]" value="{$vo.uid}" /></td>
+								<td class="text-center"><span class="badge badge-important">{$vo.uid}</span></td>
+								<td>{$vo.nickname}</td>
+								<td><span class="badge badge-info">{$vo.score}</span></td>
+								<td><span class="badge badge-info">{$vo.login}</span></td>
+								<td><span class="badge badge-info">{$vo.last_login_time|time_format}</span></td>
+								<td><span class="badge badge-info">{:long2ip($vo['last_login_ip'])}</span></td>
+								<td>
+									<eq name="vo.status" value="1">
+										<span class="badge badge-success">{$vo.status_text}</span>
+									<else/>
+										<span class="badge badge-important">{$vo.status_text}</span>
+									</eq>
+								</td>
+								<td>
+									<eq name="vo.status" value="1">
+										<a href="{:U('User/changeStatus',array('method'=>'forbidUser','id'=>$vo['uid']))}" ajax-confirm="你确定要禁用该用户嘛?" class="ajax-get badge badge-important">禁用</a>&nbsp
+									<else/>
+										<a href="{:U('User/changeStatus',array('method'=>'resumeUser','id'=>$vo['uid']))}" ajax-confirm="你确定要启用该用户嘛?" class="ajax-get badge badge-success">启用</a>&nbsp
+									</eq>
+										<a href="{:U('AuthManager/group?uid='.$vo['uid'])}" class="authorize badge badge-primary">授权</a>&nbsp
+					                	<a href="{:U('User/changeStatus',array('method'=>'deleteUser','id'=>$vo['uid']))}" ajax-confirm="你确定要删除该用户嘛?" class="ajax-get badge badge-warning">删除</a>&nbsp;
+								</td>
+							</tr>
+						</volist>
+					<else/>
+						<td colspan="9" class="text-center">暂时还没有内容! </td>
+					</notempty>
+				</table>
+			</form>
+		</div>
+	</div>
+</block>
+<block name="script">
+</block>

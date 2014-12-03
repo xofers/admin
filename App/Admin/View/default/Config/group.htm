@@ -1,0 +1,102 @@
+<extend name="Public:base" />
+
+<block name="style">
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/css/plugins.css"/>
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.css"/>
+<style>
+	textarea{
+		resize: none;	
+	}
+</style>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="tabbable tabbable-custom boxless tabbable-reversed">
+				<ul class="nav nav-tabs">
+					<volist name="Think.config.CONFIG_GROUP_LIST" id="group">
+						<li <eq name="id" value="$key">class="active"</eq>>
+							<a href="{:U('group',array('id'=>$key))}">{$group}配置</a>
+						</li>
+					</volist>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active">
+						<div class="portlet box grey">
+							<div class="portlet-title">
+								<i class="fa fa-edit"></i> 修改配置信息
+							</div>
+							<div class="portlet-body form">
+								<form class="horizontal-form" action="{:U('save')}" method="post">
+									<div class="form-body">
+										<div class="row">
+											<volist name="list" id="config" mod="2">
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="control-label">{$config.title}<span class="check-tips">（{$config.remark}）</span> </label>
+														<switch name="config.type">
+															<case value="0">
+																<input type="text" class="form-control input-xlarge" name="config[{$config.name}]" value="{$config.value}">
+															</case>
+															<case value="1">
+																<input type="text" class="form-control input-xlarge" name="config[{$config.name}]" value="{$config.value}">
+															</case>
+															<case value="2">
+																<textarea name="config[{$config.name}]" class="form-control">{$config.value}</textarea>
+															</case>
+															<case value="3">
+																<textarea name="config[{$config.name}]" class="form-control">{$config.value}</textarea>
+															</case>
+															<case value="4">
+																<select name="config[{$config.name}]"  style="display: none;" class="bs-select form-control input-small" data-style="blue">
+																	<volist name=":parse_config_attr($config['extra'])" id="vo">
+																		<option value="{$key}" <eq name="config.value" value="$key">selected="selected"</eq>>{$vo}</option>
+																	</volist>
+																</select>
+															</case>
+														</switch>
+													</div>
+												</div>
+											</volist>
+										</div>
+										<div class="controls">
+											<empty name="list">
+												<button type="submit" disabled class="btn btn-green disabled" target-form="horizontal-form">确 定</button>
+											<else/>
+												<button type="submit" class="btn green ajax-post" target-form="horizontal-form">确 定</button>
+											</empty>
+											<button class="btn blue" onclick="javascript:history.back(-1);return false;">返 回</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+<script type="text/javascript" src="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="__SCRIPTS__/metroinc/scripts/custom/bootstrapSelect.js"></script>
+<script>
+$(function(){
+	BootstrapSelect.init();
+})
+</script>
+</block>

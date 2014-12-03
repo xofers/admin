@@ -1,0 +1,152 @@
+<extend name="Public:base" />
+
+<block name="style">
+	<style>
+		.table-bordered > thead > tr > td,
+		.table-bordered > tbody > tr > td,
+		.table-bordered > tfoot > tr > td {
+			border: none;
+			border-bottom: 1px solid #DDD;
+		}
+	</style>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-12">
+			<a id="export" href="javascript:;" class="btn green">
+				<i class="fa fa-cloud"> 立即备份 </i>
+			</a>
+			<a id="optimize" href="{:U('optimize')}" class="btn green">
+				<i class="fa fa-star"> 优化表 </i>
+			</a>
+			<a id="repair" href="{:U('repair')}" class="btn green">
+				<i class="fa fa-plus-square"> 修复表 </i>
+			</a>
+			<form id="export-form" action="{:U('Database/export')}" method="post">
+				<table class="table table-advance table-bordered margin-top-10">
+					<tr class="bg-grey">
+						<th colspan="7">
+							<i class="fa fa-cloud"></i>&nbsp;数据库信息
+						</th>
+					</tr>
+					<tr class="bg-grey">
+						<th width="20">
+							<input onchange="Index.checkAll(this,'tables[]')" value="" type="checkbox" checked="checked">
+						</th>
+						<td>表名</td>
+						<td width="100">数据量</td>
+						<td width="100">数据大小</td>
+						<td width="140">创建时间</td>
+						<td width="80">备份状态</td>
+						<td width="150">操作</td>
+					</tr>
+					<volist name="list" id="DatabaseList">
+						<tr>
+							<th>
+								<input name="tables[]" value="{$DatabaseList.name}" type="checkbox" checked="checked">
+							</th>
+							<td>{$DatabaseList.name}</td>
+							<td><span class="badge badge-warning">{$DatabaseList.rows}</span>
+							</td>
+							<td><span class="badge badge-info">{$DatabaseList.data_length|format_bytes}</span>
+							</td>
+							<td><span class="badge badge-danger">{$DatabaseList.create_time}</span>
+							</td>
+							<td><span class="badge badge-default">未备份</span>
+							</td>
+							<td>
+								<a href="{:U('Database/optimize',array('tables'=>$DatabaseList['name']))}" class="badge badge-success ajax-get no-refresh" ajax-confirm='确定优化&nbsp;<font color="#FF0000;">{$DatabaseList.name}</font>&nbsp;表嘛?'>优化表</a>&emsp;
+								<a href="{:U('Database/repair',array('tables'=>$DatabaseList['name']))}" class="badge badge-success ajax-get no-refresh" ajax-confirm='确定修复&nbsp;<font color="#FF0000;">{$DatabaseList.name}</font>&nbsp;表嘛?'>修复表</a>&emsp;
+							</td>
+						</tr>
+					</volist>
+				</table>
+			</form>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+$(function(){
+	var $form = $("#export-form"), $export = $("#export"), tables
+            $optimize = $("#optimize"), $repair = $("#repair");
+
+        $optimize.add($repair).click(function(){
+            $.post(this.href, $form.serialize(), function(data){
+                if(data.status){
+                    Message.success({message:data.info});
+                } else {
+                	Message.error({message:data.info});
+                }
+            }, "json");
+            return false;
+        });
+
+        $export.click(function(){
+            if($('#export-form input[name="tables[]"]').is(":checked")){
+	            $export.parent().children().addClass("disabled");
+	            $export.html("正在发送备份请求...");
+            	$.post(
+	                $form.attr("action"),
+	                $form.serialize(),
+	                function(data){
+	                    if(data.status){
+	                        tables = data.tables;
+	                        $export.html("<i class='fa fa-cloud'> "+data.info + "开始备份，请不要关闭本页面！");
+	                        backup(data.tab);
+	                        window.onbeforeunload = function(){ return "正在备份数据库，请不要关闭！" }
+	                    } else {
+							Message.error({message:data.info});
+	                        $export.parent().children().removeClass("disabled");
+	                        $export.html("<i class='fa fa-cloud'> "+"立即备份");
+	                    }
+	                },
+	                "json"
+            	);
+            	return false;
+            }else{
+            	Message.warning({message:"您还未选中任何一张表!"});
+            }
+        });
+
+        function backup(tab, status){
+            status && showmsg(tab.id, "备份中....");
+            $.get($form.attr("action"), tab, function(data){
+                if(data.status){
+                    showmsg(tab.id, data.info);
+                    if(!$.isPlainObject(data.tab)){
+                        $export.parent().children().removeClass("disabled");
+                        $export.html("<i class='fa fa-cloud'>"+" 备份完成，点击重新备份");
+                        window.onbeforeunload = function(){ return null }
+                        return;
+                    }
+                    backup(data.tab, tab.id != data.tab.id);
+                } else {
+					Message.error({message:data.info});
+                    $export.parent().children().removeClass("disabled");
+                    $export.html("<i class='fa fa-cloud'>"+" 立即备份");
+                }
+            }, "json");
+
+        }
+
+        function showmsg(id, msg){
+            $form.find("input[value=" + tables[id] + "]").closest("tr").find("td").eq(4).find("span").removeClass("badge badge-default").addClass("badge badge-success").html(msg);
+        }
+})
+</script>
+</block>

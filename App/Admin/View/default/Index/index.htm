@@ -1,0 +1,168 @@
+<extend name="Public:base" />
+
+<block name="style">
+	<style>
+		.table-bordered > thead > tr > td, 
+		.table-bordered > tbody > tr > td, 
+		.table-bordered > tfoot > tr > td {
+			border:none;
+			border-bottom: 1px solid #DDD;
+		}
+	</style>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<div class="dashboard-stat blue">
+				<div class="visual">
+					<i class="fa fa-user"></i>
+				</div>
+				<div class="details">
+					<div class="number">
+						1349
+					</div>
+					<div class="desc">用户数量</div>
+				</div>
+				<a class="more" href="#">查看详细<i class="m-icon-swapright m-icon-white"></i></a>
+			</div>
+		</div>
+		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<div class="dashboard-stat green">
+				<div class="visual">
+					<i class="fa fa-book"></i>
+				</div>
+				<div class="details">
+					<div class="number">140</div>
+					<div class="desc">内容数量</div>
+				</div>
+				<a class="more" href="#">查看详细<i class="m-icon-swapright m-icon-white"></i></a>
+			</div>
+		</div>
+		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<div class="dashboard-stat purple">
+				<div class="visual">
+					<i class="fa fa-html5"></i>
+				</div>
+				<div class="details">
+					<div class="number">
+						1589
+					</div>
+					<div class="desc">网站点击</div>
+				</div>
+				<a class="more" href="#">查看详细<i class="m-icon-swapright m-icon-white"></i></a>
+			</div>
+		</div>
+		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<div class="dashboard-stat yellow">
+				<div class="visual">
+					<i class="fa fa-windows"></i>
+				</div>
+				<div class="details">
+					<div class="number">
+						<php>echo number_format(disk_free_space("/")/1024/1024/1024,1)."GB";</php>
+					</div>
+					<div class="desc">空间剩余
+						<php>echo number_format(disk_free_space("/")/disk_total_space("/"),3)*100;echo "%";</php>
+					</div>
+				</div>
+				<a class="more" href="#">查看详细<i class="m-icon-swapright m-icon-white"></i></a>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="clearfix"></div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<!-- BEGIN SAMPLE TABLE PORTLET-->
+			<div class="portlet">
+				<div class="portlet-body">
+					<div class="table-responsive">
+						<table class="table table-advance table-bordered">
+							<tr class="bg-grey">
+								<th colspan="4">
+									<i class="fa fa-windows color-white"></i>&nbsp;系统信息
+								</th>
+							</tr>
+							<tr>
+								<td width="35%" class="highlight">
+									<div class="success"></div>&emsp;服务器操作系统
+								</td>
+								<td width="15%">
+									<span class="badge badge-error">不支持</span>
+								</td>
+								<td width="35%" class="highlight">
+									<div class="success"></div>&emsp;WEB服务器
+								</td>
+								<td width="15%">
+									<span class="badge badge-success">支持</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="highlight">
+									<div class="success"></div>&emsp;服务器操作系统
+								</td>
+								<td>
+									<span class="badge badge-error">不支持</span>
+								</td>
+								<td class="highlight">
+									<div class="success"></div>&emsp;WEB服务器
+								</td>
+								<td>
+									<span class="badge badge-success">支持</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="highlight">
+									<div class="success"></div>&emsp;服务器操作系统
+								</td>
+								<td>
+									<span class="badge badge-error">不支持</span>
+								</td>
+								<td class="highlight">
+									<div class="success"></div>&emsp;WEB服务器
+								</td>
+								<td>
+									<span class="badge badge-success">支持</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="highlight">
+									<div class="success"></div>&emsp;服务器操作系统
+								</td>
+								<td>
+									<span class="badge badge-error">不支持</span>
+								</td>
+								<td class="highlight">
+									<div class="success"></div>&emsp;WEB服务器
+								</td>
+								<td>
+									<span class="badge badge-success">支持</span>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+			<!-- END SAMPLE TABLE PORTLET-->
+		</div>
+	</div>
+</block>
+
+<block name="script">
+
+</block>

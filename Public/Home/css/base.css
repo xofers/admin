@@ -1,0 +1,66 @@
+/*------------------
+author:steven
+email:23231590@qq.com
+-----------------*/
+@charset "utf-8";
+
+ul , li , dl , dt , dd { float:left;}
+li { list-style-type:none; }
+font { font-family:"\5B8B\4F53"; font-size:12px; color:#999999; }
+img { border:0; }
+.fl { float:left; }
+.fr { float:right; }
+
+a { text-decoration:none; color:#666666; }
+a:hover {text-decoration:underline; color:#ff6600; }
+
+* { margin:0; padding:0; }
+h1 , h2 , h3 , h4 , h5 { font-size:12px; font-weight:normal; }
+body { font:14px/2.0 "\5FAE\8F6F\96C5\9ED1",Arial,"\5B8B\4F53"; color:#000000; }
+
+.header , .top , .footer { margin:0 auto; width:100%; }
+.header { border-bottom:10px solid #ff7800; height:90px; }
+.top { width:1003px; padding-top:13px; }
+.top ul {padding-top: 40px;}
+.top ul li {padding: 0px 3px; line-height: 30px; }
+.top ul li a{   border-radius: 20px; padding: 3px 30px;  text-decoration: none;}
+.top ul li a.yellow{border: 1px solid #FF7800; color: #FF7800;}
+.top ul li a.yellow:hover{background-color: #FF7800; color: #FFF;}
+input { font-family:"\5FAE\8F6F\96C5\9ED1",Arial,"\5B8B\4F53"; }
+.footer { background:#e3e3e3; padding:10px 0; text-align:center; font-size:12px; color:#999; }
+
+.loginclass { width:584px; height:426px; background:url(../images/login.png); padding:120px 0 0 220px; _background:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="images/login.png");}
+
+.regclass { width:584px; height:504px; background:url(../images/reg.png); padding:120px 0 0 220px; _background:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="images/reg.png");}
+
+.left { width:374px; border-right:1px solid #e8e8e8; float:left; _z-index:10000; _position:relative; }
+.left p { font-size:24px; padding-bottom:12px; }
+.left div { float:left; }
+.left .line { width:370px; height:80px; }
+.left .line.line1 { width:370px; height:44px;}
+.left .line div { margin-top:5px; height:30px;  }
+.inputxt { float:left; border:1px solid #d2d2d2; color:#a0a0a0; width:260px; height:32px; line-height:32px; background:url(../images/input.gif) no-repeat; outline: none; padding:5px 0 5px 50px; }
+.inputxt.i1 { background-position:0 0; }
+.inputxt.i2 { background-position:0 -42px; }
+.inputxt.i3 { background-position:0 -84px; }
+.button { cursor:pointer; background:#ea512f; width:114px; height:44px; line-height:44px; border:0; margin-top:1px; color:#ffffff; font-size:20px; float:left; }
+.left .qq { padding-left:20px; color:#8d8d8d; line-height:36px; }
+.line a { background:url(../images/qq.gif) no-repeat center center; float:left; cursor:pointer; width:20px; height:45px; display:block; }
+.tips { padding:10px 0 0 10px; color:#e35d25; }
+
+.Validform_checktip{ overflow:hidden;color:#999;font-size:12px;}
+.Validform_right{color:#71b83d;padding-left:20px;background:url(../images/right.gif) no-repeat left center; width:20px; height:44px;}
+.Validform_wrong{color:red;padding-left:23px;white-space:nowrap;background:url(../images/error.gif) no-repeat left center; height:44px; line-height:44px; }
+.Validform_error { border:1px solid #ff0202; }
+
+.right { padding:25px 0 0 0; _z-index:10000; _position:relative; width:200px; }
+.right p { text-align:center; font-size:24px; padding-bottom:15px; }
+.right a { background:#ea512f; color:#ffffff; padding:10px 22px; text-decoration:none; font-size:24px; }
+.right a:hover { color:#ffffff; text-decoration:none; background:#d03210; }
+.right a.reg11 { }
+.right a.login11 {}
+.right h3 { text-align:center; padding-top:30px; color:#666; font-size:16px; }
+.right h4 { }
+.right h4 a { margin:0 auto; background:url(../images/qq.gif) no-repeat center center; height:35px;  display:block;  }
+.right h4 a:hover {  background:url(../images/qq.gif) no-repeat center center; }
+
