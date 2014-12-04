@@ -23,10 +23,6 @@
 					</a>
 				</div>
 				<ul class="fr">
-					<form action="{:U('Otp/index')}" method="post" class="test">
-						<input type="text" name="token" value="{:getToken()}" />
-						<li><input type="submit" value="测试" /></li>
-					</form>
 					<if condition="is_login()">
 						<li>
 							<a href="javascript:;" class="yellow">您好,{:get_username()}</a>
@@ -39,7 +35,10 @@
 				</ul>
 			</div>
 		</div>
-		内容
+		<form action="{:U('Otp/index')}" method="post" class="test">
+			<input type="text" name="token"  style="width: 350px;" value="{:getToken()}" />
+			<li><input type="submit" value="测试" /></li>
+		</form>
 		<div class="footer">
 			<p>视听许可证1910441号</p>
 			<p>版权所有@2014 semeizhi.com , All rights reserved</p>

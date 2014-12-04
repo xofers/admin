@@ -65,11 +65,9 @@ function get_nav_url($url){
  * 生成Token
  */
 function getToken(){
-	$token	= new \Org\Util\String();
-	$token  = $token->keyGen();
-	cookie("token",null);
-	cookie("token",$token,3);
-	return $token;
+	if(is_login()){
+		return Aes(session("user_auth_sign"));
+	}
 }
 
 /**
