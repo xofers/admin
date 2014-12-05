@@ -1047,6 +1047,108 @@ h7 .label {
   background-image: none !important;
 }
 
+/*游川江自定义样式*/
+
+a.badge-default,
+a.badge-default:focus{
+	background: none;
+	border: 1px solid #999;
+	color: #999;
+}
+
+a.badge-default:hover{
+	color: #FFF;
+	background: #999;
+}
+
+a.badge-primary,
+a.badge-primary:focus{
+	background: none !important;
+	border: 1px solid #428bca;
+	color: #428bca;
+}
+
+
+a.badge-primary:hover{
+	color: #FFF;
+	background: #428bca !important;
+}
+
+a.badge-success,
+a.badge-success:focus{
+	background: none !important;
+	border: 1px solid #3cc051;
+	color: #3cc051;
+}
+
+a.badge-success:hover{
+	color: #FFF;
+	background: #3CC051 !important;
+}
+
+
+a.badge-warning,
+a.badge-warning:focus{
+	background: none !important;
+	border: 1px solid #fcb322;
+	color: #fcb322;
+}
+
+a.badge-warning:hover {
+	color: #FFF;
+	background: #fcb322 !important;
+}
+
+a.badge-important,
+a.badge-important:focus{
+  	background: none !important;
+	border: 1px solid #e02222;
+	color: #e02222;
+}
+
+a.badge-important:hover {
+  	color: #FFF;
+	background: #e02222 !important;
+}
+
+a.badge-danger,
+a.badge-danger:focus{
+  	background: none !important;
+	border: 1px solid #ed4e2a;
+	color: #ed4e2a;
+}
+
+a.badge-danger:hover {
+  	color: #FFF;
+	background: #ed4e2a !important;
+}
+
+
+a.badge-info,
+a.badge-info:focus{
+  	background: none !important;
+	border: 1px solid #57b5e3;
+	color: #57b5e3;
+}
+
+a.badge-info:hover {
+  	color: #FFF;
+	background: #57b5e3 !important;
+}
+
+a.badge-error,
+a.badge-error:focus{
+  	background: none !important;
+	border: 1px solid #E02222;
+	color: #E02222;
+}
+
+a.badge-error:hover {
+  	color: #FFF;
+	background: #E02222 !important;
+}
+
+
 /* fix badge position for navs */
 .nav.nav-pills > li > a > .badge {
   margin-top: -2px;

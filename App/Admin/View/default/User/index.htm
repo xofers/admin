@@ -77,12 +77,12 @@
 								</td>
 								<td>
 									<eq name="vo.status" value="1">
-										<a href="{:U('User/changeStatus',array('method'=>'forbidUser','id'=>$vo['uid']))}" ajax-confirm="你确定要禁用该用户嘛?" class="ajax-get badge badge-important">禁用</a>&nbsp
+										<a href="{:U('User/changeStatus',array('method'=>'forbidUser','id'=>$vo['uid']))}" ajax-confirm="你确定要禁用该用户嘛?" class="ajax-get badge badge-warning">禁用</a>&nbsp
 									<else/>
 										<a href="{:U('User/changeStatus',array('method'=>'resumeUser','id'=>$vo['uid']))}" ajax-confirm="你确定要启用该用户嘛?" class="ajax-get badge badge-success">启用</a>&nbsp
 									</eq>
 										<a href="{:U('AuthManager/group?uid='.$vo['uid'])}" class="authorize badge badge-primary">授权</a>&nbsp
-					                	<a href="{:U('User/changeStatus',array('method'=>'deleteUser','id'=>$vo['uid']))}" ajax-confirm="你确定要删除该用户嘛?" class="ajax-get badge badge-warning">删除</a>&nbsp;
+					                	<a href="{:U('User/changeStatus',array('method'=>'deleteUser','id'=>$vo['uid']))}" ajax-confirm="你确定要删除该用户嘛?" class="ajax-get badge badge-error">删除</a>&nbsp;
 								</td>
 							</tr>
 						</volist>
