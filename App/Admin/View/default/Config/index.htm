@@ -1,0 +1,81 @@
+<extend name="Public:base" />
+
+<block name="style">
+	<style>
+		.table-bordered > thead > tr > td,
+		.table-bordered > tbody > tr > td,
+		.table-bordered > tfoot > tr > td {
+			border: none;
+			border-bottom: 1px solid #DDD;
+		}
+	</style>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-12">
+			<a href="{:U('Config/add')}" class="btn green">
+				<i class="fa fa-plus"> 新增</i>
+  			</a>
+			<a href="" class="btn red">
+				<i class="fa fa-trash-o"> 删除</i>
+  			</a>
+			<a href="" class="btn yellow">
+				<i class="fa fa-sort"> 排序</i>
+			</a>
+			<form id="export-form" action="{:U('Database/export')}" method="post">
+				<table class="table table-advance table-bordered margin-top-10">
+					<tr class="bg-grey">
+						<th colspan="7">
+							<i class="fa fa-puzzle-piece"></i>&nbsp;配置信息
+						</th>
+					</tr>
+					<tr class="bg-grey">
+						<th width="20">
+							<input onchange="Index.checkAll(this,'id[]')" value="" type="checkbox">
+						</th>
+						<td width="50" class="text-center">ID</td>
+						<td width="300">名称</td>
+						<td>标题</td>
+						<td width="150">分组</td>
+						<td width="150">类型</td>
+						<td width="150">操作</td>
+					</tr>
+					<notempty name="list">
+						<volist name="list" id="config">
+							<tr>
+								<td><input class="ids row-selected" type="checkbox" name="id[]" value="{$config.id}"></td>
+								<td>{$config.id}</td>
+								<td><a class="listname" href="{:U('edit?id='.$config['id'])}">{$config.name}</a></td>
+								<td>{$config.title}</td>
+								<td><span class="badge badge-info">{$config.group|get_config_group}</span></td>
+								<td><span class="badge badge-info">{$config.type|get_config_type}</span></td>
+								<td>
+									<a class="badge badge-success" href="{:U('edit?id='.$config['id'])}">编辑</a>
+									<a class="badge badge-error" href="{:U('del?id='.$config['id'])}">删除</a>
+								</td>
+							</tr>
+						</volist>
+					<else/>
+						<td colspan="6" class="text-center"> aOh! 暂时还没有内容! </td>
+					</notempty>
+				</table>
+			</form>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+</block>

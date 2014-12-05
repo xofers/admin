@@ -149,6 +149,12 @@ Fix link outlines after click
 a,a:focus, a:hover, a:active {
   outline: 0;
 }
+a, a:focus, a:hover, a:active {
+	text-decoration: none;
+}
+a:hover{
+	color: #00A9FF;
+}
 
 /***
 General backgrounds. Can be applied to any block or panel
