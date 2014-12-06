@@ -31,13 +31,42 @@ var Index = function () {
 		        return false;
 		    });
 		    
-        },
-		initNowTime: function () {
 		    setInterval(function(){
-		    	var d = new Date();
-		    	$('#dashboard-report-range span').html(d.toLocaleFormat());
-				$('#dashboard-report-range').show();
-			},1000);
+		    	var dayNames = new Array("星期日","星期一","星期二","星期三","星期四","星期五","星期六");
+		    	$("#dashboard-report-range span").html(Index.dateformate(new Date(),"yyyy-MM-dd hh:mm:ss")+"&nbsp;"+dayNames[new Date().getDay()]);
+		    },1000)
+		    
+        },
+//      /* 设置表单的值 */
+		setValue:function(name, value){
+			var first = name.substr(0,1), input, i = 0, val;
+			if(value === "") return;
+			if("#" === first || "." === first){
+				input = $(name);
+			} else {
+				input = $("[name='" + name + "']");
+			}
+	
+			if(input.eq(0).is(":radio")) { //单选按钮
+				input.filter("[value='" + value + "']").each(function(){this.checked = true});
+			} else if(input.eq(0).is(":checkbox")) { //复选框
+				if(!$.isArray(value)){
+					val = new Array();
+					val[0] = value;
+				} else {
+					val = value;
+				}
+				for(i = 0, len = val.length; i < len; i++){
+					input.filter("[value='" + val[i] + "']").each(function(){this.checked = true});
+				}
+			} else {  //其他表单选项直接设置值
+				input.val(value);
+			}
+		},
+        dateformate:function(x,y) {
+			var z = {M:x.getMonth()+1,d:x.getDate(),h:x.getHours(),m:x.getMinutes(),s:x.getSeconds()};
+			y = y.replace(/(M+|d+|h+|m+|s+)/g,function(v) {return ((v.length>1?"0":"")+eval('z.'+v.slice(-1))).slice(-2)});
+			return y.replace(/(y+)/g,function(v) {return x.getFullYear().toString().slice(-v.length)});
 		},
 		checkAll: function(dom,name){
 		$('input[name="'+name+'"]').attr("checked",$(dom).is(":checked"));

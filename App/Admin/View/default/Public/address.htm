@@ -11,7 +11,12 @@
 			<li class="pull-right">
 				<div id="dashboard-report-range" class="dashboard-date-range tooltips" data-placement="left" data-original-title="当前时间">
 					<i class="fa fa-calendar"></i>
-					<span></span>
+					<span>
+						<php>
+							$weekarray=array("日","一","二","三","四","五","六");
+							echo date("Y-m-d")."&nbsp;".date("H:i:s")."&nbsp;"."星期".$weekarray[date("w")];
+						</php>
+					</span>
 				</div>
 			</li>
 		</ul>

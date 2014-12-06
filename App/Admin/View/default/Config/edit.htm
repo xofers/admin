@@ -1,0 +1,133 @@
+<extend name="Public:base" />
+
+<block name="style">
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/css/plugins.css"/>
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.css"/>
+<style>
+	textarea{
+		resize: none;	
+	}
+</style>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="tab-content">
+				<div class="tab-pane active">
+					<div class="portlet box light-grey">
+						<div class="portlet-title">
+							<i class="fa fa-edit"></i> 修改配置信息
+						</div>
+						<div class="portlet-body form">
+							<form class="horizontal-form" action="{:U('edit')}" method="post">
+								<div class="form-body">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">配置标识<span class="check-tips">（用于C函数调用，只能使用英文且不能重复）</span></label>
+												<div class="controls">
+													<input type="text" class="form-control input-xlarge" name="name" value="{$info.name|default=''}">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">配置标题<span class="check-tips">（用于后台显示的配置标题）</span></label>
+												<div class="controls">
+													<input type="text" class="form-control input-xlarge" name="title" value="{$info.title|default=''}">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">排序<span class="check-tips">（用于分组显示的顺序）</span></label>
+												<div class="controls">
+													<input type="text" class="form-control input-xlarge" name="sort" value="{$info.sort|default=0}">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">配置类型<span class="check-tips">（系统会根据不同类型解析配置值）</span></label>
+												<div class="controls">
+													<select name="type" style="display: none;" class="bs-select form-control input-small" data-style="blue">
+														<volist name="Think.config.CONFIG_TYPE_LIST" id="type">
+															<option value="{$key}">{$type}</option>
+														</volist>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">配置分组<span class="check-tips">（配置分组 用于批量设置 不分组则不会显示在系统设置中）</span></label>
+												<div class="controls">
+													<select name="group" style="display: none;" class="bs-select form-control input-small" data-style="blue">
+														<option value="0">不分组</option>
+														<volist name="Think.config.CONFIG_GROUP_LIST" id="group">
+															<option value="{$key}">{$group}</option>
+														</volist>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">配置值<span class="check-tips">（配置值）</span></label>
+												<textarea name="value" class="form-control">{$info.value|default=''}</textarea>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">配置项<span class="check-tips">（如果是枚举型 需要配置该项）</span></label>
+												<textarea name="extra" class="form-control">{$info.extra|default=''}</textarea>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">说明<span class="check-tips">（配置详细说明）</span></label>
+												<textarea name="remark" class="form-control">{$info.remark|default=''}</textarea>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<input type="hidden" name="id" value="{$info.id|default=''}">
+												<button class="btn green ajax-post" type="submit" target-form="horizontal-form">确 定</button>
+												<button class="btn blue" onclick="javascript:history.back(-1);return false;">返 回</button>		
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+<script type="text/javascript" src="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="__SCRIPTS__/metroinc/scripts/custom/bootstrapSelect.js"></script>
+<script>
+$(function(){
+	BootstrapSelect.init();
+})
+Index.setValue("type", {$info.type|default=0});
+Index.setValue("group", {$info.group|default=0});
+</script>
+</block>

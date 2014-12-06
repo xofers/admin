@@ -415,12 +415,14 @@ class AdminController extends Controller {
         }else{
             $listRows = C('LIST_ROWS') > 0 ? C('LIST_ROWS') : 15;
         }
-        $page = new \Think\Page($total, $listRows, $REQUEST);
-        if($total>$listRows){
-            $page->setConfig('theme','%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%');
-        }
-        $p =$page->show();
-        $this->assign('_page', $p? $p: '');
+//      $page = new \Think\Page($total, $listRows, $REQUEST);
+//      if($total>$listRows){
+//          $page->setConfig('theme','%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%');
+//      }
+//      $p =$page->show();
+		$page = new \Think\Lpage($total,$listRows,$REQUEST);
+		$show = $page->show();
+        $this->assign('_page', $show? $show: '');
         $this->assign('_total',$total);
         $options['limit'] = $page->firstRow.','.$page->listRows;
 

@@ -12,5 +12,5 @@ return array(
     /*
      * Token
      */
-//  'view_filter' => array('Behavior\TokenBuildBehavior'),
+	'view_filter' => array('Behavior\TokenBuildBehavior'),
 );
