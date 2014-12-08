@@ -29,7 +29,7 @@ class ConfigController extends AdminController {
         if(isset($_GET['name'])){
             $map['name']    =   array('like', '%'.(string)I('name').'%');
         }
-
+		
         $list = $this->lists('Config', $map,'sort,id');
 		
         // 记录当前列表页的cookie

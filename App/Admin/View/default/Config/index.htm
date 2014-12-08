@@ -25,16 +25,62 @@
 
 <block name="content">
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-6">
 			<a href="{:U('Config/add')}" class="btn green">
 				<i class="fa fa-plus"> 新增</i>
   			</a>
 			<a href="" class="btn red">
 				<i class="fa fa-trash-o"> 删除</i>
   			</a>
-			<a href="" class="btn yellow">
-				<i class="fa fa-sort"> 排序</i>
-			</a>
+			<!--<a href="{:U('sort?group='.I('group'),'','')}" class="btn yellow list_sort " data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+				
+			</a>-->
+			<div class="btn-group">
+				<button type="button" class="btn yellow dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+				<i class="fa fa-sort"> 排序</i> <i class="fa fa-angle-down"></i>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li>
+						<a href="javascript:;">ID排序</a>
+					</li>
+					<li>
+						<a href="javascript:;">名称排序</a>
+					</li>
+					<li>
+						<a href="javascript:;">序列排序</a>
+					</li>
+					<li>
+						<a href="javascript:;">分组排序</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="input-group input-medium pull-right">
+				<input class="form-control" placeholder="请输入配置名称" type="text">
+				<span class="input-group-btn">
+					<button class="btn blue" type="button"><i class="fa fa-search"></i></button>
+				</span>
+			</div>
+			<div class="btn-group btn-group-solid pull-right">
+				<present name="Think.get.group">
+					<a href="{:U('index')}" class="btn blue">全部</a>
+				<else/>
+					<a href="javascript:;" class="btn yellow">全部</a>
+				</present>
+	         	<foreach name="group" item="vo">
+					<neq name="group_id" value="$key">
+	         			<a href="{:U('index?group='.$key)}" class="btn blue">{$vo}</a>
+	         		<else/>
+	         			<a href="javascript:;" class="btn yellow">{$vo}</a>
+					</neq>
+	        	</foreach>
+	        	&emsp;
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
 			<form id="export-form" action="{:U('Database/export')}" method="post">
 				<table class="table table-advance table-bordered margin-top-10">
 					<tr class="bg-grey">
@@ -64,12 +110,12 @@
 								<td><span class="badge badge-info">{$config.type|get_config_type}</span></td>
 								<td>
 									<a class="badge badge-success" href="{:U('edit?id='.$config['id'])}">编辑</a>
-									<a class="badge badge-error" href="{:U('del?id='.$config['id'])}">删除</a>
+									<a class="badge badge-error ajax-get" href="{:U('del?id='.$config['id'])}" ajax-confirm='确定删除该配置嘛?'>删除</a>
 								</td>
 							</tr>
 						</volist>
 					<else/>
-						<td colspan="6" class="text-center"> aOh! 暂时还没有内容! </td>
+						<td colspan="6" class="text-center">暂时还没有内容! </td>
 					</notempty>
 				</table>
 				<!-- 分页 -->
@@ -82,4 +128,8 @@
 </block>
 
 <block name="script">
+<script>
+	//点击排序
+	
+</script>
 </block>
