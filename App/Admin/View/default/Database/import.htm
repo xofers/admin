@@ -52,7 +52,7 @@
                         	<td><span class="badge badge-default">-</span></td>
 							<td>
 								<a href="{:U('import?time='.$DatabaseList['time'])}" class="badge badge-success db-import" ajax-confirm='确定还原该备份嘛?'>还原</a>&emsp;
-								<a href="{:U('del',array('time'=>$DatabaseList['time']))}" class="badge badge-success ajax-get" ajax-confirm='确定删除该备份嘛?'>删除</a>&emsp;
+								<a href="{:U('del',array('time'=>$DatabaseList['time']))}" class="badge badge-error ajax-get" ajax-confirm='确定删除该备份嘛?'>删除</a>&emsp;
 							</td>
 						</tr>
 					</volist>
