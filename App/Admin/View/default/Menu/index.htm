@@ -1,0 +1,157 @@
+<extend name="Public:base" />
+
+<block name="style">
+	<style>
+		.table-bordered > thead > tr > td,
+		.table-bordered > tbody > tr > td,
+		.table-bordered > tfoot > tr > td {
+			border: none;
+			border-bottom: 1px solid #DDD;
+		}
+	</style>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-6">
+			<a href="{:U('add',array('pid'=>I('get.pid',0)))}" class="btn green">
+				<i class="fa fa-plus"> 新增</i>
+  			</a>
+			<a href="{:U('del')}" class="btn red ajax-post" ajax-confirm="你确定要批量删除嘛?" target-form="menu-form">
+				<i class="fa fa-trash-o"> 删除</i>
+  			</a>
+  			<a href="" class="btn blue">
+				<i class="fa fa-external-link-square"> 导入</i>
+  			</a>
+			<div class="btn-group">
+				<button type="button" class="btn yellow dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+					<i class="fa fa-sort"> 排序</i> <i class="fa fa-angle-down"></i>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="javascript:;">ID排序</a></li>
+					<li><a href="javascript:;">名称排序</a></li>
+					<li><a href="javascript:;">序列排序</a></li>
+					<li><a href="javascript:;">分组排序</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="input-group input-medium pull-right search-form">
+				<input class="form-control search-input" name="name" value="{:I('name')}" placeholder="请输入菜单名称" type="text">
+				<span class="input-group-btn">
+					<button class="btn blue" type="button" id="search" url="{:U('config/index')}"><i class="fa fa-search"></i></button>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<form class="config-form" action="{:U('Config/del')}"  method="post">
+				<table class="table table-advance table-bordered margin-top-10">
+					<tr class="bg-grey">
+						<th colspan="10">
+							<i class="fa fa-th"></i>&nbsp;菜单信息
+						</th>
+					</tr>
+					<tr class="bg-grey">
+						<th width="20">
+							<input onchange="Index.checkAll(this,'id[]')" value="" type="checkbox">
+						</th>
+						<td width="50" class="text-center">ID</td>
+                        <td width="200">名称</td>
+                        <td width="200">上级菜单</td>
+                        <td width="200">分组</td>
+                        <td>URL</td>
+                        <td width="150">排序</td>
+                        <td width="150">仅开发者模式显示</td>
+                        <td width="100">隐藏</td>
+                        <td width="150">操作</td>
+					</tr>
+					<notempty name="list">
+		                <volist name="list" id="menu">
+		                    <tr>
+		                        <td><input class="ids row-selected" type="checkbox" name="id[]" value="{$menu.id}"></td>
+		                        <td class="text-center">{$menu.id}</td>
+		                        <td>
+		                            <a href="{:U('index?pid='.$menu['id'])}">{$menu.title}</a>
+		                        </td>
+		                        <td><span class="badge badge-info">{$menu.up_title|default='无'}</span></td>
+		                        <td>{$menu.group}</td>
+		                        <td><span class="badge badge-info">{$menu.url}</span></td>
+		                        <td><span class="badge badge-info">{$menu.sort}</span></td>
+		                        <td>
+		                            <a href="{:U('toogleDev',array('id'=>$menu['id'],'value'=>abs($menu['is_dev']-1)))}" 
+		                            	<if condition="$menu['is_dev'] eq 0">
+		                            		class="badge badge-error ajax-get"
+		                            	<else />
+		                            		class="badge badge-success ajax-get"
+		                            	</if>
+		                            >
+		                            	{$menu.is_dev_text}
+		                            </a>
+		                        </td>
+		                        <td>
+		                            <a href="{:U('toogleHide',array('id'=>$menu['id'],'value'=>abs($menu['hide']-1)))}" 
+		                            	<if condition="$menu['hide'] eq 0">
+		                            		class="badge badge-error ajax-get"
+		                            	<else />
+		                            		class="badge badge-success ajax-get"
+		                            	</if>
+		                            >
+		                            	{$menu.hide_text}
+		                            </a>
+		                        </td>
+		                        <td>
+		                            <a title="编辑" href="{:U('edit?id='.$menu['id'])}" class="badge badge-success">编辑</a>
+		                            <a class="badge badge-error ajax-get" title="删除" href="{:U('del?id='.$menu['id'])}">删除</a>
+		                        </td>
+		                    </tr>
+		                </volist>
+					<else/>
+						<td colspan="10" class="text-center"> aOh! 暂时还没有内容! </td>
+					</notempty>
+				</table>
+			    <div class="page">
+			        {$_page}
+			    </div>
+			</form>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+<script>
+	//搜索功能
+	$("#search").click(function(){
+		var url = $(this).attr('url');
+        var query  = $('.search-form').find('input').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+		window.location.href = url;
+	});
+	//回车搜索
+	$(".search-input").keyup(function(e){
+		if(e.keyCode === 13){
+			$("#search").click();
+			return false;
+		}
+	});	
+</script>
+</block>

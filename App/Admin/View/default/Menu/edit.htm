@@ -1,0 +1,135 @@
+<extend name="Public:base" />
+
+<block name="style">
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/css/plugins.css"/>
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.css"/>
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/plugins/bootstrap-switch/css/bootstrap-switch.min.css"/>
+<style>
+	textarea{
+		resize: none;	
+	}
+</style>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="tab-content">
+				<div class="tab-pane active">
+					<div class="portlet box light-grey">
+						<div class="portlet-title">
+							<i class="fa fa-edit"></i> {:isset($info['id'])?'编辑':'新增'}后台菜单
+						</div>
+						<div class="portlet-body form">
+							<form class="horizontal-form" action="{:U()}" method="post">
+								<div class="form-body">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">标题<span class="check-tips">（用于后台显示的配置标题）</span></label>
+												<div class="controls">
+													<input type="text" class="form-control input-xlarge" name="title" value="{$info.title|default=''}">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">排序<span class="check-tips">（用于分组显示的顺序）</span></label>
+												<div class="controls">
+													<input type="text" class="form-control input-xlarge" name="sort" value="{$info.sort|default=0}">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">链接<span class="check-tips">（U函数解析的URL或者外链）</span></label>
+												<div class="controls">
+													<input type="text" class="form-control input-xlarge" name="url" value="{$info.url|default=''}">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">上级菜单<span class="check-tips">（所属的上级菜单）</span></label>
+												<div class="controls">
+													<select name="pid" style="display: none;" class="bs-select form-control input-small" data-style="blue">
+									                    <volist name="Menus" id="menu">
+									                        <option value="{$menu.id}">{$menu.title_show}</option>
+									                    </volist>
+									                </select>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">分组<span class="check-tips">（用于左侧分组二级菜单）</span></label>
+												<div class="controls">
+													<input type="text" class="form-control input-xlarge" name="group" value="{$info.group|default=''}">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">说明<span class="check-tips">（菜单详细说明）</span></label>
+												<div class="controls">
+													<textarea name="tip" class="form-control">{$info.tip|default=''}</textarea>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">是否隐藏<span class="check-tips"></span></label>
+												<div class="controls">
+													<input type="radio" <if condition='$info.hide ==1'>checked='checked'</if> name="hide" class="make-switch" value="1" data-on="success" data-off="danger" data-on-label="是" data-off-label="否">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">仅开发者模式可见<span class="check-tips"></span></label>
+												<div class="controls">
+													<input type="radio" name="is_dev" class="make-switch" <if condition='$info.is_dev == 1'>checked='checked'</if> value="1" data-on="success" data-off="danger" data-on-label="是" data-off-label="否">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="form-group">
+												<input type="hidden" name="id" value="{$info.id|default=''}">
+												<button class="btn green ajax-post" type="submit" target-form="horizontal-form">确 定</button>
+												<button class="btn blue" onclick="javascript:history.back(-1);return false;">返 回</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+<script type="text/javascript" src="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="__SCRIPTS__/metroinc/scripts/custom/bootstrapSelect.js"></script>
+<script type="text/javascript" src="__SCRIPTS__/metroinc/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<script>
+$(function(){
+	BootstrapSelect.init();
+	Index.setValue("pid", {$info.pid|default = 0});
+})
+</script>
+</block>

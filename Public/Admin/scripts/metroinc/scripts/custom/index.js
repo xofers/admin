@@ -114,18 +114,12 @@ var Index = function () {
 	        var nead_confirm=false;
 	        if( ($(that).attr('type')=='submit') || (target = $(that).attr('href')) || (target = $(that).attr('url')) ){
 		        form = $('.'+target_form);
-		        console.log(form);
 		        if ($(that).attr('hide-data') === 'true'){//无数据时也可以使用的功能
 		        	form = $('.hide-data');
 		        	query = form.serialize();
 		        }else if (form.get(0)==undefined){
 		        	return false;
 		        }else if ( form.get(0).nodeName=='FORM' ){
-		            if ( $(that).hasClass('confirm') ) {
-		                if(!confirm('确认要执行该操作吗?')){
-		                    return false;
-		                }
-		            }
 		            if($(that).attr('url') !== undefined){
 		            	target = $(that).attr('url');
 		            }else{

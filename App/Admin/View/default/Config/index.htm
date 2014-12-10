@@ -29,37 +29,26 @@
 			<a href="{:U('Config/add')}" class="btn green">
 				<i class="fa fa-plus"> 新增</i>
   			</a>
-			<a href="" class="btn red">
+			<a href="javascript:;" class="btn red ajax-post" ajax-confirm="你确定要批量删除嘛?" target-form="config-form">
 				<i class="fa fa-trash-o"> 删除</i>
   			</a>
-			<!--<a href="{:U('sort?group='.I('group'),'','')}" class="btn yellow list_sort " data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
-				
-			</a>-->
 			<div class="btn-group">
 				<button type="button" class="btn yellow dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
-				<i class="fa fa-sort"> 排序</i> <i class="fa fa-angle-down"></i>
+					<i class="fa fa-sort"> 排序</i> <i class="fa fa-angle-down"></i>
 				</button>
 				<ul class="dropdown-menu" role="menu">
-					<li>
-						<a href="javascript:;">ID排序</a>
-					</li>
-					<li>
-						<a href="javascript:;">名称排序</a>
-					</li>
-					<li>
-						<a href="javascript:;">序列排序</a>
-					</li>
-					<li>
-						<a href="javascript:;">分组排序</a>
-					</li>
+					<li><a href="javascript:;">ID排序</a></li>
+					<li><a href="javascript:;">名称排序</a></li>
+					<li><a href="javascript:;">序列排序</a></li>
+					<li><a href="javascript:;">分组排序</a></li>
 				</ul>
 			</div>
 		</div>
 		<div class="col-md-6">
-			<div class="input-group input-medium pull-right">
-				<input class="form-control" placeholder="请输入配置名称" type="text">
+			<div class="input-group input-medium pull-right search-form">
+				<input class="form-control search-input" name="name" value="{:I('name')}" placeholder="请输入配置名称" type="text">
 				<span class="input-group-btn">
-					<button class="btn blue" type="button"><i class="fa fa-search"></i></button>
+					<button class="btn blue" type="button" id="search" url="{:U('config/index')}"><i class="fa fa-search"></i></button>
 				</span>
 			</div>
 			<div class="btn-group btn-group-solid pull-right">
@@ -81,7 +70,7 @@
 	</div>
 	<div class="row">
 		<div class="col-md-12">
-			<form id="export-form" action="{:U('Database/export')}" method="post">
+			<form class="config-form" action="{:U('Config/del')}"  method="post">
 				<table class="table table-advance table-bordered margin-top-10">
 					<tr class="bg-grey">
 						<th colspan="7">
@@ -103,7 +92,7 @@
 						<volist name="list" id="config">
 							<tr>
 								<td><input class="ids row-selected" type="checkbox" name="id[]" value="{$config.id}"></td>
-								<td>{$config.id}</td>
+								<td class="text-center">{$config.id}</td>
 								<td><a class="listname" href="{:U('edit?id='.$config['id'])}">{$config.name}</a></td>
 								<td>{$config.title}</td>
 								<td><span class="badge badge-info">{$config.group|get_config_group}</span></td>
@@ -118,7 +107,6 @@
 						<td colspan="6" class="text-center">暂时还没有内容! </td>
 					</notempty>
 				</table>
-				<!-- 分页 -->
 			    <div class="page">
 			        {$_page}
 			    </div>
@@ -129,7 +117,25 @@
 
 <block name="script">
 <script>
-	//点击排序
-	
+	//搜索功能
+	$("#search").click(function(){
+		var url = $(this).attr('url');
+        var query  = $('.search-form').find('input').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+		window.location.href = url;
+	});
+	//回车搜索
+	$(".search-input").keyup(function(e){
+		if(e.keyCode === 13){
+			$("#search").click();
+			return false;
+		}
+	});	
 </script>
 </block>
