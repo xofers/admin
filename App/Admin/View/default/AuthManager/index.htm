@@ -1,0 +1,97 @@
+<extend name="Public:base" />
+
+<block name="style">
+	<style>
+		.table-bordered > thead > tr > td,
+		.table-bordered > tbody > tr > td,
+		.table-bordered > tfoot > tr > td {
+			border: none;
+			border-bottom: 1px solid #DDD;
+		}
+	</style>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-6">
+			<a href="{:U('createGroup')}" class="btn green">
+				<i class="fa fa-plus"> 新增</i>
+  			</a>
+			<a url="{:U('changestatus?method=resumeGroup')}" class="btn blue ajax-post" ajax-confirm="你确定要批量启用嘛?" target-form="ids">
+				<i class="fa fa-plus-square-o"> 启用</i>
+  			</a>
+  			<a url="{:U('changestatus?method=forbidGroup')}" class="btn yellow ajax-post" ajax-confirm="你确定要批量禁用嘛?" target-form="ids">
+				<i class="fa fa-minus-circle"> 禁用</i>
+  			</a>
+  			<a url="{:U('changestatus?method=deleteGroup')}" class="btn red ajax-post" ajax-confirm="你确定要批量删除嘛?" target-form="ids">
+				<i class="fa fa-trash-o"> 删除</i>
+  			</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-advance table-bordered margin-top-10">
+				<tr class="bg-grey">
+					<th colspan="7">
+						<i class="fa fa-puzzle-piece"></i>&nbsp;权限管理
+					</th>
+				</tr>
+				<tr class="bg-grey">
+					<th width="20">
+						<input onchange="Index.checkAll(this,'id[]')" value="" type="checkbox">
+					</th>
+					<td width="300">用户组</td>
+					<td width="300">描述</td>
+					<td>授权</td>
+					<td width="150">状态</td>
+					<td width="150">操作</td>
+				</tr>
+				<notempty name="_list">
+					<volist name="_list" id="vo">
+						<tr>
+				            <td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}" /></td>
+							<td><a href="{:U('AuthManager/editgroup?id='.$vo['id'])}">{$vo.title}</a> </td>
+							<td><span class="badge badge-info">{:mb_strimwidth($vo['description'],0,60,"...","utf-8")}</span></td>
+							<td>
+								<a class="badge badge-warning" href="{:U('AuthManager/access?group_name='.$vo['title'].'&group_id='.$vo['id'])}" >访问授权</a>
+								<a class="badge badge-warning" href="{:U('AuthManager/category?group_name='.$vo['title'].'&group_id='.$vo['id'])}" >分类授权</a>
+								<a class="badge badge-warning" href="{:U('AuthManager/user?group_name='.$vo['title'].'&group_id='.$vo['id'])}" >成员授权</a>
+							</td>
+							<td><span class="badge <if condition='$vo[status_text] == "正常"'>badge-success<else />badge-error</if>">{$vo.status_text}</span></td>
+							<td>
+								<eq name="vo.status" value="1">
+									<a class="badge badge-error ajax-get" href="{:U('AuthManager/changeStatus?method=forbidGroup&id='.$vo['id'])}">禁用</a>
+								<else/>
+									<a class="badge badge-success ajax-get" href="{:U('AuthManager/changeStatus?method=resumeGroup&id='.$vo['id'])}">启用</a>
+								</eq>
+									<a class="badge badge-error ajax-get" ajax-confirm="您确定要删除这项么?" href="{:U('AuthManager/changeStatus?method=deleteGroup&id='.$vo['id'])}">删除</a>
+				            </td>
+						</tr>
+					</volist>
+				<else/>
+					<td colspan="6" class="text-center"> aOh! 暂时还没有内容! </td>
+				</notempty>
+			</table>
+		    <div class="page">
+		        {$_page}
+		    </div>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+<script>
+</script>
+</block>

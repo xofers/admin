@@ -1,0 +1,71 @@
+<extend name="Public:base" />
+
+<block name="style">
+<style>
+	textarea{
+		resize: none;	
+	}
+</style>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="tab-content">
+				<div class="tab-pane active">
+					<div class="portlet box light-grey">
+						<div class="portlet-title">
+							<i class="fa fa-edit"></i> {$auth_group['id']?'编辑':'新增'}用户组
+						</div>
+						<div class="portlet-body form">
+							<form class="horizontal-form" action="{:U('AuthManager/writeGroup')}" enctype="application/x-www-form-urlencoded" method="post">
+								<div class="form-body">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<label class="control-label">用户组</label>
+												<div class="controls">
+													<input type="text" class="form-control" name="title" value="{$auth_group.title}">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="form-group">
+												<label class="control-label">描述</label>
+												<div class="controls">
+													<textarea type="text" class="form-control" name="description">{$info.value|default=''}</textarea>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<input type="hidden" name="id" value="{$auth_group.id}" />
+												<button class="btn green ajax-post" type="submit" target-form="horizontal-form">确 定</button>
+												<button class="btn blue" onclick="javascript:history.back(-1);return false;">返 回</button>		
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+</block>

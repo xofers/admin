@@ -137,7 +137,6 @@ class AdminController extends Controller {
         if(in_array('id',$fields) && !empty($id)){
             $where = array_merge( array('id' => array('in', $id )) ,(array)$where );
         }
-
         $msg   = array_merge( array( 'success'=>'操作成功！', 'error'=>'操作失败！', 'url'=>'' ,'ajax'=>IS_AJAX) , (array)$msg );
         if( M($model)->where($where)->save($data)!==false ) {
             $this->success($msg['success'],$msg['url'],$msg['ajax']);

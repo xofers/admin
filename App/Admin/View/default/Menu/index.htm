@@ -29,7 +29,7 @@
 			<a href="{:U('add',array('pid'=>I('get.pid',0)))}" class="btn green">
 				<i class="fa fa-plus"> 新增</i>
   			</a>
-			<a href="{:U('del')}" class="btn red ajax-post" ajax-confirm="你确定要批量删除嘛?" target-form="menu-form">
+			<a href="javascript:;" class="btn red ajax-post" ajax-confirm="你确定要批量删除嘛?" target-form="menu-form">
 				<i class="fa fa-trash-o"> 删除</i>
   			</a>
   			<a href="" class="btn blue">
@@ -58,7 +58,7 @@
 	</div>
 	<div class="row">
 		<div class="col-md-12">
-			<form class="config-form" action="{:U('Config/del')}"  method="post">
+			<form class="menu-form" action="{:U('del')}"  method="post">
 				<table class="table table-advance table-bordered margin-top-10">
 					<tr class="bg-grey">
 						<th colspan="10">

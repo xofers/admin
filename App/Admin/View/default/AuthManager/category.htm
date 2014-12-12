@@ -1,0 +1,74 @@
+<extend name="Public:base" />
+
+<block name="style">
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/css/plugins.css"/>
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.css"/>
+<style>
+	.table-bordered > thead > tr > td,
+	.table-bordered > tbody > tr > td,
+	.table-bordered > tfoot > tr > td {
+		border: none;
+		border-bottom: 1px solid #DDD;
+	}
+	
+</style>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="tabbable tabbable-custom boxless tabbable-reversed">
+				<ul class="nav nav-tabs">
+					<li><a href="{:U('AuthManager/access',array('group_name'=>I('group_name') ,'group_id'=> I('group_id')))}">访问授权</a></li>
+		            <li class="active"><a href="javascript:;">分类授权</a></li>
+					<li><a href="{:U('AuthManager/user',array('group_name'=>I('group_name') ,'group_id'=> I('group_id')))}">成员授权</a></li>
+					<select name="group"  style="display: none;" class="bs-select form-control input-small pull-right" data-style="blue">
+						<volist name="auth_group" id="vo">
+							<option value="{:U('AuthManager/category',array('group_id'=>$vo['id'],'group_name'=>$vo['title']))}" <eq name="vo['id']" value="$this_group['id']">selected</eq> >{$vo.title}</option>
+						</volist>
+					</select>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active">
+						<table class="table table-advance table-bordered margin-top-10">
+							<tr class="bg-grey">
+								<td width="100">折叠</td>
+								<td width="100">选择</td>
+								<td>栏目名称</td>
+							</tr>
+							{:R('AuthManager/tree', array($group_list))}
+						</table>
+						<div class="page">
+					        {$_page}
+					    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+<script type="text/javascript" src="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="__SCRIPTS__/metroinc/scripts/custom/bootstrapSelect.js"></script>
+<script>
+$(function(){
+	BootstrapSelect.init();
+})
+$('select[name=group]').change(function(){
+	location.href = this.value;
+});
+</script>
+</block>

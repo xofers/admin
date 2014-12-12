@@ -1,0 +1,100 @@
+<extend name="Public:base" />
+
+<block name="style">
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/css/plugins.css"/>
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.css"/>
+<style>
+	textarea{
+		resize: none;	
+	}
+</style>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="tabbable tabbable-custom boxless tabbable-reversed">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="javascript:;">访问授权</a></li>
+		            <li><a href="{:U('AuthManager/category',array('group_name'=>I('group_name') ,'group_id'=> I('group_id')))}">分类授权</a></li>
+					<li><a href="{:U('AuthManager/user',array('group_name'=>I('group_name') ,'group_id'=> I('group_id')))}">成员授权</a></li>
+					<select name="group"  style="display: none;" class="bs-select form-control input-small pull-right" data-style="blue">
+						<volist name="auth_group" id="vo">
+							<option value="{:U('AuthManager/access',array('group_id'=>$vo['id'],'group_name'=>$vo['title']))}" <eq name="vo['id']" value="$this_group['id']">selected</eq> >{$vo.title}</option>
+						</volist>
+					</select>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active">
+						<form action="{:U('AuthManager/writeGroup')}" enctype="application/x-www-form-urlencoded" method="POST" class="form-horizontal auth-form">
+							<volist name="node_list" id="node" >
+								<table class="table table-advance table-bordered margin-top-10">
+									<tr class="bg-grey">
+										<th>
+											<input class="auth_rules" type="checkbox" name="rules[]" value="<?php echo $main_rules[$node['url']] ?>">
+											<label class="badge badge-info">{$node.title}管理</label>
+										</th>
+									</tr>
+									<present name="node['child']">
+										<volist name="node['child']" id="child" >
+											<tr>
+												<td>
+													<input class="auth_rules" type="checkbox" name="rules[]" value="<?php echo $auth_rules[$child['url']] ?>"/>
+													<label class="badge badge-warning tooltips" data-placement="bottom" <notempty name="child['tip']">data-original-title='{$child.tip}'</notempty>>{$child.title}</label>
+													<br />
+			                                        <notempty name="child['operator']">
+													   <volist name="child['operator']" id="op">
+													       &emsp;
+											           		<input class="auth_rules" type="checkbox" name="rules[]" value="<?php echo $auth_rules[$op['url']] ?>"/>
+											           		<label class="badge badge-error tooltips" data-placement="bottom" <notempty name="op['tip']">data-original-title='{$op.tip}'</notempty> >{$op.title}</label>
+													   </volist>
+			                                        </notempty>
+						                    	</td>
+											</tr>
+										</volist>
+									</present>
+								</table>
+							</volist>
+					        <input type="hidden" name="id" value="{$this_group.id}" />
+		                    <button type="submit" class="btn green submit-btn ajax-post" target-form="auth-form">确 定</button>
+		                    <button class="btn blue btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+					    </form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+<script type="text/javascript" src="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="__SCRIPTS__/metroinc/scripts/custom/bootstrapSelect.js"></script>
+<script>
+$(function(){
+	BootstrapSelect.init();
+})
+
+var rules = [{$this_group.rules}];
+$('.auth_rules').each(function(){
+	if( $.inArray( parseInt(this.value,10),rules )>-1 ){
+	    $(this).prop('checked',true);
+	    $(this).next("label").removeClass().addClass("badge badge-success tooltips");
+	}
+});
+$('select[name=group]').change(function(){
+	location.href = this.value;
+});
+</script>
+</block>

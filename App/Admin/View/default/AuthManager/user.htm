@@ -1,0 +1,102 @@
+<extend name="Public:base" />
+
+<block name="style">
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/css/plugins.css"/>
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.css"/>
+<style>
+	.table-bordered > thead > tr > td,
+	.table-bordered > tbody > tr > td,
+	.table-bordered > tfoot > tr > td {
+		border: none;
+		border-bottom: 1px solid #DDD;
+	}
+</style>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="tabbable tabbable-custom boxless tabbable-reversed">
+				<ul class="nav nav-tabs">
+					<li><a href="{:U('AuthManager/access',array('group_name'=>I('group_name') ,'group_id'=> I('group_id')))}">访问授权</a></li>
+		            <li><a href="{:U('AuthManager/category',array('group_name'=>I('group_name') ,'group_id'=> I('group_id')))}">分类授权</a></li>
+					<li  class="active"><a href="javascript:;">成员授权</a></li>
+					<select name="group"  style="display: none;" class="bs-select form-control input-small pull-right" data-style="blue">
+						<volist name="auth_group" id="vo">
+							<option value="{:U('AuthManager/user',array('group_id'=>$vo['id'],'group_name'=>$vo['title']))}" <eq name="vo['id']" value="$this_group['id']">selected</eq> >{$vo.title}</option>
+						</volist>
+					</select>
+					<div class="input-group pull-right" style="padding-right: 80px;">
+						<form class="add-user" action="{:U('addToGroup')}" method="post" enctype="application/x-www-form-urlencoded" >
+							<input class="form-control input-large" name="uid" placeholder="请输入uid,多个用英文逗号分隔" type="text">
+							<input type="hidden" name="group_id" value="{:I('group_id')}">
+							<span class="input-group-btn">
+								<button class="btn blue ajax-post" type="submit" target-form="add-user">新增</button>
+							</span>
+						</form>
+					</div>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active">
+						<table class="table table-advance table-bordered margin-top-10">
+							<tr class="bg-grey">
+								<td width="300">UID</td>
+								<td>昵称</td>
+								<td width="300">最后登录时间</td>
+								<td width="150">最后登录IP</td>
+								<td width="150">状态</td>
+								<td width="150">操作</td>
+							</tr>
+							<volist name="_list" id="vo">
+								<tr>
+									<td><span class="badge badge-important">{$vo.uid}</span></td>
+									<td><span class="badge badge-info">{$vo.nickname}</span></td>
+									<td><span class="badge badge-info">{$vo.last_login_time|time_format}</span></td>
+									<td><span class="badge badge-info">{$vo.last_login_ip|long2ip}</span></td>
+									<td>
+										<eq name="vo.status" value="1">
+											<span class="badge badge-success">{$vo.status_text}</span>
+										<else/>
+											<span class="badge badge-important">{$vo.status_text}</span>
+										</eq>
+									</td>
+									<td>
+										<a href="{:U('AuthManager/removeFromGroup?uid='.$vo['uid'].'&group_id='.I('group_id'))}" class="badge badge-error ajax-get">解除授权</a>
+						            </td>
+								</tr>
+							</volist>
+						</table>
+						<div class="page">
+					        {$_page}
+					    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+<script type="text/javascript" src="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="__SCRIPTS__/metroinc/scripts/custom/bootstrapSelect.js"></script>
+<script>
+$(function(){
+	BootstrapSelect.init();
+})
+$('select[name=group]').change(function(){
+	location.href = this.value;
+});
+</script>
+</block>
