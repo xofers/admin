@@ -1,0 +1,31 @@
+<volist name="tree" id="list">
+<tr>
+	<form action="{:U('edit')}" method="post">
+		<td><input type="text" name="sort" class="form-control input-xsmall" style="padding: 2px 4px; height: 22px;" value="{$list.sort}"></td>
+		<td>{$list['allow_publish']?'<span class="badge badge-success">是</span>':'<span class="badge badge-important">否</span>'}</td>
+		<td>
+			<input type="hidden" name="id" value="{$list.id}">
+			<div class="input-group">
+				<input type="text" name="title" class="form-control" style="padding: 2px 4px; height: 22px;" value="{$list.title}">
+				<span class="input-group-btn" style="padding: 0px 1px;">
+					<button class="btn blue" type="button" style="padding: 1px 5px;"><i class="fa fa-plus"></i></button>
+				</span>
+			</div>
+			<!--<a class="add-sub-cate" title="添加子分类" href="{:U('add?pid='.$list['id'])}">
+				<i class="fa fa-add"></i>
+			</a>-->
+		</td>
+		<td class="submit-info"></td>
+		<td>
+			<a class="badge badge-success" href="{:U('edit?id='.$list['id'].'&pid='.$list['pid'])}">编辑</a>
+			<a class="badge badge-warning" href="{:U('setStatus?ids='.$list['id'].'&status='.abs(1-$list['status']))}" class="ajax-get">{$list.status|show_status_op}</a>
+			<a class="badge badge-error" href="{:U('remove?id='.$list['id'])}" class="confirm ajax-get">删除</a>
+			<a class="badge badge-primary" href="{:U('operate?type=move&from='.$list['id'])}">移动</a>
+			<a class="badge badge-success" href="{:U('operate?type=merge&from='.$list['id'])}">合并</a>
+		</td>
+	</form>
+	<notempty name="list['_']">
+		{:R('Category/tree', array($list['_']))}
+	</notempty>
+</tr>
+</volist>

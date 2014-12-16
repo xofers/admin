@@ -1,37 +1,45 @@
-<extend name="Public/base" />
-<block name="body">
-	<div class="main-title">
-        <h2>用户组授权</h2>
-	</div>
+<extend name="Public:base" />
 
-    <div id="auth_groups">
-        <form class="form-horizontal" action="{:U('addToGroup')}" method="post" enctype="application/x-www-form-urlencoded" >
-			<label class="item-label">{$nickname} 所属的用户组列表</label>
-            <volist name="auth_groups" id="vo">
-                <label class="checkbox">
-                    <input class="auth_groups" type="checkbox" name="group_id[]" value="{$vo.id}">{$vo.title}
-                </label>
-            </volist>
-            <input type="hidden" name="uid" value="{:I('uid')}">
-            <input type="hidden" name="batch" value="true">
-            <div style="margin-top: 10px;">
-                <button type="submit" class="btn submit-btn ajax-post" target-form="form-horizontal">确 定</button>
-                <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
-            </div>
-        </form>
-    </div>
+<block name="style">
+	<link href="__SCRIPTS__/metroinc/plugins/bootstrap-icheck/skins/all.css" rel="stylesheet" type="text/css"/>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-12">
+			<form class="form-horizontal" action="{:U('addToGroup')}" method="post" enctype="application/x-www-form-urlencoded" >
+				<h4><span style="color: #FF0000;">{$nickname}</span> 所属的用户组列表</h4>
+	            <volist name="auth_groups" id="vo">
+	            	<input type="checkbox" name="group_id[]" value="{$vo.id}">
+	            	<label class="badge badge-primary">{$vo.title}</label>&emsp;
+	            </volist>
+	            <input type="hidden" name="uid" value="{:I('uid')}">
+	            <input type="hidden" name="batch" value="true">
+	            <div class="margin-top-10">
+	                <button type="submit" class="btn green ajax-post" target-form="form-horizontal">确 定</button>
+	                <button class="btn blue" onclick="javascript:history.back(-1);return false;">返 回</button>
+	            </div>
+	        </form>
+		</div>
+	</div>
 </block>
 <block name="script">
-<script type="text/javascript">
-    $(function(){
-        var group = [{$user_groups}];
-        $('.auth_groups').each(function(){
-            if( $.inArray( parseInt(this.value,10),group )>-1 ){
-                $(this).prop('checked',true);
-            }
-        });
-    });
-    // 导航高亮
-    highlight_subnav('{:U('User/index')}');
+<script src="__SCRIPTS__/metroinc/plugins/bootstrap-icheck/icheck.js" type="text/javascript"></script>
+<script>
+$('input[type="checkbox"]').iCheck({
+  checkboxClass: 'icheckbox_square-blue'
+});
 </script>
 </block>

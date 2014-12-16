@@ -1,0 +1,56 @@
+<extend name="Public:base" />
+
+<block name="style">
+	<style>
+		.table-bordered > thead > tr > td,
+		.table-bordered > tbody > tr > td,
+		.table-bordered > tfoot > tr > td {
+			border: none;
+			border-bottom: 1px solid #DDD;
+		}
+	</style>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-6">
+			<a href="{:U('add')}" class="btn green">
+				<i class="fa fa-plus"> 新增</i>
+  			</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+				<table class="table table-advance table-bordered margin-top-10">
+					<tr class="bg-grey">
+						<th colspan="6">
+							<i class="fa fa-sitemap"></i>&nbsp;分类管理
+						</th>
+					</tr>
+					<tr class="bg-grey">
+						<td width="100">排序</td>
+						<td width="100">发布</td>
+						<td width="400">名称</td>
+						<td></td>
+						<td width="240"></td>
+					</tr>
+					{:R('Category/tree', array($tree))}
+				</table>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+</block>

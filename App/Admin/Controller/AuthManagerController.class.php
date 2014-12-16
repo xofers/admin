@@ -221,10 +221,10 @@ class AuthManagerController extends AdminController{
      */
     public function category(){
         $auth_group     =   M('AuthGroup')->where( array('status'=>array('egt','0'),'module'=>'admin','type'=>AuthGroupModel::TYPE_ADMIN) )
-            ->getfield('id,id,title,rules');
-        $group_list     =   D('Category')->getTree();
+            ->getfield('id,title,rules');
+        $group_list     =   D('Category')->getTree(0,"id,pid,icon,title,status");
         $authed_group   =   AuthGroupModel::getCategoryOfGroup(I('group_id'));
-        $this->assign('authed_group',   implode(',',(array)$authed_group));
+        $this->assign('authed_group',   (array)$authed_group);
         $this->assign('group_list',     $group_list);
         $this->assign('auth_group',     $auth_group);
         $this->assign('this_group',     $auth_group[(int)$_GET['group_id']]);
@@ -232,9 +232,18 @@ class AuthManagerController extends AdminController{
         $this->display();
     }
 
-    public function tree($tree = null){
-        $this->assign('tree', $tree);
-        $this->display('tree');
+    public function tree($tree = null,$authed_group){
+    	$tree = tree_to_list($tree,"_");
+		for($i=0;$i<count($tree);$i++){
+			$tree[$i]["text"] = $tree[$i]["title"];
+			$tree[$i]["icon"] = $tree[$i]["icon"] == 0?"":$tree[$i]["icon"];
+			if(in_array($tree[$i]["id"], $authed_group)){
+				$tree[$i]["state"] = array('selected'=>true);
+			}
+			unset($tree[$i]["title"]);
+			unset($tree[$i]["status"]);
+		}
+		return json_encode(list_to_tree($tree,"id","pid","children",0));
     }
 
     /**

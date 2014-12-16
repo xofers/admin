@@ -132,18 +132,8 @@ var Index = function () {
 		                    nead_confirm = true;
 		                }
 		            })
-		            if ( nead_confirm && $(that).hasClass('confirm') ) {
-		                if(!confirm('确认要执行该操作吗?')){
-		                    return false;
-		                }
-		            }
 		            query = form.serialize();
 		        }else{
-		            if ( $(that).hasClass('confirm') ) {
-		                if(!confirm('确认要执行该操作吗?')){
-		                    return false;
-		                }
-		            }
 		            query = form.find('input,select,textarea').serialize();
 		        }
 		        $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
