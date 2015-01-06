@@ -1,0 +1,52 @@
+<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+	<div class="dashboard-stat blue">
+		<div class="visual">
+			<i class="fa fa-user"></i>
+		</div>
+		<div class="details">
+			<div class="number">{$info.user}</div>
+			<div class="desc">用户数量</div>
+		</div>
+		<a class="more" href="{:U('User/Index')}">查看详细<i class="m-icon-swapright m-icon-white"></i></a>
+	</div>
+</div>
+<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+	<div class="dashboard-stat green">
+		<div class="visual">
+			<i class="fa fa-book"></i>
+		</div>
+		<div class="details">
+			<div class="number">{$info.document}</div>
+			<div class="desc">文档数</div>
+		</div>
+		<a class="more" href="{:U('User/Index')}">查看详细<i class="m-icon-swapright m-icon-white"></i></a>
+	</div>
+</div>
+<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+	<div class="dashboard-stat purple">
+		<div class="visual">
+			<i class="fa fa-html5"></i>
+		</div>
+		<div class="details">
+			<div class="number">{$info.action}</div>
+			<div class="desc">用户行为</div>
+		</div>
+		<a class="more" href="{:U('User/action')}">查看详细<i class="m-icon-swapright m-icon-white"></i></a>
+	</div>
+</div>
+<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+	<div class="dashboard-stat yellow">
+		<div class="visual">
+			<i class="fa fa-windows"></i>
+		</div>
+		<div class="details">
+			<div class="number">
+				{$info.system.size}
+			</div>
+			<div class="desc">空间剩余
+				{$info.system.percent}
+			</div>
+		</div>
+		<a class="more" href="javascript:;">查看详细<i class="m-icon-swapright m-icon-white"></i></a>
+	</div>
+</div>

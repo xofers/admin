@@ -66,27 +66,14 @@ function validate(obj){
 }
 /*弹出*/
 $(document).ready(function() {
-	$(".login11").click(function() {
+	function showLogin(){
 		$(".regID").hide();
 		tipsWindown("","class:loginID","804","546","false","","true");
-		  
-	});
+	}
 	
-	
-	$(".reg11").click(function() {
+	function showReg(){
 		$(".loginID").hide();
 		tipsWindown("","class:regID","804","546","false","","true")
-		
-	});
-	
+	}
 
 });
-function hideWhichDialog(){
-	$(".windown-box").hide();
-	tipsWindown("","class:regID","804","546","false","","true");
-}
-
-function hideWhichDialog1(){
-	$(".windown-box").hide();
-	tipsWindown("","class:loginID","804","546","false","","true");
-}

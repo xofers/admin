@@ -1,0 +1,102 @@
+<extend name="Public:base" />
+
+<block name="style">
+	<style>
+		.table-bordered > thead > tr > td,
+		.table-bordered > tbody > tr > td,
+		.table-bordered > tfoot > tr > td {
+			border: none;
+			border-bottom: 1px solid #DDD;
+		}
+	</style>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-6">
+			<a href="{:U('create')}" class="btn green">
+				<i class="fa fa-plus"> 快速创建</i>
+  			</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<form class="config-form" action="{:U('Config/del')}"  method="post">
+				<table class="table table-advance table-bordered margin-top-10">
+					<tr class="bg-grey">
+						<th colspan="7">
+							<i class="fa fa-puzzle-piece"></i>&nbsp;插件列表
+						</th>
+					</tr>
+					<tr class="bg-grey">
+						<td width="150">名称</td>
+						<td width="150">标识</td>
+						<td width="500">描述</td>
+						<td width="60">状态</td>
+						<td width="100">作者</td>
+						<td width="100">版本</td>
+						<td>操作</td>
+					</tr>
+					<notempty name="_list">
+						<volist name="_list" id="vo">
+							<tr>
+								<td>{$vo.title}</td>
+								<td><span class="badge badge-important">{$vo.name}</span></td>
+								<td>{$vo.description}</td>
+								<td><span class="badge <eq name='vo.status_text' value='启用'>badge-success<else />badge-error</eq>">{$vo.status_text|default="未安装"}</span></td>
+								<td><a class="badge badge-info" <neq name='vo.url' value=''>target="_blank"</neq> href="{$vo.url|default='javascript:void(0);'}">{$vo.author}</a></td>
+								<td><span class="badge badge-warning">{$vo.version}</span></td>
+								<td>
+									<empty name="vo.uninstall">
+										<?php
+											$class	= get_addon_class($vo['name']);
+											if(!class_exists($class)){
+												$has_config = 0;
+											}else{
+												$addon = new $class();
+												$has_config = count($addon->getConfig());
+											}
+										?>
+										<?php if ($has_config): ?>
+											<a class="badge badge-success" href="{:U('config',array('id'=>$vo['id']))}">设置</a>
+										<?php endif ?>
+									<?php if ($vo['status'] >=0): ?>
+										<eq name="vo.status" value="0">
+											<a class="badge badge-success ajax-get" href="{:U('enable',array('id'=>$vo['id']))}">启用</a>
+										<else />
+											<a class="badge badge-error ajax-get" href="{:U('disable',array('id'=>$vo['id']))}">禁用</a>
+										</eq>
+									<?php endif ?>
+										{// <eq name="vo.author" value="thinkphp">}
+											<a class="badge badge-info ajax-get" href="{:U('uninstall?id='.$vo['id'])}">卸载</a>
+										{// </eq>}
+									<else />
+										<a class="badge badge-success ajax-get" href="{:U('install?addon_name='.$vo['name'])}">安装</a>
+									</empty>
+								</td>
+							</tr>
+						</volist>
+					<else/>
+						<td colspan="6" class="text-center">暂时还没有内容! </td>
+					</notempty>
+				</table>
+			    <div class="page">{$_page}</div>
+			</form>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+</block>

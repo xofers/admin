@@ -45,7 +45,7 @@ class Hook {
         }else{ // 合并导入
             foreach ($data as $tag=>$val){
                 if(!isset(self::$tags[$tag]))
-                    self::$tags[$tag]   =   array();            
+                    self::$tags[$tag]   =   array();
                 if(!empty($val['_overlay'])){
                     // 可以针对某个标签指定覆盖模式
                     unset($val['_overlay']);
@@ -54,7 +54,7 @@ class Hook {
                     // 合并模式
                     self::$tags[$tag]   =   array_merge(self::$tags[$tag],$val);
                 }
-            }            
+            }
         }
     }
 

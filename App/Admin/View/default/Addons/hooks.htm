@@ -1,0 +1,74 @@
+<extend name="Public:base" />
+
+<block name="style">
+	<style>
+		.table-bordered > thead > tr > td,
+		.table-bordered > tbody > tr > td,
+		.table-bordered > tfoot > tr > td {
+			border: none;
+			border-bottom: 1px solid #DDD;
+		}
+	</style>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-6">
+			<a href="{:U('addhook')}" class="btn green">
+				<i class="fa fa-plus"> 创建钩子</i>
+  			</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<form class="config-form" action="{:U('Config/del')}"  method="post">
+				<table class="table table-advance table-bordered margin-top-10">
+					<tr class="bg-grey">
+						<th colspan="7">
+							<i class="fa fa-puzzle-piece"></i>&nbsp;插件列表
+						</th>
+					</tr>
+					<tr class="bg-grey">
+						<th width="50" class="text-center">ID</th>
+						<td width="150">名称</td>
+						<td width="500">描述</td>
+						<td width="60">类型</td>
+						<td>操作</td>
+					</tr>
+					<notempty name="list">
+						<volist name="list" id="vo">
+							<tr>
+								<th class="text-center"><span class="badge badge-error">{$vo.id}</span></th>
+								<td><a class="badge badge-info" href="{:U('edithook?id='.$vo['id'])}">{$vo.name}</a></td>
+								<td>{$vo.description}</td>
+								<td><span class="badge badge-warning">{$vo.type_text}</span></td>
+								<td>
+									<a class="badge badge-success" href="{:U('edithook?id='.$vo['id'])}">编辑</a>
+									<a class="badge badge-error ajax-get" ajax-confirm="您确定要删除该项么？" title="删除" href="{:U('delhook?id='.$vo['id'])}">删除</a>
+								</td>
+							</tr>
+						</volist>
+					<else/>
+						<td colspan="6" class="text-center">暂时还没有内容! </td>
+					</notempty>
+				</table>
+			    <div class="page">{$_page}</div>
+			</form>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+</block>

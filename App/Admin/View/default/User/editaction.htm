@@ -1,0 +1,110 @@
+<extend name="Public:base" />
+
+<block name="style">
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/css/plugins.css"/>
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.css"/>
+<style>
+	textarea{
+		resize: none;	
+	}
+</style>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="tab-content">
+				<div class="tab-pane active">
+					<div class="portlet box light-grey">
+						<div class="portlet-title">
+							<i class="fa fa-edit"></i> <if condition="ACTION_NAME eq 'addaction'">新增<else/>编辑</if>行为
+						</div>
+						<div class="portlet-body form">
+							<form class="horizontal-form" action="{:U('saveAction')}" method="post">
+								<div class="form-body">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">行为标识<span class="check-tips">（输入行为标识 英文字母）</span></label>
+												<div class="controls">
+													<input type="text" class="form-control input-xlarge" name="name" value="{$data.name}">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">行为名称<span class="check-tips">（输入行为名称）</span></label>
+												<div class="controls">
+													<input type="text" class="form-control input-xlarge" name="title" value="{$data.title}">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">行为类型<span class="check-tips">（选择行为类型）</span></label>
+												<div class="controls">
+													<select name="type" style="display: none;" class="bs-select form-control input-small" data-style="blue">
+														<volist name=":get_action_type(null,true)" id="vo">
+															<option value="{$key}" <eq name="data.type" value="$key">selected="selected"</eq>>{$vo}</option>
+														</volist>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">行为描述<span class="check-tips">（输入行为描述）</span></label>
+												<textarea class="form-control" name="remark">{$data.remark}</textarea>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">行为规则<span class="check-tips">（输入行为规则，不写则只记录日志）</span></label>
+												<textarea class="form-control" name="rule">{$data.rule}</textarea>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">日志规则<span class="check-tips">（记录日志备注时按此规则来生成，支持[变量|函数]。目前变量有：user,time,model,record,data）</span></label>
+												<textarea class="form-control" name="log">{$data.log}</textarea>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<input type="hidden" name="id" value="{$info.id|default=''}">
+												<button class="btn green ajax-post" type="submit" target-form="horizontal-form">确 定</button>
+												<button class="btn blue" onclick="javascript:history.back(-1);return false;">返 回</button>		
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+<script type="text/javascript" src="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="__SCRIPTS__/metroinc/scripts/custom/bootstrapSelect.js"></script>
+<script>
+$(function(){
+	BootstrapSelect.init();
+})
+</script>
+</block>

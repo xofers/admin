@@ -305,7 +305,7 @@ function get_redirect_url(){
 /**
  * 处理插件钩子
  * @param string $hook   钩子名称
- * @param mixed $params 传入参数
+ * @param mixed $params 传入参数getConfig
  * @return void
  */
 function hook($hook,$params=array()){

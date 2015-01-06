@@ -105,6 +105,7 @@ var Index = function () {
 	                    },1500);
 	                }
 	            });
+	            return false;
 	        }
 		},
 		ajaxPost:function(that){

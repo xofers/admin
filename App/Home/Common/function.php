@@ -66,7 +66,7 @@ function get_nav_url($url){
  */
 function getToken(){
 	if(is_login()){
-		return Aes(session("user_auth_sign"));
+		return session("user_auth_sign");
 	}
 }
 

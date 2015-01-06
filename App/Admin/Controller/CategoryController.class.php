@@ -83,7 +83,7 @@ class CategoryController extends AdminController {
             }
 
             /* 获取分类信息 */
-            $this->assign('info',       null);
+            $this->assign('info',null);
             $this->assign('category', $cate);
             $this->meta_title = '新增分类';
             $this->display('edit');

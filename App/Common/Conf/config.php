@@ -28,7 +28,7 @@ return array(
     /* 默认模板文件后缀*/
     'TMPL_TEMPLATE_SUFFIX' => '.htm',
     /* 模块相关配置 */
-//  'AUTOLOAD_NAMESPACE' => array('Addons' => ONETHINK_ADDON_PATH), //扩展模块列表
+    'AUTOLOAD_NAMESPACE' => array('Addons' => ONETHINK_ADDON_PATH), //扩展模块列表
 	'MODULE_ALLOW_LIST' => array ('Home','Admin'),
     'DEFAULT_MODULE'     => 'Home',
 //  'MODULE_DENY_LIST'   => array('Common','User'),
@@ -38,10 +38,13 @@ return array(
     'LANG_LIST'            => 'zh-cn', // 允许切换的语言列表 用逗号分隔
     'VAR_LANGUAGE'         => 'l', // 默认语言切换变量
     /* 开启表单令牌*/
-    'TOKEN_ON'             => true, //是否开启令牌验证
-    'TOKEN_NAME'           => '__hash__',// 令牌验证的表单隐藏字段名称
-    'TOKEN_TYPE'           => 'md5',//令牌验证哈希规则
-    'TOKEN_RESET'          => true,  //令牌验证出错后是否重置令牌 默认为true
+//  'TOKEN_ON'             => true, //是否开启令牌验证
+//  'TOKEN_NAME'           => '__hash__',// 令牌验证的表单隐藏字段名称
+//  'TOKEN_TYPE'           => 'md5',//令牌验证哈希规则
+//  'TOKEN_RESET'          => true,  //令牌验证出错后是否重置令牌 默认为true
+    
+    /* 文档模型配置 (文档模型核心配置，请勿更改) */
+    'DOCUMENT_MODEL_TYPE' => array(2 => '主题', 1 => '目录', 3 => '段落'),
     
     /****************************************************后台上传配置************************************************************/
 	

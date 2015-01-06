@@ -1,0 +1,116 @@
+<extend name="Public:base" />
+
+<block name="style">
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/css/plugins.css"/>
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.css"/>
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/plugins/jquery-nestable/jquery.nestable.css"/>
+<style>
+	textarea{
+		resize: none;	
+	}
+</style>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="tab-content">
+				<div class="tab-pane active">
+					<div class="portlet box light-grey">
+						<div class="portlet-title">
+							<i class="fa fa-edit"></i> <present name="data">编辑<else />新增</present>钩子
+						</div>
+						<div class="portlet-body form">
+							<form class="horizontal-form" action="{:U('updateHook')}" method="post">
+								<div class="form-body">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">钩子名称<span class="check-tips">（需要在程序中先添加钩子，否则无效）</span></label>
+												<div class="controls">
+													<input type="text" value="{$data.name}" name="name" class="form-control input-large">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">钩子类型<span class="check-tips">（区分钩子的主要用途）</span></label>
+												<div class="controls">
+													<select name="type" style="display: none;" class="bs-select form-control input-small" data-style="blue">
+														<volist name=":C('HOOKS_TYPE')" id="vo">
+															<option value="{$key}" <eq name="data.type" value="$key"> selected</eq>>{$vo}</option>
+														</volist>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="form-group">
+												<label class="control-label">钩子描述<span class="check-tips">（钩子的描述信息）</span></label>
+												<div class="controls">
+													<textarea name="description" class="form-control">{$data.description}</textarea>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<input class="nestable-json" type="hidden" name="addons" value="{$data.addons}" readonly>
+											<label class="control-label">钩子挂载的插件排序<span class="check-tips">（拖动后保存顺序，影响同一个钩子挂载的插件执行先后顺序）</span></label>
+											<empty name="data.addons">
+												<h2>暂无插件，无法排序</h2>
+											<else />
+												<div class="dd" id="nestable_list">
+													<ol class="dd-list">
+														<volist name=":explode(',',$data['addons'])" id="addons_vo">
+															<li class="dd-item" data-mes="{$addons_vo}">
+																<div class="dd-handle">{$addons_vo}</div>
+															</li>
+														</volist>
+													</ol>
+												</div>
+											</empty>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<input type="hidden" name="id" value="{$data.id}">
+												<button class="btn green ajax-post" type="submit" target-form="horizontal-form">确 定</button>
+												<button class="btn blue" onclick="javascript:history.back(-1);return false;">返 回</button>		
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+<script type="text/javascript" src="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="__SCRIPTS__/metroinc/scripts/custom/bootstrapSelect.js"></script>
+<present name="data">
+<script type="text/javascript" src="__SCRIPTS__/metroinc/plugins/jquery-nestable/jquery.nestable.js"></script>
+<script type="text/javascript" src="__SCRIPTS__/metroinc/scripts/custom/nestable.js"></script>
+</present>
+<script>
+$(function(){
+	BootstrapSelect.init();
+	UINestable.init();
+})
+Index.setValue("vo", {$info.type|default=0});
+</script>
+</block>

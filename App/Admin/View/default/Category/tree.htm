@@ -8,18 +8,22 @@
 			<div class="input-group">
 				<input type="text" name="title" class="form-control" style="padding: 2px 4px; height: 22px;" value="{$list.title}">
 				<span class="input-group-btn" style="padding: 0px 1px;">
-					<button class="btn blue" type="button" style="padding: 1px 5px;"><i class="fa fa-plus"></i></button>
+					<button class="btn blue" onclick='location.href="{:U('add?pid='.$list['id'])}"' type="button" style="padding: 1px 5px;">
+						<i class="fa fa-plus"></i>
+					</button>
 				</span>
 			</div>
-			<!--<a class="add-sub-cate" title="添加子分类" href="{:U('add?pid='.$list['id'])}">
+			<!--<a class="add-sub-cate" title="添加子分类" href="">
 				<i class="fa fa-add"></i>
 			</a>-->
 		</td>
 		<td class="submit-info"></td>
 		<td>
 			<a class="badge badge-success" href="{:U('edit?id='.$list['id'].'&pid='.$list['pid'])}">编辑</a>
-			<a class="badge badge-warning" href="{:U('setStatus?ids='.$list['id'].'&status='.abs(1-$list['status']))}" class="ajax-get">{$list.status|show_status_op}</a>
-			<a class="badge badge-error" href="{:U('remove?id='.$list['id'])}" class="confirm ajax-get">删除</a>
+			<a class="badge <if condition='$list.status == 0'>badge-warning<else />badge-error</if> ajax-get" href="{:U('setStatus?ids='.$list['id'].'&status='.abs(1-$list['status']))}">
+				{$list.status|show_status_op}
+			</a>
+			<a class="badge badge-error ajax-get" ajax-confirm="您是否要删除嘛?" href="{:U('remove?id='.$list['id'])}">删除</a>
 			<a class="badge badge-primary" href="{:U('operate?type=move&from='.$list['id'])}">移动</a>
 			<a class="badge badge-success" href="{:U('operate?type=merge&from='.$list['id'])}">合并</a>
 		</td>

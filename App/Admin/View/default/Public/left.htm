@@ -65,10 +65,22 @@
 					<span class="arrow "></span>
 				</a>
 				<ul class="sub-menu">
-					<li><a href="{:U('User/index')}"><i class="fa fa-location-arrow"></i> 所有用户</a></li>
-					<li><a href="javascript:;"><i class="fa fa-eye"></i> 第三方用户</a></li>
-					<li><a href="javascript:;"><i class="fa fa-user-md"></i> 管理员列表</a></li>
+					<li><a href="{:U('User/index')}"><i class="fa fa-location-arrow"></i> 用户信息</a></li>
 					<li><a href="{:U('AuthManager/index')}"><i class="fa fa-sitemap"></i> 权限管理</a></li>
+					<li><a href="{:U('User/action')}"><i class="fa fa-eye"></i> 用户行为</a></li>
+					<li><a href="{:U('Action/actionlog')}"><i class="fa fa-user-md"></i> 行为日志</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<i class="fa fa-chain"></i>
+					<span class="title">扩展管理</span>
+					<span class="arrow"></span>
+				</a>
+				<ul class="sub-menu">
+					<li><a href="{:U('Addons/index')}"><i class="fa fa-location-arrow"></i> 插件管理</a></li>
+					<li><a href="{:U('Addons/hooks')}"><i class="fa fa-sitemap"></i> 钩子管理</a></li>
+					<li><a href="{:U('Addons/adminList',array('name'=>'Attachment'))}"><i class="fa fa-eye"></i> 附件管理</a></li>
 				</ul>
 			</li>
 			<li>

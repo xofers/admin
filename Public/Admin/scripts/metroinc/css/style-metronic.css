@@ -1223,6 +1223,9 @@ Pagination
   border-color: #dddddd;
   color: #333;
 }
+.pagination a,.pagination span{
+  margin-right: 5px;
+}
 
 
 

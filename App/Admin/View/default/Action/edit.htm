@@ -1,0 +1,91 @@
+<extend name="Public:base" />
+
+<block name="style">
+<style>
+	textarea{
+		resize: none;	
+	}
+</style>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="tab-content">
+				<div class="tab-pane active">
+					<div class="portlet box light-grey">
+						<div class="portlet-title">
+							<i class="fa fa-edit"></i> 查看行为日志
+						</div>
+						<div class="portlet-body form">
+							<div class="form-body">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label">行为名称</label>
+											<div class="controls">
+												<input type="text" class="form-control input-xlarge" disabled value="{:get_action($info['action_id'], "title")}">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label">执行者</label>
+											<div class="controls">
+												<input type="text" class="form-control input-xlarge" disabled value="{:get_nickname($info['user_id'])}">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label">执行IP</label>
+											<div class="controls">
+												<input type="text" class="form-control input-xlarge" disabled value="{:long2ip($info['action_ip'])}">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label">执行时间</label>
+											<div class="controls">
+												<input type="text" class="form-control input-xlarge" disabled value="{:date('Y-m-d H:i:s',$info['create_time'])}">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="form-group">
+											<label class="control-label">备注</label>
+											<div class="controls">
+												<textarea class="form-control" readonly="readonly" disabled>{$info.remark}</textarea>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<button class="btn blue" onclick="javascript:history.back(-1);return false;">返 回</button>		
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+</block>

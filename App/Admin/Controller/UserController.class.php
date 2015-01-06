@@ -113,7 +113,17 @@ class UserController extends AdminController {
         if($res['status']){
             $this->success('修改密码成功！');
         }else{
-            $this->error($res['info']);
+        	$info = "";
+        	switch ($res['info']) {
+        		case '-4':
+        			$info = "密码长度不符合要求!";
+        			break;
+        		
+        		default:
+        			
+        			break;
+        	}
+            $this->error($info);
         }
     }
 

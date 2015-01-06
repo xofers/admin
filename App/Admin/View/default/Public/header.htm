@@ -29,8 +29,12 @@
 			<!-- 用户菜单开始 -->
 			<li class="dropdown user">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-					<img alt="" src="__SCRIPTS__/metroinc/img/avatar1_small.jpg"/>
-					<span class="username">admin</span>
+					<if condition="$Think.session.user_auth.sex eq 1">
+						<img alt="logo" src="__IMG__/man.jpg" width="29" height="29"  />
+					<else />
+						<img alt="logo" src="__IMG__/woman.jpg" width="29" height="29"  />
+					</if>
+					<span class="username">{:get_username()}</span>
 					<i class="fa fa-angle-down"></i>
 				</a>
 				<ul class="dropdown-menu">
@@ -38,10 +42,10 @@
 						<a href="javascript:;"><i class="fa fa-user"></i> 个人中心</a>
 					</li>
 					<li>
-						<a href="javascript:;"><i class="fa fa-heart"></i> 修改昵称</a>
+						<a href="{:U('User/updateNickname')}"><i class="fa fa-heart"></i> 修改昵称</a>
 					</li>
 					<li>
-						<a href="javascript:;"><i class="fa fa-key"></i> 修改密码</a>
+						<a href="{:U('User/updatePassword')}"><i class="fa fa-key"></i> 修改密码</a>
 					</li>
 				</ul>
 			</li>

@@ -2,14 +2,24 @@
 return array(
     /* 主题设置 */
     'DEFAULT_THEME'     => 'default', // 默认模板主题名称
+    
+    /* 数据缓存设置 */
+    'DATA_CACHE_PREFIX'    => 'admin_', // 缓存前缀
+    'DATA_CACHE_TYPE'      => 'File', // 数据缓存类型
+    'URL_MODEL'            => 2, //URL模式
 
     /* 模板相关配置 */
     'TMPL_PARSE_STRING' => array(
-        '__IMG__' => __ROOT__ . '/Public/' . MODULE_NAME . '/images',
-        '__CSS__' => __ROOT__ . '/Public/' . MODULE_NAME . '/css',
-        '__JS__'  => __ROOT__ . '/Public/' . MODULE_NAME . '/js',
-   		'__SCRIPTS__'  => __ROOT__ . '/Public/' . MODULE_NAME . '/scripts'
+   		'__SCRIPTS__'  => __ROOT__.'/Public/' . MODULE_NAME . '/scripts',
+   		'__ADDONS__'   => __ROOT__.'/Public/' . MODULE_NAME . '/Addons',
+        '__IMG__'      => __ROOT__.'/Public/' . MODULE_NAME . '/images',
+        '__CSS__'      => __ROOT__.'/Public/' . MODULE_NAME . '/css',
+        '__JS__'       => __ROOT__.'/Public/' . MODULE_NAME . '/js',
     ),
+    
+	/* SESSION 和 COOKIE 配置 */
+    'SESSION_PREFIX' => 'max_admin', //session前缀
+    'COOKIE_PREFIX'  => 'max_admin_', // Cookie前缀 避免冲突
 
 //  /*Auth权限设置*/
 //  'AUTH_CONFIG'       => array(

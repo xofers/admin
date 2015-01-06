@@ -82,8 +82,8 @@
 					<notempty name="list">
 		                <volist name="list" id="menu">
 		                    <tr>
-		                        <td><input class="ids row-selected" type="checkbox" name="id[]" value="{$menu.id}"></td>
-		                        <td class="text-center">{$menu.id}</td>
+		                        <th><input class="ids row-selected" type="checkbox" name="id[]" value="{$menu.id}"></th>
+		                        <th class="text-center"><span class="badge badge-error">{$menu.id}</span></th>
 		                        <td>
 		                            <a href="{:U('index?pid='.$menu['id'])}">{$menu.title}</a>
 		                        </td>

@@ -91,8 +91,8 @@
 					<notempty name="list">
 						<volist name="list" id="config">
 							<tr>
-								<td><input class="ids row-selected" type="checkbox" name="id[]" value="{$config.id}"></td>
-								<td class="text-center">{$config.id}</td>
+								<th><input class="ids row-selected" type="checkbox" name="id[]" value="{$config.id}"></th>
+								<th class="text-center"><span class="badge badge-error">{$config.id}</span></th>
 								<td><a class="listname" href="{:U('edit?id='.$config['id'])}">{$config.name}</a></td>
 								<td>{$config.title}</td>
 								<td><span class="badge badge-info">{$config.group|get_config_group}</span></td>
