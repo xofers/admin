@@ -1,12 +1,4 @@
 <?php
-// +----------------------------------------------------------------------
-// | OneThink [ WE CAN DO IT JUST THINK IT ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2013 http://www.onethink.cn All rights reserved.
-// +----------------------------------------------------------------------
-// | Author: 游川江 <1518140867@qq.com> <http://www.zjzit.cn>
-// +----------------------------------------------------------------------
-
 // OneThink常量定义
 const ONETHINK_VERSION    = '1.1.141008';
 const ONETHINK_ADDON_PATH = './Addons/';
@@ -371,7 +363,7 @@ function addons_url($url, $param = array()){
  * @return string 完整的时间显示
  * @author huajie <banhuajie@163.com>
  */
-function time_format($time = NULL,$format='Y-m-d H:i'){
+function time_format($time = NULL,$format='Y-m-d H:i:s'){
     $time = $time === NULL ? NOW_TIME : intval($time);
     return date($format, $time);
 }

@@ -66,7 +66,8 @@ class MemberModel extends Model {
         /* 记录登录SESSION和COOKIES */
         $auth = array(
             'uid'             => $user['uid'],
-            'username'        => $user['nickname'],
+            'username'        => $user['username'],
+            'nickname'        => $user['nickname'],
             'sex'             => $user['sex'],
             'last_login_time' => $user['last_login_time'],
         );

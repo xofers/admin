@@ -51,7 +51,7 @@
 						<volist name="list" id="vo">
 							<tr>
 								<th class="text-center"><span class="badge badge-error">{$vo.id}</span></th>
-								<td><a class="badge badge-info" href="{:U('edithook?id='.$vo['id'])}">{$vo.name}</a></td>
+								<td><a href="{:U('edithook?id='.$vo['id'])}">{$vo.name}</a></td>
 								<td>{$vo.description}</td>
 								<td><span class="badge badge-warning">{$vo.type_text}</span></td>
 								<td>

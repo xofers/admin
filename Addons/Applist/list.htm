@@ -1,73 +1,70 @@
-<form method="post" class="horizontal-form">
-	<div class="col-md-3">
-		<div class="col-md-4" style="padding-left: 0px;">
-			渠道号:<input type="text" name="sb_channel" class="form-control input-small" />
-		</div>
-		<div class="col-md-8" style="padding-right: 0px;">
-			安装地址:<input type="text" name="pakurl" class="form-control" />
-		</div>
-	</div>
-	<div class="col-md-3">
-		<div class="col-md-6" style="padding-left: 0px;">
-			安装名称:<input type="text" name="pname" class="form-control" />
-		</div>
-		<div class="col-md-6" style="padding-right: 0px;">
-			本地名称:<input type="text" name="localname" class="form-control" />
-		</div>
-	</div>
-	<div class="col-md-3">
-		操作方式:<br />
-		<button class="btn green ajax-post" url="{:addons_url('Applist://Applist/add')}" target-form="horizontal-form" />添加</button>
-		<button class="btn red ajax-post" url="{:addons_url('Applist://Applist/del')}" target-form="horizontal-form" />删除</button>
-	</div>
-</form>
-	<div class="col-md-3">
-		<div class="col-md-6" style="padding-left: 0px;">
-			安装方式:<br />
-			<a class="btn green ajax-get" <eq name="addons_config.actControl" value="1">disabled</eq> href="{:addons_url('Applist://Applist/turn_on')}" />开启</a>
-			<a class="btn red ajax-get" <eq name="addons_config.actControl" value="0">disabled</eq> href="{:addons_url('Applist://Applist/turn_off')}" />关闭</a>
-		</div>
-		<div class="col-md-6" style="padding-left: 0px;">
-			<br />
-			<div class="input-group input-medium pull-right search-form">
-				<input class="form-control search-input" name="sb_channel_search" value="{:I('sb_channel_search')}" placeholder="请输入渠道编号" type="text">
-				<span class="input-group-btn">
-					<button class="btn blue" type="button" id="search" url="{:U('Index/index')}"><i class="fa fa-search"></i></button>
-				</span>
+<div class="col-md-12" style="padding-left: 0px; padding-right: 0px;">
+	<form method="post" class="horizontal-form">
+		<div class="col-md-3">
+			<div class="col-md-6" style="padding-left: 0px;">
+				渠道号:<input type="text" name="sb_channel" class="form-control" />
+			</div>
+			<div class="col-md-6" style="padding-right: 0px;">
+				安装地址:<input type="text" name="pakurl" class="form-control" />
 			</div>
 		</div>
+		<div class="col-md-3">
+			<div class="col-md-6" style="padding-left: 0px;">
+				安装名称:<input type="text" name="pname" class="form-control" />
+			</div>
+			<div class="col-md-6" style="padding-right: 0px;">
+				本地名称:<input type="text" name="localname" class="form-control" />
+			</div>
+		</div>
+		<div class="col-md-3" style="padding-right: 0px;">
+			<div class="col-md-6" style="padding-right: 0px; padding-left: 0px;">
+				操作方式:<br />
+				<button class="btn green ajax-post" url="{:addons_url('Applist://Applist/add')}" target-form="horizontal-form" />添加</button>
+				<button class="btn red ajax-post" url="{:addons_url('Applist://Applist/del')}" target-form="horizontal-form" />删除</button>
+			</div>
+			<div class="col-md-6" style="padding-right: 0px; padding-left: 0px;">
+				安装方式:<br />
+				<a class="btn green ajax-get" <eq name="addons_config.actControl" value="1">disabled</eq> href="{:addons_url('Applist://Applist/turn_on')}" />开启</a>
+				<a class="btn red ajax-get" <eq name="addons_config.actControl" value="0">disabled</eq> href="{:addons_url('Applist://Applist/turn_off')}" />关闭</a>
+			</div>	
+		</div>
+	</form>
+	<div class="col-md-3">
+		<br />
+		<div class="input-group input-medium pull-right search-form">
+			<input class="form-control search-input" name="sb_channel_search" value="{:I('sb_channel_search')}" placeholder="请输入渠道编号" type="text">
+			<span class="input-group-btn">
+				<button class="btn blue" type="button" id="search" url="{:U('Index/index')}"><i class="fa fa-search"></i></button>
+			</span>
+		</div>
 	</div>
-
+</div>
 
 
 <div class="col-md-12">
-	<table class="table table-advance table-bordered margin-top-10">
+	<table style="table-layout: fixed;" class="table table-advance table-bordered margin-top-10">
 		<tr class="bg-grey">
-			<th colspan="9">
+			<th colspan="8">
 				<i class="fa fa-cloud"></i>&nbsp;安装统计
 			</th>
 		</tr>
 		<tr class="bg-grey">
-			<th width="20">
-				<input onchange="Index.checkAll(this,'ids[]')" value="" type="checkbox">
-			</th>
-			<td width="50" class="text-center">编号</td>
-			<td width="70">渠道编号</td>
-			<td width="250">安装地址</td>
-			<td width="250">安装名称</td>
-			<td width="250">本地名称</td>
-			<td width="80">APK_ID</td>
-			<td width="100">添加时间</td>
+			<td class="text-center">编号</td>
+			<td>渠道编号</td>
+			<td>安装地址</td>
+			<td>安装名称</td>
+			<td>本地名称</td>
+			<td>APK_ID</td>
+			<td>添加时间</td>
 			<td>状态/时间</td>
 		</tr>
 		<notempty name="_list">
 			<volist name="_list" id="vo">
 				<tr>
-		            <th><input class="ids" type="checkbox" name="ids[]" value="{$vo.id}" /></th>
 					<th class="text-center"><span class="badge badge-error">{$vo.id}</span></th>
 					<td><span class="badge badge-info">{$vo.sb_channel}</span></td>
-					<td><span class="badge badge-info">{$vo.pakurl}</span></td>
-					<td><span class="badge badge-warning">{$vo.pname}</span></td>
+					<td>{$vo.pakurl}</td>
+					<td>{$vo.pname}</td>
 					<td><span class="badge badge-warning">{$vo.localname}</span></td>
 					<td><span class="badge badge-info">{$vo.apkid}</span></td>
 					<td><span class="badge badge-success">{$vo.addtime|time_format}</span></td>

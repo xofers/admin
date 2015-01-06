@@ -25,7 +25,7 @@
 
 <block name="content">
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-4">
 			<a href="{:U('Config/add')}" class="btn green">
 				<i class="fa fa-plus"> 新增</i>
   			</a>
@@ -44,9 +44,9 @@
 				</ul>
 			</div>
 		</div>
-		<div class="col-md-6">
-			<div class="input-group input-medium pull-right search-form">
-				<input class="form-control search-input" name="name" value="{:I('name')}" placeholder="请输入配置名称" type="text">
+		<div class="col-md-8">
+			<div class="input-group input-medium search-form pull-right">
+				<input class="form-control input-small pull-right input-search" name="name" value="{:I('name')}" placeholder="请输入配置名称" type="text">
 				<span class="input-group-btn">
 					<button class="btn blue" type="button" id="search" url="{:U('config/index')}"><i class="fa fa-search"></i></button>
 				</span>
@@ -131,7 +131,7 @@
 		window.location.href = url;
 	});
 	//回车搜索
-	$(".search-input").keyup(function(e){
+	$(".input-search").keyup(function(e){
 		if(e.keyCode === 13){
 			$("#search").click();
 			return false;

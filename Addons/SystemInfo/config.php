@@ -13,16 +13,6 @@ return array(
 		'type'=>'text',		 //表单的类型：text、textarea、checkbox、radio、select等
 		'value'=>'系统信息',			 //表单的默认值
 	),
-	'width'=>array(
-		'title'=>'显示宽度:',
-		'type'=>'select',
-		'options'=>array(
-			'1'=>'1格',
-			'2'=>'2格',
-			'4'=>'4格'
-		),
-		'value'=>'2'
-	),
 	'display'=>array(
 		'title'=>'是否显示:',
 		'type'=>'radio',

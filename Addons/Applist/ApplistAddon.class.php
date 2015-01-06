@@ -67,7 +67,7 @@ SQL;
 		        $request    =   (array)I('request.');
 		        $total      =   $list? count($list) : 1 ;
 		        $listRows   =   C('LIST_ROWS') > 0 ? C('LIST_ROWS') : 10;
-				$page       = new \Think\Lpage($total,$listRows,$request);
+				$page       =   new \Think\Lpage($total,$listRows,$request);
 		        $voList     =   array_slice($list, $page->firstRow, $page->listRows);
 				$p 			=   $page->show();
 		        $this->assign('_list', $voList);

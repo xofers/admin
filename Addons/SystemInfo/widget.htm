@@ -1,0 +1,86 @@
+<php>
+	$colorArr = array('info','important','success','warning','danger');
+</php>
+<div class="col-md-6">
+	<div class="portlet">
+		<div class="portlet-body">
+			<div class="table-responsive">
+				<table class="table table-advance table-bordered">
+					<tr class="bg-grey">
+						<th colspan="10">
+							<i class="fa fa-windows color-white"></i>&nbsp;{$addons_config.title}
+						</th>
+					</tr>
+					<tr>
+						<td width="25%" class="highlight">
+							<div class="<php>echo $colorArr[array_rand($colorArr,1)];</php>"></div>&emsp;操作系统
+						</td>
+						<td width="25%">
+							<span class="badge badge-success">{$Think.const.PHP_OS}</span>
+						</td>
+						<td width="25%" class="highlight">
+							<div class="<php>echo $colorArr[array_rand($colorArr,1)];</php>"></div>&emsp;运行环境
+						</td>
+						<td width="25%">
+							<span class="badge badge-success">{$_SERVER['SERVER_SOFTWARE']}</span>
+						</td>
+					</tr>
+					<tr>
+						<td width="25%" class="highlight">
+							<div class="<php>echo $colorArr[array_rand($colorArr,1)];</php>"></div>&emsp;ThinkPHP版本
+						</td>
+						<td width="25%">
+							<span class="badge badge-success">{$Think.VERSION}</span>
+						</td>
+						<td width="25%" class="highlight">
+							<div class="<php>echo $colorArr[array_rand($colorArr,1)];</php>"></div>&emsp;MYSQL版本
+						</td>
+						<td width="25%">
+							<php>
+								$system_info_mysql = M()->query("select version() as v;");
+							</php>
+							<span class="badge badge-success">{$system_info_mysql.0.v}</span>
+						</td>
+					</tr>
+					<tr>
+						<td width="25%" class="highlight">
+							<div class="<php>echo $colorArr[array_rand($colorArr,1)];</php>"></div>&emsp;上传限制
+						</td>
+						<td width="25%">
+							<span class="badge badge-success">{:ini_get('upload_max_filesize')}</span>
+						</td>
+						<td width="25%" class="highlight">
+							<div class="<php>echo $colorArr[array_rand($colorArr,1)];</php>"></div>&emsp;CURL支持
+						</td>
+						<td width="25%">
+							<span class="badge badge-success"><if condition="extension_loaded(curl) eq 1">支持</if></span>
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="25%" class="highlight">
+							<div class="<php>echo $colorArr[array_rand($colorArr,1)];</php>"></div>&emsp;Mcrypt加密函数库
+						</td>
+						<td width="25%">
+							<if condition="extension_loaded(mcrypt) eq 1">
+								<span class="badge badge-success">支持</span>
+							<else />
+								<span class="badge badge-error">不支持</span>
+							</if>
+						</td>
+						<td width="25%" class="highlight">
+							<div class="<php>echo $colorArr[array_rand($colorArr,1)];</php>"></div>&emsp;MySQLi函数库
+						</td>
+						<td width="25%">
+							<if condition="extension_loaded(mysqli) eq 1">
+								<span class="badge badge-success">支持</span>
+							<else />
+								<span class="badge badge-error">不支持</span>
+							</if>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

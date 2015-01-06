@@ -1,0 +1,72 @@
+<php>
+	$colorArr = array('info','important','success','warning','danger');
+</php>
+<div class="col-md-6">
+	<div class="portlet">
+		<div class="portlet-body">
+			<div class="table-responsive">
+				<table class="table table-advance table-bordered">
+					<tr class="bg-grey">
+						<th colspan="10">
+							<i class="fa fa-windows color-white"></i>&nbsp;{$addons_config.title}
+						</th>
+					</tr>
+					<tr>
+						<td width="25%" class="highlight">
+							<div class="<php>echo $colorArr[array_rand($colorArr,1)];</php>"></div>&emsp;总设计
+						</td>
+						<td width="25%">
+							<span class="badge badge-info">游川江</span>
+						</td>
+						<td width="25%" class="highlight">
+							<div class="<php>echo $colorArr[array_rand($colorArr,1)];</php>"></div>&emsp;产品设计及研发团队
+						</td>
+						<td width="25%">
+							<span class="badge badge-info">游川江 杨杰</span>
+						</td>
+					</tr>
+					<tr>
+						<td width="25%" class="highlight">
+							<div class="<php>echo $colorArr[array_rand($colorArr,1)];</php>"></div>&emsp;官方网址
+						</td>
+						<td width="25%">
+							<a class="badge badge-success" href="http://www.9vh.net" target="_blank">成都灿星科技有限公司</a>
+						</td>
+						<td width="25%" class="highlight">
+							<div class="<php>echo $colorArr[array_rand($colorArr,1)];</php>"></div>&emsp;MYSQL版本
+						</td>
+						<td width="25%">
+							<php>
+								$system_info_mysql = M()->query("select version() as v;");
+							</php>
+							<span class="badge badge-success">{$system_info_mysql.0.v}</span>
+						</td>
+					</tr>
+					<tr>
+						<td width="25%" class="highlight">
+							<div class="<php>echo $colorArr[array_rand($colorArr,1)];</php>"></div>&emsp;官方QQ群
+						</td>
+						<td width="25%">
+							<a target="_blank" href="http://wp.qq.com/wpa/qunwpa?idkey=14ba57a5273cc820d298cc394227276b22177217e413dfe658aa3d3b34c119e0">
+								<img border="0" height="19" src="http://pub.idqqimg.com/wpa/images/group.png" alt="咨询交流" title="咨询交流">
+							</a>
+						</td>
+						<td width="25%" class="highlight">
+							<div class="<php>echo $colorArr[array_rand($colorArr,1)];</php>"></div>&emsp;BUG反馈
+						</td>
+						<td width="25%">
+							<span class="badge badge-warning">建设中...</span>
+						</td>
+					</tr>
+					
+					<tr>
+						<td class="highlight text-center" colspan="4">
+							<div class="<php>echo $colorArr[array_rand($colorArr,1)];</php>"></div>&emsp;
+							路要一步一步走，饭要一口一口吃!
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

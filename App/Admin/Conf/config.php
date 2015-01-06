@@ -18,18 +18,8 @@ return array(
     ),
     
 	/* SESSION 和 COOKIE 配置 */
-    'SESSION_PREFIX' => 'max_admin', //session前缀
-    'COOKIE_PREFIX'  => 'max_admin_', // Cookie前缀 避免冲突
-
-//  /*Auth权限设置*/
-//  'AUTH_CONFIG'       => array(
-//      'AUTH_ON'           => true, // 认证开关
-//      'AUTH_TYPE'         => 1, // 认证方式，1为实时认证；2为登录认证。
-//      'AUTH_GROUP'        => 'car_auth_group', // 用户组数据表名
-//      'AUTH_GROUP_ACCESS' => 'car_auth_group_access', // 用户-用户组关系表
-//      'AUTH_RULE'         => 'car_auth_rule', // 权限规则表
-//      'AUTH_USER'         => 'car_admin_user', // 用户信息表
-//  ),
+    'SESSION_PREFIX' => 'max_admin_session', // session前缀
+    'COOKIE_PREFIX'  => 'max_admin_cookie', // Cookie前缀 避免冲突
     
 //  /* 模板引擎设置 */
 //  'TMPL_ACTION_ERROR'     =>  './App/Admin/View/default/Public/error.htm', // 默认错误跳转对应的模板文件
