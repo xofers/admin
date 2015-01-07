@@ -8,6 +8,9 @@
 			border: none;
 			border-bottom: 1px solid #DDD;
 		}
+		.level2{padding-left: 40px; background: url(__IMG__/tab_sign.png) no-repeat; }
+		.level3{padding-left: 80px; background: url(__IMG__/tab_sign.png) 40px 0px no-repeat; }
+		.level4{padding-left: 120px; background: url(__IMG__/tab_sign.png) 80px 0px no-repeat; }
 	</style>
 </block>
 
@@ -42,8 +45,9 @@
 				<tr class="bg-grey">
 					<td width="100">排序</td>
 					<td width="100">发布</td>
-					<td width="400">名称</td>
-					<td></td>
+					<td width="100">上级分类</td>
+					<td>名称</td>
+					<td width="150">&nbsp;</td>
 					<td width="240"></td>
 				</tr>
 				{:R('Category/tree', array($tree))}
@@ -53,4 +57,34 @@
 </block>
 
 <block name="script">
+<script type="text/javascript">
+	$(function(){
+		/* 实时更新分类信息 */
+		$(".table").on("submit", "form", function(){
+			var self = $(this);
+			$.post(
+				self.attr("action"),
+				self.serialize(),
+				function(data){
+					/* 提示信息 */
+					var name = data.status ? "badge-success" : "badge-error";
+					self.parent("tr").find(".ajax-label").html("<span class='badge "+name+"'>"+data.info+"</span>");
+					setTimeout(function(){
+						self.parent("tr").find(".ajax-label .badge").fadeOut(function(){});
+					}, 1000);
+				},
+				"json"
+			);
+			return false;
+		})
+        .on("focus","input",function(){
+            $(this).data('param',$(this).val());
+        })
+        .on("blur", "input", function(){
+            if($(this).data('param')!=$(this).val()){
+                $(this).parents("tr").find("form").submit();	
+            }
+        });
+	})
+</script>
 </block>

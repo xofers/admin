@@ -3,21 +3,29 @@
 	<form action="{:U('edit')}" method="post">
 		<td><input type="text" name="sort" class="form-control input-xsmall" style="padding: 2px 4px; height: 22px;" value="{$list.sort}"></td>
 		<td>{$list['allow_publish']?'<span class="badge badge-success">是</span>':'<span class="badge badge-important">否</span>'}</td>
+		<td><span class="badge badge-success"><eq name="list['pid']" value="0">根分类<else />{:get_category_title($list['pid'])}</eq></span></td>
 		<td>
 			<input type="hidden" name="id" value="{$list.id}">
-			<div class="input-group">
+			<php>
+				$level = get_category_level($list['id']);
+			</php>
+			<div class="input-group <php>echo 'level'.$level;</php>">
 				<input type="text" name="title" class="form-control" style="padding: 2px 4px; height: 22px;" value="{$list.title}">
-				<span class="input-group-btn" style="padding: 0px 1px;">
-					<button class="btn blue" onclick='location.href="{:U('add?pid='.$list['id'])}"' type="button" style="padding: 1px 5px;">
-						<i class="fa fa-plus"></i>
-					</button>
+				<span style="padding: 0px 1px;" 
+				<php>
+					if($level==4){
+						echo 'class="input-group-btn tooltips" data-placement="left" data-original-title="该分类已经不能再添加下级分类了">';
+					}else{
+						echo 'class="input-group-btn">';
+					}
+				</php>
+				<button <php>if($level==4){echo 'class="btn red" disabled';}else{echo 'class="btn blue"';}</php> onclick='location.href="{:U('add?pid='.$list['id'])}"' type="button" style="padding: 1px 5px;">
+					<i class="fa fa-plus"></i>
+				</button>
 				</span>
 			</div>
-			<!--<a class="add-sub-cate" title="添加子分类" href="">
-				<i class="fa fa-add"></i>
-			</a>-->
 		</td>
-		<td class="submit-info"></td>
+		<td class="ajax-label"></td>
 		<td>
 			<a class="badge badge-success" href="{:U('edit?id='.$list['id'].'&pid='.$list['pid'])}">编辑</a>
 			<a class="badge <if condition='$list.status == 0'>badge-warning<else />badge-error</if> ajax-get" href="{:U('setStatus?ids='.$list['id'].'&status='.abs(1-$list['status']))}">

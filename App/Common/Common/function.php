@@ -415,7 +415,7 @@ function get_username($uid = 0){
 function get_nickname($uid = 0){
     static $list;
     if(!($uid && is_numeric($uid))){ //获取当前登录用户名
-        return session('user_auth.username');
+        return session('user_auth.nickname');
     }
 
     /* 获取缓存数据 */
@@ -485,6 +485,21 @@ function get_category_name($id){
 /* 根据ID获取分类名称 */
 function get_category_title($id){
     return get_category($id, 'title');
+}
+
+/* 根据ID获取分类父级PID */
+function get_category_pid($id){
+    return get_category($id, 'pid');
+}
+
+/* 根据ID获取分类层级 */
+function get_category_level($id){
+	for($i=1;$i<5;$i++){
+		$id = get_category_pid($id);
+		if($id == 0){
+			return $i;
+		}
+	}
 }
 
 /**
