@@ -33,13 +33,10 @@
 							<a class="badge badge-success" href="http://www.9vh.net" target="_blank">成都灿星科技有限公司</a>
 						</td>
 						<td width="25%" class="highlight">
-							<div class="<php>echo $colorArr[array_rand($colorArr,1)];</php>"></div>&emsp;MYSQL版本
+							<div class="<php>echo $colorArr[array_rand($colorArr,1)];</php>"></div>&emsp;BUG反馈
 						</td>
 						<td width="25%">
-							<php>
-								$system_info_mysql = M()->query("select version() as v;");
-							</php>
-							<span class="badge badge-success">{$system_info_mysql.0.v}</span>
+							<span class="badge badge-warning">建设中...</span>
 						</td>
 					</tr>
 					<tr>
@@ -52,10 +49,10 @@
 							</a>
 						</td>
 						<td width="25%" class="highlight">
-							<div class="<php>echo $colorArr[array_rand($colorArr,1)];</php>"></div>&emsp;BUG反馈
+							<div class="<php>echo $colorArr[array_rand($colorArr,1)];</php>"></div>&emsp;联系方式
 						</td>
 						<td width="25%">
-							<span class="badge badge-warning">建设中...</span>
+							<img style="CURSOR: pointer; height: 19px;" onclick="javascript:window.open('tencent://message/?uin=1518140867&Site=qq&Menu=yes', '_blank');" border="0" src="http://wpa.qq.com/pa?p=1:1518140867:3" />
 						</td>
 					</tr>
 					

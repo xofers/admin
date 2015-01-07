@@ -55,8 +55,8 @@
 								<td>{$vo.title}</td>
 								<td><span class="badge badge-important">{$vo.name}</span></td>
 								<td>{$vo.description}</td>
-								<td><span class="badge <eq name='vo.status_text' value='启用'>badge-success<else />badge-error</eq>">{$vo.status_text|default="未安装"}</span></td>
-								<td><a class="badge badge-info" <neq name='vo.url' value=''>target="_blank"</neq> href="{$vo.url|default='javascript:void(0);'}">{$vo.author}</a></td>
+								<td><span class="badge <present name='vo.status_text'>badge-success<else />badge-error</present>">{$vo.status_text|default="未安装"}</span></td>
+								<td><a class="badge badge-info" <notpresent name='vo.url'>target="_blank"</notpresent> href="{$vo.url|default='javascript:void(0);'}">{$vo.author}</a></td>
 								<td><span class="badge badge-warning">{$vo.version}</span></td>
 								<td>
 									<empty name="vo.uninstall">

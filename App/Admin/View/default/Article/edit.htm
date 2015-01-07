@@ -1,0 +1,209 @@
+<extend name="Public:base" />
+
+<block name="style">
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/css/plugins.css"/>
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.css"/>
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/plugins/bootstrap-icheck/skins/all.css" />
+<link rel="stylesheet" type="text/css" href="__STATIC__/datetimepicker/css/datetimepicker.css" />
+<php>if(C('COLOR_STYLE')=='blue_color') echo '<link href="__STATIC__/datetimepicker/css/datetimepicker_blue.css" rel="stylesheet" type="text/css">';</php>
+<!--<link rel="stylesheet" type="text/css" href="__STATIC__/datetimepicker/css/dropdown.css" />
+时间选择器冲突
+-->
+<style>
+[class^="icon-"], [class*=" icon-"] {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-top: 1px;
+    line-height: 14px;
+    vertical-align: text-top;
+    background-image: url("__STATIC__/datetimepicker/img/glyphicons-halflings.png");
+    background-position: 14px 14px;
+    background-repeat: no-repeat;
+}
+.icon-arrow-right {
+	background-position: -264px -96px;
+}
+.icon-arrow-left {
+    background-position: -240px -96px;
+}
+textarea{
+	resize: none;	
+}
+</style>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="tabbable tabbable-custom boxless tabbable-reversed">
+				<ul class="nav nav-tabs">
+					<volist name=":parse_config_attr($model['field_group'])" id="group">
+						<li data-tab="tab{$key}" <eq name="key" value="1">class="active"</eq>><a href="javascript:void(0);">{$group}</a></li>
+					</volist>
+				</ul>
+				<div class="tab-content">
+					<!-- 表单 -->
+					<form action="{:U('update')}" method="post" class="horizontal-form">
+						<!-- 基础文档模型 -->
+						<volist name=":parse_config_attr($model['field_group'])" id="group">
+							<div class="tab-pane <eq name="key" value="1">active<else />hidden</eq>">
+								<div class="portlet box light-grey">
+									<div class="portlet-title">
+										<i class="fa fa-edit"></i> 修改文章
+									</div>
+									<div class="portlet-body form">
+										<div class="form-body">
+											<div class="row">
+												<volist name="fields[$key]" id="field">
+									                <if condition="$field['is_show'] == 1 || $field['is_show'] == 3">
+									                	<if condition="$field.type eq editor">
+										                <div class="col-md-12">
+										                <else />
+										                <div class="col-md-6">
+									                	</if>
+									                	<div class="form-group">
+									                		
+										                    <label class="control-label">{$field['title']}<span class="check-tips"><notempty name="field['remark']">（{$field['remark']}）</notempty></span></label>
+										                    <div class="controls">
+										                        <switch name="field.type">
+										                            <case value="num">
+										                                <input type="text" class="form-control input-small" name="{$field.name}" value="{$data[$field['name']]}">
+										                            </case>
+										                            <case value="string">
+										                                <input type="text" class="form-control input-large" name="{$field.name}" value="{$data[$field['name']]}">
+										                            </case>
+										                            <case value="textarea">
+										                                <textarea class="form-control" name="{$field.name}">{$data[$field['name']]}</textarea>
+										                            </case>
+										                            <case value="date">
+										                            	<div class="input-group">
+																			<span class="input-group-addon">
+																				<i class="fa fa-calendar"></i>
+																			</span>
+											                                <input type="text" name="{$field.name}" class="form-control date input-large" value="{$data[$field['name']]|date='Y-m-d',###}" placeholder="请选择日期" />
+																		</div>
+										                            </case>
+										                            <case value="datetime">
+										                            	<div class="input-group">
+																			<span class="input-group-addon">
+																				<i class="fa fa-calendar"></i>
+																			</span>
+										                                	<input type="text" name="{$field.name}" class="form-control time input-large" value="{$data[$field['name']]|time_format}" placeholder="请选择时间" />
+																		</div>
+										                            </case>
+										                            <case value="bool">
+										                                <select name="{$field.name}" style="display: none;" class="bs-select form-control input-small" data-style="blue">
+										                                    <volist name=":parse_field_attr($field['extra'])" id="vo">
+										                                        <option value="{$key}" <eq name="data[$field['name']]" value="$key">selected</eq>>{$vo}</option>
+										                                    </volist>
+										                                </select>
+										                            </case>
+										                            <case value="select">
+										                                <select name="{$field.name}" style="display: none;" class="bs-select form-control input-small" data-style="blue">
+										                                    <volist name=":parse_field_attr($field['extra'])" id="vo">
+										                                        <option value="{$key}" <eq name="data[$field['name']]" value="$key">selected</eq>>{$vo}</option>
+										                                    </volist>
+										                                </select>
+										                            </case>
+										                            <case value="radio">
+										                                <volist name=":parse_field_attr($field['extra'])" id="vo">
+										                                    <input type="radio" value="{$key}" name="{$field.name}" <eq name="data[$field['name']]" value="$key">checked="checked"</eq>>{$vo}
+										                                </volist>
+										                            </case>
+										                            <case value="checkbox">
+										                                <volist name=":parse_field_attr($field['extra'])" id="vo">
+										                                    <input type="checkbox" value="{$key}" name="{$field.name}[]" <if condition="check_document_position($data[$field['name']],$key)">checked="checked"</if>>{$vo}
+										                                </volist>
+										                            </case>
+										                            <case value="editor">
+										                                <textarea  name="{$field.name}">{$data[$field['name']]}</textarea>
+										                                {:hook('adminArticleEdit', array('name'=>$field['name'],'value'=>$data[$field['name']]))}
+										                            </case>
+										                            <default/>
+										                            <input type="text" class="form-control input-large" name="{$field.name}" value="{$data[$field['name']]}">
+										                        </switch>
+										                    </div>
+									                	</div>
+										                </div>
+									                </if>
+									            </volist>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+				        </volist>
+						
+						<div class="col-md-12">
+							<button class="btn green ajax-post hidden" type="submit" target-form="horizontal-form">确 定</button>
+							<a class="btn blue" href="{$Think.cookie.__forward__}">返 回</a>
+							<if condition="C('OPEN_DRAFTBOX') and (ACTION_NAME eq 'add' or $data['status'] eq 3)">
+							<button class="btn save-btn" url="{:U('article/autoSave')}" target-form="horizontal-form" id="autoSave">
+								存草稿
+							</button>
+							</if>
+							<input type="hidden" name="id" value="{$data.id|default=''}"/>
+							<input type="hidden" name="pid" value="{$data.pid|default=''}"/>
+							<input type="hidden" name="model_id" value="{$data.model_id|default=''}"/>
+							<input type="hidden" name="group_id" value="{$data.group_id|default=''}"/>
+							<input type="hidden" name="category_id" value="{$data.category_id|default=''}">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+<script type="text/javascript" src="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="__SCRIPTS__/metroinc/scripts/custom/bootstrapSelect.js"></script>
+<script type="text/javascript" src="__SCRIPTS__/metroinc/plugins/bootstrap-icheck/icheck.js"></script>
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script>
+Index.setValue("type", {$data.type|default='""'});
+Index.setValue("display", {$data.display|default=0});
+
+
+$(function(){
+	BootstrapSelect.init();
+	$('input[type="checkbox"],input[type="radio"]').iCheck({
+		checkboxClass: 'icheckbox_polaris',
+		radioClass: 'iradio_polaris'
+	});
+	$('.date').datetimepicker({
+        format: 'yyyy-mm-dd',
+        language:"zh-CN",
+        minView:2,
+        autoclose:true
+    });
+    $('.time').datetimepicker({
+        format: 'yyyy-mm-dd hh:ii:ss',
+        language:"zh-CN",
+        minView:2,
+        autoclose:true
+    });
+})
+$(".nav-tabs a").click(function(){
+	$(this).parent().siblings().removeClass("active");
+	$(this).parent().addClass("active");
+	var index = $(".nav-tabs a").index($(this));
+	$(".tab-pane").removeClass("active").addClass("hidden");
+	$(".tab-pane").eq(index).removeClass("hidden").addClass("active");
+})
+</script>
+</block>
