@@ -124,7 +124,7 @@ class ModelController extends AdminController {
      */
     public function update(){
         $res = D('Model')->update();
-
+		
         if(!$res){
             $this->error(D('Model')->getError());
         }else{

@@ -1,0 +1,116 @@
+<extend name="Public:base" />
+
+<block name="style">
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/css/plugins.css"/>
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.css"/>
+<style>
+	textarea{
+		resize: none;	
+	}
+</style>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="tab-content">
+				<div class="tab-pane active">
+					<div class="portlet box light-grey">
+						<div class="portlet-title">
+							<i class="fa fa-plus"></i> 新增模型
+						</div>
+						<div class="portlet-body form">
+							<form class="horizontal-form" action="{:U('update')}" method="post">
+								<div class="form-body">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">模型标识<span class="check-tips">（请输入文档模型标识）</span></label>
+												<div class="controls">
+													<input type="text" class="form-control input-xlarge" name="name" value="">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">模型名称<span class="check-tips">（请输入模型的名称）</span></label>
+												<div class="controls">
+													<input type="text" class="form-control input-xlarge" name="title" value="">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">模型类型<span class="check-tips">（目前只支持独立模型和文档模型）</span></label>
+												<div class="controls">
+													<select name="extend" style="display: none;" class="bs-select form-control input-small" data-style="blue">
+														<option value="0">独立模型</option>
+														<option value="1">文档模型</option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">引擎类型<span class="check-tips">（所属的上级菜单）</span></label>
+												<div class="controls">
+									                <select name="engine_type" style="display: none;" class="bs-select form-control input-small" data-style="blue">
+														<option value="MyISAM">MyISAM</option>
+														<option value="InnoDB">InnoDB</option>
+						                                <option value="MEMORY">MEMORY</option>
+						                                <option value="BLACKHOLE">BLACKHOLE</option>
+						                                <option value="MRG_MYISAM">MRG_MYISAM</option>
+						                                <option value="ARCHIVE">ARCHIVE</option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">是否需要主键<span class="check-tips">（选“是”则会新建默认的id字段作为主键）</span></label>
+												<div class="controls">
+													<select style="display: none;" class="bs-select form-control input-small" data-style="blue">
+														<option value="1" selected="selected">是</option>
+														<option value="0">否</option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="form-group">
+												<button class="btn green ajax-post" type="submit" target-form="horizontal-form">确 定</button>
+												<button class="btn blue" onclick="javascript:history.back(-1);return false;">返 回</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+<script type="text/javascript" src="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="__SCRIPTS__/metroinc/scripts/custom/bootstrapSelect.js"></script>
+<script>
+$(function(){
+	BootstrapSelect.init();
+})
+</script>
+</block>

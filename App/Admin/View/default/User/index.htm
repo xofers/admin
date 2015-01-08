@@ -55,19 +55,19 @@
 						<input onchange="Index.checkAll(this,'id[]')" value="" type="checkbox">
 					</th>
 					<td width="50" class="text-center">UID</td>
-					<td>昵称</td>
+					<td width="200">昵称</td>
 					<td width="80">积分</td>
 					<td width="100">登录次数</td>
 					<td width="150">最后登录时间</td>
 					<td width="150">最后登录IP</td>
-					<td width="100">状态</td>
-					<td width="200">操作</td>
+					<td>状态</td>
+					<td width="155">操作</td>
 				</tr>
 				<notempty name="_list">
 					<volist name="_list" id="vo">
 						<tr>
-				            <td><input class="ids" type="checkbox" name="id[]" value="{$vo.uid}" /></td>
-							<td class="text-center"><span class="badge badge-important">{$vo.uid}</span></td>
+				            <th><input class="ids" type="checkbox" name="id[]" value="{$vo.uid}" /></th>
+							<th class="text-center"><span class="badge badge-important">{$vo.uid}</span></th>
 							<td>{$vo.nickname}</td>
 							<td><span class="badge badge-info">{$vo.score}</span></td>
 							<td><span class="badge badge-info">{$vo.login}</span></td>
@@ -86,8 +86,8 @@
 								<else/>
 									<a href="{:U('User/changeStatus',array('method'=>'resumeUser','id'=>$vo['uid']))}" ajax-confirm="你确定要启用该用户嘛?" class="ajax-get badge badge-success">启用</a>&nbsp
 								</eq>
-									<a href="{:U('AuthManager/group?uid='.$vo['uid'])}" class="authorize badge badge-primary">授权</a>&nbsp
-				                	<a href="{:U('User/changeStatus',array('method'=>'deleteUser','id'=>$vo['uid']))}" ajax-confirm="你确定要删除该用户嘛?" class="ajax-get badge badge-error">删除</a>&nbsp;
+								<a href="{:U('AuthManager/group?uid='.$vo['uid'])}" class="authorize badge badge-primary">授权</a>&nbsp
+			                	<a href="{:U('User/changeStatus',array('method'=>'deleteUser','id'=>$vo['uid']))}" ajax-confirm="你确定要删除该用户嘛?" class="ajax-get badge badge-error">删除</a>&nbsp;
 							</td>
 						</tr>
 					</volist>
