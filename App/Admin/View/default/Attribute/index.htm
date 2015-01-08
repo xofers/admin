@@ -1,0 +1,75 @@
+<extend name="Public:base" />
+
+<block name="style">
+	<style>
+		.table-bordered > thead > tr > td,
+		.table-bordered > tbody > tr > td,
+		.table-bordered > tfoot > tr > td {
+			border: none;
+			border-bottom: 1px solid #DDD;
+		}
+	</style>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-12">
+			<a href="{:U('Attribute/add?model_id='.$model_id)}" class="btn green"><i class="fa fa-plus"> 新增</i></a>
+			<a href="javascript:void(0);" class="btn yellow">[{:get_model_by_id($model_id)}] 属性列表(不含继承属性)</a>
+		</div>
+		<div class="col-md-12">
+			<form class="config-form" action="{:U('Config/del')}"  method="post">
+				<table class="table table-advance table-bordered margin-top-10">
+					<tr class="bg-grey">
+						<th colspan="7">
+							<i class="fa fa-puzzle-piece"></i>&nbsp;属性列表
+						</th>
+					</tr>
+					<tr class="bg-grey">
+						<th width="20"><input onchange="Index.checkAll(this,'id[]')" value="" type="checkbox"></th>
+						<td width="60" class="text-center">编号</td>
+						<td width="250">字段</td>
+						<td width="250">名称</td>
+						<td>数据类型</td>
+						<td width="150">操作</td>
+					</tr>
+					<notempty name="_list">
+						<volist name="_list" id="vo">
+							<tr>
+					            <th><input class="ids" type="checkbox" name="id[]" value="{$vo.id}" /></th>
+								<th class="text-center"><span class="badge badge-error">{$vo.id}</span></th>
+								<td><span class="badge badge-info">{$vo.name}</span></td>
+								<td><a class="badge badge-success" href="{:U('Attribute/edit?id='.$vo['id'])}">{$vo.title}</a></td>
+								<td><span class="badge badge-warning">{:get_attribute_type($vo['type'])}</span></td>
+								<td>
+									<a class="badge badge-success" href="{:U('Attribute/edit?id='.$vo['id'])}">编辑</a>
+									<a class="badge badge-error ajax-get" href="{:U('Attribute/remove?id='.$vo['id'])}">删除</a>
+					            </td>
+							</tr>
+						</volist>
+					<else/>
+						<td colspan="6" class="text-center"> aOh! 暂时还没有内容! </td>
+					</notempty>
+				</table>
+			    <div class="page">
+			        {$_page}
+			    </div>
+			</form>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+</block>

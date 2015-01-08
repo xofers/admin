@@ -33,7 +33,7 @@
 					<li><a href="javascript:;">高级</a></li>
 				</ul>
 				<div class="tab-content">
-					<form action="{:U('update')}" method="post" class="horizontal-form doc-modal-form">
+					<form action="{:U('update')}" method="post" class="horizontal-form">
 						<div class="tab-pane active">
 							<div class="row">
 								<div class="col-md-6">
@@ -93,7 +93,6 @@
 									<div class="form-group">
 										<label class="control-label">表单显示排序<span class="check-tips">（直接拖动进行排序）</span></label>
 										<div class="control">
-											<input type="hidden" name="field_sort" value='{$info.field_sort}' />
 											<volist name=":parse_field_attr($info['field_group'])" id="vo" mod="2">
 												<div class="col-md-6" <eq name="mod" value="1">style="padding-right:0px;"<else />style="padding-left:0px;"</eq>>
 													<div class="portlet box light-grey">
@@ -107,7 +106,7 @@
 																		<if condition="(($field['group'] eq $key) or($i eq 1 and !isset($field['group']))) and ($field['is_show'] eq 1)">
 																			<li class="dd-item" data-mes="{$field['id']}" data-group= "{$key}">
 																				<div class="dd-handle">
-																					{$field['title']} [{$field['name']}]
+																					{$field['title']} [{$field['name']}]<input class="field-sort-val" type="hidden" name="field_sort[{$key}][]" value="{$field['id']}"/>
 																				</div>
 																			</li>
 																		</if>
@@ -167,7 +166,7 @@
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
-										<label class="control-label">列表模板<span class="check-tips">（自定义的列表模板，放在App\Admin\View\Think下，不写则使用默认模板）</span></span></label>
+										<label class="control-label">列表模板<span class="check-tips">（自定义的列表模板，放在App\Admin\View\Think下，不写则使用默认模板）</span></label>
 										<div class="control">
 											<input type="text" class="form-control" name="template_list" value="{$info.template_list}">
 										</div>
@@ -219,20 +218,16 @@
 Index.setValue("extend", {$info.extend|default=0});
 $(function(){
 	BootstrapSelect.init();
-	$('.field-sort').nestable({group:1}).on('change', function(e){
-		var list = e.length ? e : $(e.target);
+	$('.field-sort').nestable().on('change', function(e){
         if (window.JSON) {
-        	var index;
-        	var field_sort = eval("("+$("input[name='field_sort']").val()+")");
-			var obj_json =  eval(window.JSON.stringify(list.nestable('serialize')));
-			var obj_length = obj_json.length;
-			var sortVal = [];
-			for(var i=0;i<obj_length;i++){
-				index = obj_json[i].group;
-				sortVal.push(obj_json[i].mes.toString());
-			}
-			field_sort[index] = sortVal;
-			$("input[name='field_sort']").val(window.JSON.stringify(field_sort).toString());
+        	var data = [];
+        	$(".field-sort").each(function(index,element){
+        		data = $.merge(data,$(element).nestable('serialize'));
+        	})
+			var obj_json =  eval(window.JSON.stringify(data));
+			$(".field-sort-val").each(function(index,element){
+				$(element).val(obj_json[index].mes.toString());
+			})
         } else {
         	Message.error({message:"您的浏览器不支持JSON操作!您将不能排序插件!"});
         }

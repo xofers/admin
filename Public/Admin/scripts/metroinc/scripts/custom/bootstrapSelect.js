@@ -7,7 +7,6 @@ var BootstrapSelect = function () {
         });
     }
 
-
     return {
         init: function () {            
             handleBootstrapSelect();

@@ -1,0 +1,92 @@
+<extend name="Public:base" />
+
+<block name="style">
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/css/plugins.css"/>
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.css"/>
+<style>
+	textarea{
+		resize: none;	
+	}
+</style>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="tab-content">
+				<div class="tab-pane active">
+					<div class="portlet box light-grey">
+						<div class="portlet-title">
+							<i class="fa fa-bolt"></i> 生成模型
+						</div>
+						<div class="portlet-body form">
+							<form class="horizontal-form" action="{:U('generate')}" method="post">
+								<div class="form-body">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">数据表<span class="check-tips">（当前数据库的所有表）</span></label>
+												<div class="controls">
+													<select name="table" style="display: none;" class="bs-select form-control input-large" data-style="blue">
+														<volist name="tables" id="tb">
+															<option value="{$tb}">{$tb}</option>
+														</volist>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">模型标识<span class="check-tips">（模型英文标识）</span></label>
+												<div class="controls">
+													<input type="text" class="form-control input-xlarge" name="name" value="">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">模型名称<span class="check-tips">（模型名称）</span></label>
+												<div class="controls">
+													<input type="text" class="form-control input-xlarge" name="title" value="">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="form-group">
+												<input type="hidden" name="id" value="{$id}"/>
+												<button class="btn red ajax-post" type="submit" target-form="horizontal-form">生 成</button>
+												<button class="btn blue" onclick="javascript:history.back(-1);return false;">返 回</button>		
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+<script type="text/javascript" src="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="__SCRIPTS__/metroinc/scripts/custom/bootstrapSelect.js"></script>
+<script>
+$(function(){
+	BootstrapSelect.init();
+})
+</script>
+</block>

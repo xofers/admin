@@ -50,9 +50,9 @@
 							<a href="{:U('Attribute/index?model_id='.$info['id'])}" target="_balnk">管理</a> ] </span>
 							<ul class="dragsort">
 								<foreach name="fields" item="field" key="k">
-									<li >
-										<em ><input class="ids" type="checkbox" name="attribute_list[]" value="{$field['id']}" <if condition="in_array($field['id'],$info['attribute_list'])">checked="checked"</if> /> {$field['title']} [{$field['name']}]</em>
-									</li>
+										<li >
+											<em ><input class="ids" type="checkbox" name="attribute_list[]" value="{$field['id']}" <if condition="in_array($field['id'],$info['attribute_list'])">checked="checked"</if> /> {$field['title']} [{$field['name']}]</em>
+										</li>
 								</foreach>
 							</ul>
 						</div>

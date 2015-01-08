@@ -31,7 +31,7 @@ class ModelModel extends Model{
         array('create_time', NOW_TIME, self::MODEL_INSERT),
         array('update_time', NOW_TIME, self::MODEL_BOTH),
         array('status', '1', self::MODEL_INSERT, 'string'),
-//      array('field_sort', 'getFields', self::MODEL_BOTH, 'callback'),
+        array('field_sort', 'getFields', self::MODEL_BOTH, 'callback'),
         array('attribute_list', 'getAttribute', self::MODEL_BOTH, 'callback'),
     );
 
@@ -80,12 +80,12 @@ class ModelModel extends Model{
         return $data;
     }
 
-//  /**
-//   * 处理字段排序数据
-//   */
-//  protected function getFields($fields){
-//      return empty($fields) ? '' : json_encode($fields);
-//  }
+    /**
+     * 处理字段排序数据
+     */
+    protected function getFields($fields){
+        return empty($fields) ? '' : json_encode($fields);
+    }
 
     protected function getAttribute($fields) {
         return empty($fields) ? '' : implode(',', $fields);
