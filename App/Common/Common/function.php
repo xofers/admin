@@ -802,14 +802,13 @@ function get_model_attribute($model_id, $group = true,$fields=true){
     if(!isset($list[$model_id])){
         $map = array('model_id'=>$model_id);
         $extend = M('Model')->getFieldById($model_id,'extend');
-
         if($extend){
             $map = array('model_id'=> array("in", array($model_id, $extend)));
         }
         $info = M('Attribute')->where($map)->field($fields)->select();
+		print_r($info);
         $list[$model_id] = $info;
     }
-
     $attr = array();
     if($group){
         foreach ($list[$model_id] as $value) {

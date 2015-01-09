@@ -108,7 +108,7 @@
 <script>
 $(function(){
 	BootstrapSelect.init();
-	$('#nestable_list').nestable().on('change', function(e){
+	$('#nestable_list').nestable({maxDepth:1}).on('change', function(e){
         var list = e.length ? e : $(e.target);
         if (window.JSON) {
 			var obj_json =  eval(window.JSON.stringify(list.nestable('serialize')));

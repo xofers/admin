@@ -57,7 +57,7 @@
 												<div class="controls">
 													<select name="type" style="display: none;" class="bs-select form-control input-small" data-style="blue">
 														<volist name=":get_action_type(null,true)" id="vo">
-															<option value="{$key}" <eq name="data.type" value="$key">selected="selected"</eq>>{$vo}</option>
+															<option value="{$key}">{$vo}</option>
 														</volist>
 													</select>
 												</div>
@@ -103,6 +103,7 @@
 <script type="text/javascript" src="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.js"></script>
 <script type="text/javascript" src="__SCRIPTS__/metroinc/scripts/custom/bootstrapSelect.js"></script>
 <script>
+Index.setValue('type',{$data.type|default=1});
 $(function(){
 	BootstrapSelect.init();
 })

@@ -126,8 +126,8 @@ class ThinkController extends AdminController {
 
         //分页
         if($count > $row){
-            $page = new \Think\Page($count, $row);
-            $page->setConfig('theme','%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%');
+            $page = new \Think\Lpage($count, $row);
+//          $page->setConfig('theme','%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%');
             $this->assign('_page', $page->show());
         }
 
@@ -175,10 +175,16 @@ class ThinkController extends AdminController {
             $Model  =   D(parse_name(get_table_name($model['id']),1));
             // 获取模型的字段信息
             $Model  =   $this->checkAttr($Model,$model['id']);
+			
             if($Model->create() && $Model->save()){
                 $this->success('保存'.$model['title'].'成功！', U('lists?model='.$model['name']));
             } else {
-                $this->error($Model->getError());
+//          	if(I("name") ==""){
+//          		$this->error("标识不能为空!");
+//          	}else{
+//	                $this->error($Model->getError());
+//          	}
+				$this->error($Model->getError());
             }
         } else {
             $fields     = get_model_attribute($model['id']);
@@ -221,9 +227,12 @@ class ThinkController extends AdminController {
 
     protected function checkAttr($Model,$model_id){
         $fields     =   get_model_attribute($model_id,false);
+		die();
         $validate   =   $auto   =   array();
+		print_r($fields);
         foreach($fields as $key=>$attr){
             if($attr['is_must']){// 必填字段
+            	echo $key.'---';
                 $validate[]  =  array($attr['name'],'require',$attr['title'].'必须!');
             }
             // 自动验证规则
@@ -241,6 +250,7 @@ class ThinkController extends AdminController {
                 $auto[] =   array($attr['name'],'strtotime',3,'function');
             }
         }
+		die();
         return $Model->validate($validate)->auto($auto);
     }
 }

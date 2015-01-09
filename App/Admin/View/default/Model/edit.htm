@@ -47,9 +47,8 @@
 										<label class="control-label">模型类型<span class="check-tips">（目前只支持独立模型和文档模型）</span></label>
 										<div>
 											<select name="extend" style="display: none;" class="bs-select form-control input-small" data-style="blue">
-												<option value="1">所有人可见</option>
-												<option value="0">不可见</option>
-												<option value="2">管理员可见</option>
+												<option value="0">独立模型</option>
+												<option value="1">文档模型</option>
 											</select>
 										</div>
 									</div>
@@ -218,7 +217,7 @@
 Index.setValue("extend", {$info.extend|default=0});
 $(function(){
 	BootstrapSelect.init();
-	$('.field-sort').nestable().on('change', function(e){
+	$('.field-sort').nestable({maxDepth:1}).on('change', function(e){
         if (window.JSON) {
         	var data = [];
         	$(".field-sort").each(function(index,element){
