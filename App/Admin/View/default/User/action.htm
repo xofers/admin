@@ -30,7 +30,7 @@
 				<i class="fa fa-plus"> 新增</i>
   			</a>
   			<a href="{:U('setstatus?Model=Action&status=1')}" ajax-confirm="你确定要批量启用嘛?" class="btn blue ajax-post" target-form="ids">
-				<i class="fa fa-unlock"> 启用</i>
+				<i class="fa fa-check"> 启用</i>
 			</a>
 			<a href="{:U('setstatus?Model=Action&status=0')}" ajax-confirm="你确定要批量禁用嘛?" class="btn yellow ajax-post" target-form="ids">
 				<i class="fa fa-minus-circle"> 禁用</i>
@@ -68,7 +68,7 @@
 							<td><span <if condition='$vo.status eq 1'>class="badge badge-success"<else />class="badge badge-error"</if>>
 								{$vo.status_text}</span></td>
 							<td><a class="badge badge-success" href="{:U('User/editAction?id='.$vo['id'])}">编辑</a>
-								<a class="badge <if condition='$vo.status eq 1'>badge-error<else />badge-warning</if> ajax-get" href="{:U('User/setStatus?Model=action&ids='.$vo['id'].'&status='.abs(1-$vo['status']))}">{$vo.status|show_status_op}</a>
+								<a class="badge <if condition='$vo.status eq 1'>badge-warning<else />badge-info</if> ajax-get" href="{:U('User/setStatus?Model=action&ids='.$vo['id'].'&status='.abs(1-$vo['status']))}">{$vo.status|show_status_op}</a>
 								<a class="badge badge-error ajax-get" ajax-confirm="您确定要删除该项么？" href="{:U('User/setStatus?Model=action&status=-1&ids='.$vo['id'])}">删除</a>
 				                </td>
 						</tr>

@@ -40,6 +40,15 @@ return array(
 						'value'=>'',
 						'tip'=>'每个站点一个域名'
 					),
+					'cff'=>array(//配置在表单中的键名 ,这个会是config[random]
+						'title'=>'使用类型:',	 //表单的文字
+						'type'=>'picture_union',		 //表单的类型：text、textarea、checkbox、radio、select等
+						'options'=>array(		 //select 和radion、checkbox的子选项
+							'1'=>'有言',		 //值=>文字
+							'2'=>'多说',
+						),
+						'value'=>'1',			 //表单的默认值
+					),
 					'comment_form_pos_duoshuo'=>array(
 						'title'=>'表单位置:',
 						'type'=>'radio',

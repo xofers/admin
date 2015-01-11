@@ -66,7 +66,13 @@
                         <tr>
                             <th><input class="ids" type="checkbox" value="{$data['id']}" name="ids[]"></th>
                             <volist name="list_grids" id="grid">
-                                <td>{:get_list_field($data,$grid)}</td>
+                                <td>
+                                	<if condition='array_key_exists("href",$grid)'>
+	                            		{:get_list_field($data,$grid)}
+	                            	<else />
+	                            		<span class="badge badge-{$grid.class}">{:get_list_field($data,$grid)}</span>
+	                            	</if>
+                                </td>
                             </volist>
                         </tr>
                     </volist>

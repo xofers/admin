@@ -1,0 +1,107 @@
+<extend name="Public:base" />
+
+<block name="style">
+	<style>
+		.table-bordered > thead > tr > td,
+		.table-bordered > tbody > tr > td,
+		.table-bordered > tfoot > tr > td {
+			border: none;
+			border-bottom: 1px solid #DDD;
+		}
+	</style>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-6">
+			<a href="{:U('add','pid='.$pid)}" class="btn green">
+				<i class="fa fa-plus"> 新增</i>
+  			</a>
+			<a href="javascript:;" class="btn red ajax-post" ajax-confirm="您确定要删除选中的选项么?" target-form="channel-form">
+				<i class="fa fa-trash-o"> 删除</i>
+  			</a>
+  			<button class="btn yellow list_sort" url="{:U('sort',array('pid'=>I('get.pid',0)),'')}"><i class="fa fa-sort"> 排序</i></button>
+			<button class="btn blue" onclick="javascript:history.back(-1);return false;"><i class="fa fa-mail-reply-all"> 返回</i></button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<form class="channel-form" action="{:U('del')}"  method="post">
+				<table class="table table-advance table-bordered margin-top-10">
+					<tr class="bg-grey">
+						<th colspan="10">
+							<i class="fa fa-th"></i>&nbsp;导航菜单
+						</th>
+					</tr>
+					<tr class="bg-grey">
+						<th width="20">
+							<input onchange="Index.checkAll(this,'id[]')" type="checkbox">
+						</th>
+						<td width="50" class="text-center">ID</td>
+                        <td width="200">导航名称</td>
+                        <td>导航地址</td>
+                        <td width="150">排序</td>
+                        <td width="150">操作</td>
+					</tr>
+					<notempty name="list">
+						<volist name="list" id="channel">
+							<tr>
+								<th><input class="ids" type="checkbox" name="id[]" value="{$channel['id']}"> </th>
+								<th class="text-center"><span class="badge badge-error">{$channel.id}</span></th>
+								<td><a href="{:U('index?pid='.$channel['id'])}">{$channel.title}</a></td>
+								<td><span class="badge badge-error">{$channel.url}</span></td>
+		                        <td><span class="badge badge-warning">{$channel.sort}</span></td>
+								<td>
+									<a class="badge badge-success" title="编辑" href="{:U('edit?id='.$channel['id'].'&pid='.$pid)}">编辑</a>
+									<a class="ajax-get badge <eq name='channel.status' value='0'>badge-info<else />badge-warning</eq>" href="{:U('setStatus?ids='.$channel['id'].'&status='.abs(1-$channel['status']))}">{$channel.status|show_status_op}</a>
+									<a class="badge badge-error ajax-get" title="删除" href="{:U('del?id='.$channel['id'])}">删除</a>
+								</td>
+							</tr>
+						</volist>
+					<else/>
+						<td colspan="6" class="text-center"> aOh! 暂时还没有内容! </td>
+					</notempty>
+				</table>
+			</form>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+    $(function() {
+    	//点击排序
+    	$('.list_sort').click(function(){
+    		if($('.ids').length<=1){
+    			Message.error({message:"该列表没有可以排序的数据!"});
+    			return false;
+    		}
+    		var url = $(this).attr('url');
+    		var ids = $('.ids:checked');
+    		var param = '';
+    		if(ids.length > 0){
+    			var str = new Array();
+    			ids.each(function(){
+    				str.push($(this).val());
+    			});
+    			param = str.join(',');
+    		}
+    		if(url != undefined && url != ''){
+    			window.location.href = url + '/ids/' + param;
+    		}
+    	});
+    });
+</script>
+</block>

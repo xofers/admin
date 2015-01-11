@@ -117,9 +117,9 @@ class MenuController extends AdminController {
      * @author 游川江 <1518140867@qq.com>
      */
     public function del(){
-        $id = array_unique((array)I('id',0));
-
-        if ( empty($id) ) {
+        $id = array_unique((array)I('id'));
+		
+        if ( empty($id) || $id == array(0) ) {
             $this->error('请选择要操作的数据!');
         }
 

@@ -21,6 +21,7 @@ return array(
 	/* SESSION 和 COOKIE 配置 */
     'SESSION_PREFIX' => 'max_admin_session', // session前缀
     'COOKIE_PREFIX'  => 'max_admin_cookie', // Cookie前缀 避免冲突
+    'VAR_SESSION_ID' => 'session_id',	//修复uploadify插件无法传递session_id的bug
     
     
     /* 文件上传相关配置 */

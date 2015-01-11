@@ -40,7 +40,10 @@ class ThinkController extends AdminController {
             $val      = explode(':', $value);
             // 支持多个字段显示
             $field   = explode(',', $val[0]);
-            $value    = array('field' => $field, 'title' => $val[1]);
+			
+			$val_title_class      = explode('-', $val[1]);
+			
+            $value    = array('field' => $field, 'title' => $val_title_class[0] , 'class'=>isset($val_title_class[1])?$val_title_class[1]:'');
             if(isset($val[2])){
                 // 链接信息
                 $value['href']	=	$val[2];
@@ -179,11 +182,6 @@ class ThinkController extends AdminController {
             if($Model->create() && $Model->save()){
                 $this->success('保存'.$model['title'].'成功！', U('lists?model='.$model['name']));
             } else {
-//          	if(I("name") ==""){
-//          		$this->error("标识不能为空!");
-//          	}else{
-//	                $this->error($Model->getError());
-//          	}
 				$this->error($Model->getError());
             }
         } else {
@@ -227,12 +225,9 @@ class ThinkController extends AdminController {
 
     protected function checkAttr($Model,$model_id){
         $fields     =   get_model_attribute($model_id,false);
-		die();
         $validate   =   $auto   =   array();
-		print_r($fields);
         foreach($fields as $key=>$attr){
             if($attr['is_must']){// 必填字段
-            	echo $key.'---';
                 $validate[]  =  array($attr['name'],'require',$attr['title'].'必须!');
             }
             // 自动验证规则
@@ -250,7 +245,6 @@ class ThinkController extends AdminController {
                 $auto[] =   array($attr['name'],'strtotime',3,'function');
             }
         }
-		die();
         return $Model->validate($validate)->auto($auto);
     }
 }

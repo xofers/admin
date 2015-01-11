@@ -51,7 +51,7 @@ function str2arr($str, $glue = ','){
  * @author 游川江 <1518140867@qq.com>
  */
 function arr2str($arr, $glue = ','){
-    return implode($glue, $arr);
+    return empty($arr)?'':implode($glue, $arr);
 }
 
 /**
@@ -806,7 +806,6 @@ function get_model_attribute($model_id, $group = true,$fields=true){
             $map = array('model_id'=> array("in", array($model_id, $extend)));
         }
         $info = M('Attribute')->where($map)->field($fields)->select();
-		print_r($info);
         $list[$model_id] = $info;
     }
     $attr = array();

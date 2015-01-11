@@ -171,7 +171,7 @@ class ArticleController extends AdminController {
                 $model = M('Model')->getById($model_id);
                 if (empty($model['list_grid'])) {
                     $model['list_grid'] = M('Model')->getFieldByName('document','list_grid');
-                }                
+                }
             }
             $this->assign('model', explode(',', $models));
         }else{
@@ -188,9 +188,10 @@ class ArticleController extends AdminController {
         foreach ($grids as &$value) {
             // 字段:标题:链接
             $val      = explode(':', $value);
+			$val_title_class      = explode('-', $val[1]);
             // 支持多个字段显示
             $field   = explode(',', $val[0]);
-            $value    = array('field' => $field, 'title' => $val[1]);
+            $value    = array('field' => $field, 'title' => $val_title_class[0] , 'class'=>isset($val_title_class[1])?$val_title_class[1]:'');
             if(isset($val[2])){
                 // 链接信息
                 $value['href']  =   $val[2];
@@ -221,7 +222,7 @@ class ArticleController extends AdminController {
         $this->assign('model_id',$model_id);
 		$this->assign('group_id',$group_id);
         $this->assign('position',$position);
-        $this->assign('groups', $groups);
+        $this->assign('groups', isset($groups)?$groups:array());
         $this->assign('list',   $list);
         $this->assign('list_grids', $grids);
         $this->assign('model_list', $model);
@@ -768,7 +769,7 @@ class ArticleController extends AdminController {
                 }
             }
             $list = M('Document')->where($map)->field('id,title')->order('level DESC,id DESC')->select();
-
+			
             $this->assign('list', $list);
             $this->meta_title = '文档排序';
             $this->display();

@@ -28,7 +28,7 @@
 		<td class="ajax-label"></td>
 		<td>
 			<a class="badge badge-success" href="{:U('edit?id='.$list['id'].'&pid='.$list['pid'])}">编辑</a>
-			<a class="badge <if condition='$list.status == 0'>badge-warning<else />badge-error</if> ajax-get" href="{:U('setStatus?ids='.$list['id'].'&status='.abs(1-$list['status']))}">
+			<a class="badge <if condition='$list.status == 0'>badge-primary<else />badge-warning</if> ajax-get" href="{:U('setStatus?ids='.$list['id'].'&status='.abs(1-$list['status']))}">
 				{$list.status|show_status_op}
 			</a>
 			<a class="badge badge-error ajax-get" ajax-confirm="您是否要删除嘛?" href="{:U('remove?id='.$list['id'])}">删除</a>

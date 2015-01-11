@@ -1,0 +1,199 @@
+<extend name="Public:base" />
+
+<block name="style">
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/css/plugins.css"/>
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.css"/>
+<link rel="stylesheet" type="text/css" href="__STATIC__/datetimepicker/css/datetimepicker.css" />
+<php>if(C('COLOR_STYLE')=='blue_color') echo '<link href="__STATIC__/datetimepicker/css/datetimepicker_blue.css" rel="stylesheet" type="text/css">';</php>
+<style>
+[class^="icon-"], [class*=" icon-"] {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-top: 1px;
+    line-height: 14px;
+    vertical-align: text-top;
+    background-image: url("__STATIC__/datetimepicker/img/glyphicons-halflings.png");
+    background-position: 14px 14px;
+    background-repeat: no-repeat;
+}
+.icon-arrow-right {
+	background-position: -264px -96px;
+}
+.icon-arrow-left {
+    background-position: -240px -96px;
+}
+.table-bordered > thead > tr > td,
+.table-bordered > tbody > tr > td,
+.table-bordered > tfoot > tr > td {
+	border: none;
+	border-bottom: 1px solid #DDD;
+}
+</style>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-12">
+			<button class="btn blue ajax-post" target-form="ids" url="{:U('Article/setStatus',array('status'=>1))}"><i class="fa fa-check"> 启用</i></button>
+			<button class="btn yellow ajax-post" target-form="ids" url="{:U('Article/setStatus',array('status'=>0))}"><i class="fa fa-minus-circle"> 禁用</i></button>
+			<button class="btn red ajax-post" target-form="ids" ajax-confirm="您确定要删除这些选项么?" url="{:U('Article/setStatus',array('status'=>-1))}"><i class="fa fa-trash-o"> 删除</i></button>
+			<div class="search-form pull-right">
+				<ul class="nav pull-right btn-group">
+					<li>
+						<a style="padding: 7px 8px 7px 12px" href="javascript:void(0);" class="btn blue dropdown-toggle" data-toggle="dropdown" data-click="dropdown" data-close-others="true">高级&emsp;<i class="fa fa-angle-down"></i></a>
+						<ul class="dropdown-menu">
+							<li id="gao" style="width: 586px; padding: 5px 0px 20px 0px;">
+								<div class="col-md-12" style="padding-right: 0px;">
+									<div class="col-md-4" style="padding-right: 0px; padding-left: 0px;">
+										<label class="pull-left" style="line-height: 34px;">更新时间：</label>
+										<input class="form-control input-small date" type="text" name="time-start" value="" placeholder="起始时间" />
+									</div>
+									<div class="col-md-4" style="padding-left: 0px; padding-right: 0px;">
+										<label class="pull-left" style="line-height: 34px;">--</label>
+										<input class="form-control input-small date" type="text" name="time-end" value="" placeholder="结束时间" />
+									</div>
+									<div class="col-md-4" style="padding-left: 0px; padding-right: 0px;">
+										<label class="pull-left" style="line-height: 34px;">创建者：</label>
+										<input class="form-control input-small" type="text" name="nickname" value="" placeholder="请输入用户名" />
+									</div>
+								</div>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				
+				<select name="status" style="display: none;" class="bs-select form-control input-xsmall select-search pull-right" data-style="blue">
+					<option value="">所有</option>
+					<option value="1">正常</option>
+					<option value="0">禁用</option>
+					<option value="2">待审核</option>
+				</select>
+				
+				<div class="input-group input-medium pull-right">
+					<input class="form-control input-small input-search pull-right" name="title" value="{:I('title')}" placeholder="请输入标题文档" type="text">
+					<button class="btn blue pull-right" type="button" id="search" url="{:U('article/mydocument','pid='.I('pid',0).'&cate_id='.$cate_id,false)}"><i class="fa fa-search"></i></button>
+				</div>
+			
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<form class="config-form" action="{:U('Config/del')}"  method="post">
+				<table class="table table-advance table-bordered margin-top-10">
+					<tr class="bg-grey">
+						<th colspan="9">
+							<i class="fa fa-file-text-o"></i>&nbsp;我的文档 ( 数量 : <font color="#FF0000">{$_total}</font> )
+						</th>
+					</tr>
+					<tr class="bg-grey">
+						<th width="20">
+							<input onchange="Index.checkAll(this,'ids[]')" value="" type="checkbox">
+						</th>
+	                    <td class="text-center" width="50">编号</td>
+						<td>标题</td>
+						<td width="150">类型</td>
+						<td width="150">分类</td>
+						<td width="150">最后更新</td>
+						<td width="150">浏览</td>
+						<td width="150">状态</td>
+						<td width="150">操作</td>
+					</tr>
+					<notempty name="list">
+						<volist name="list" id="vo">
+							<tr>
+					            <th><input class="ids" type="checkbox" name="ids[]" value="{$vo.id}" /></th>
+								<th class="text-center"><span class="badge badge-error">{$vo.id}</span></th>
+								<td><a href="{:U('Article/edit?cate_id='.$vo['category_id'].'&id='.$vo['id'])}">{$vo.title}</a></td>
+								<td><span class="badge badge-success">{$vo['type']}</span></td>
+								<td><span class="badge badge-warning">{:get_cate($vo['category_id'])}</span></td>
+								<td><span class="badge badge-info">{$vo.update_time}</span></td>
+								<td><span class="badge badge-info">{$vo.view}</span></td>
+								<td>
+									<eq name="vo.status" value="正常">
+										<span class="badge badge-success">{$vo.status}</span>
+									<else/>
+										<span class="badge badge-error">{$vo.status}</span>
+									</eq>
+								</td>
+								<td>
+									<a class="badge badge-success" href="{:U('Article/edit?cate_id='.$vo['category_id'].'&id='.$vo['id'])}">编辑</a>
+									<eq name="vo.status" value="正常">
+										<a href="{:U('Article/setStatus?ids='.$vo['id'].'&status='.abs(0))}" ajax-confirm="你确定要禁用该文章嘛?" class="ajax-get badge badge-warning">禁用</a>
+									<else/>
+										<a href="{:U('Article/setStatus?ids='.$vo['id'].'&status='.abs(1))}" ajax-confirm="你确定要启用该文章嘛?" class="ajax-get badge badge-info">启用</a>
+									</eq>
+									<a class="badge badge-error ajax-get" href="{:U('Article/setStatus?status=-1&ids='.$vo['id'])}">删除</a>
+					            </td>
+							</tr>
+						</volist>
+					<else/>
+						<td colspan="9" class="text-center">暂时还没有内容! </td>
+					</notempty>
+				</table>
+			    <div class="page">
+			        {$_page}
+			    </div>
+			</form>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+<script type="text/javascript" src="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="__SCRIPTS__/metroinc/scripts/custom/bootstrapSelect.js"></script>
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script>
+Index.setValue("status", "{$status|default=''}");
+$(function(){
+	BootstrapSelect.init();
+	$("#gao").on("click",function(){
+		return false;
+	})
+	$('.date').datetimepicker({
+        format: 'yyyy-mm-dd',
+        language:"zh-CN",
+        minView:2,
+        autoclose:true
+    });
+})
+//搜索功能
+$("#search").click(function(){
+	var url = $(this).attr('url');
+	var status = $(".select-search").find("option:selected").val();
+    var query  = $('.search-form').find('input').serialize();
+    query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+    query = query.replace(/^&/g,'');
+	if(status != ''){
+		query = 'status=' + status + "&" + query;
+    }
+    if( url.indexOf('?')>0 ){
+        url += '&' + query;
+    }else{
+        url += '?' + query;
+    }
+	window.location.href = url;
+});
+//回车搜索
+$(".input-search").keyup(function(e){
+	if(e.keyCode === 13){
+		$("#search").click();
+		return false;
+	}
+});
+</script>
+</block>

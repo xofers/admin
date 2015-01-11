@@ -9,6 +9,13 @@
 <!--<link rel="stylesheet" type="text/css" href="__STATIC__/datetimepicker/css/dropdown.css" />
 时间选择器冲突
 -->
+<link rel="stylesheet" type="text/css" href="__STATIC__/uploadify/uploadify.css" />
+
+//加载Fancybox插件
+{:hook('Fancybox')}
+
+
+
 <style>
 [class^="icon-"], [class*=" icon-"] {
     display: inline-block;
@@ -46,8 +53,20 @@ textarea{
 </block>
 
 <block name="content">
+	<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
 	<div class="row">
 		<div class="col-md-12">
+			<volist name="rightNav" id="nav">
+				<a class="btn green" href="{:U('article/index','cate_id='.$nav['id'])}">{$nav.title}</a>
+				<if condition="count($rightNav) gt $i">
+					<a style="padding-right: 5px;padding-left: 3px;" class="btn" disabled="">
+						<i class="fa fa-angle-right"></i>
+					</a>
+				</if>
+			</volist>
+			<present name="article"><a href="{:U('article/index','cate_id='.$data['category_id'].'&pid='.$article['id'])}">{$article.title}</a></present>
+		</div>
+		<div class="col-md-12 margin-top-10">
 			<div class="tabbable tabbable-custom boxless tabbable-reversed">
 				<ul class="nav nav-tabs">
 					<volist name=":parse_config_attr($model['field_group'])" id="group">
@@ -62,7 +81,7 @@ textarea{
 							<div class="tab-pane <eq name="key" value="1">active<else />hidden</eq>">
 								<div class="portlet box light-grey">
 									<div class="portlet-title">
-										<i class="fa fa-edit"></i> 修改文章
+										<i class="fa fa-edit"></i> 编辑{$data.model_id|get_document_model='title'}
 									</div>
 									<div class="portlet-body form">
 										<div class="form-body">
@@ -75,7 +94,6 @@ textarea{
 										                <div class="col-md-6">
 									                	</if>
 									                	<div class="form-group">
-									                		
 										                    <label class="control-label">{$field['title']}<span class="check-tips"><notempty name="field['remark']">（{$field['remark']}）</notempty></span></label>
 										                    <div class="controls">
 										                        <switch name="field.type">
@@ -132,6 +150,90 @@ textarea{
 										                                <textarea  name="{$field.name}">{$data[$field['name']]}</textarea>
 										                                {:hook('adminArticleEdit', array('name'=>$field['name'],'value'=>$data[$field['name']]))}
 										                            </case>
+										                            <case value="picture">
+																		<input type="file" id="upload_picture_{$field.name}">
+																		<input type="hidden" name="{$field.name}" id="cover_id_{$field.name}" value="{$data[$field['name']]}"/>
+																		<div class="upload-img-box">
+																		<notempty name="data[$field['name']]">
+																			<div class="upload-pre-item"><a rel="group" href="{$data[$field['name']]|get_cover='path'}" title="图片地址:{$data[$field['name']]|get_cover='path'}"><img src="{$data[$field['name']]|get_cover='path'}"/></a></div>
+																		</notempty>
+																		</div>
+																		<script type="text/javascript">
+																		//上传图片
+																	    /* 初始化上传插件 */
+																		$("#upload_picture_{$field.name}").uploadify({
+																	        "height"          : 30,
+																	        "swf"             : "__STATIC__/uploadify/uploadify.swf",
+																	        "fileObjName"     : "download",
+																	        "buttonText"      : "上传图片",
+																	        "uploader"        : "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
+																	        "width"           : 120,
+																	        'removeTimeout'	  : 1,
+																	        'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
+																	        "onUploadSuccess" : uploadPicture{$field.name},
+																	        'multi'           : false,
+																	        'onFallback' : function() {
+																	            alert('未检测到兼容版本的Flash.');
+																	        }
+																	    });
+																		function uploadPicture{$field.name}(file, data){
+																	    	var data = $.parseJSON(data);
+																	    	var src = '';
+																	        if(data.status){
+																	        	$("#cover_id_{$field.name}").val(data.id);
+																	        	src = data.url || '__ROOT__' + data.path
+																	        	$("#cover_id_{$field.name}").parent().find('.upload-img-box').html(
+																	        		'<div class="upload-pre-item"><a rel="group" href="'+src+'" title="图片地址:'+src+'"><img  src="' + src + '"/></a></div>'
+																	        	);
+																	        	//重新加载Fancybox插件
+																	        	Fancybox.group();
+																	        } else {
+																	        	Message.error({message:data.info});
+																	        }
+																	    }
+																		</script>
+										                            </case>
+										                            <case value="file">
+																		<div class="controls">
+																			<input type="file" id="upload_file_{$field.name}">
+																			<input type="hidden" name="{$field.name}" value="{:think_encrypt(json_encode(get_table_field($data[$field['name']],'id','','File')))}"/>
+																			<div class="upload-img-box">
+																				<present name="data[$field['name']]">
+																					<div class="upload-pre-file"><span class="fa fa-paperclip"> {$data[$field['name']]|get_table_field=###,'id','name','File'}</span></div>
+																				</present>
+																			</div>
+																		</div>
+																		<script type="text/javascript">
+																		//上传图片
+																	    /* 初始化上传插件 */
+																		$("#upload_file_{$field.name}").uploadify({
+																	        "height"          : 30,
+																	        "swf"             : "__STATIC__/uploadify/uploadify.swf",
+																	        "fileObjName"     : "download",
+																	        "buttonText"      : "上传附件",
+																	        "uploader"        : "{:U('File/upload',array('session_id'=>session_id()))}",
+																	        "width"           : 120,
+																	        'removeTimeout'	  : 1,
+																	        'multi'           : false,
+																	        "onUploadSuccess" : uploadFile{$field.name},
+																	        'onFallback' : function() {
+																	            alert('未检测到兼容版本的Flash.');
+																	        }
+																	    });
+																		function uploadFile{$field.name}(file, data){
+																			var data = $.parseJSON(data);
+																	        if(data.status){
+																	        	var name = "{$field.name}";
+																	        	$("input[name="+name+"]").val(data.data);
+																	        	$("input[name="+name+"]").parent().find('.upload-img-box').html(
+																	        		"<div class=\"upload-pre-file\"><i class=\"fa fa-paperclip\"> " + data.info + "</span></div>"
+																	        	);
+																	        } else {
+																	        	Message.error({message:data.info});
+																	        }
+																	    }
+																		</script>
+										                            </case>
 										                            <default/>
 										                            <input type="text" class="form-control input-large" name="{$field.name}" value="{$data[$field['name']]}">
 										                        </switch>
@@ -147,11 +249,11 @@ textarea{
 							</div>
 				        </volist>
 						
-						<div class="col-md-12">
-							<button class="btn green ajax-post hidden" type="submit" target-form="horizontal-form">确 定</button>
+						<div class="col-md-12" style="padding-left: 0px;">
+							<button class="btn green ajax-post" type="submit" target-form="horizontal-form">确 定</button>
 							<a class="btn blue" href="{$Think.cookie.__forward__}">返 回</a>
 							<if condition="C('OPEN_DRAFTBOX') and (ACTION_NAME eq 'add' or $data['status'] eq 3)">
-							<button class="btn save-btn" url="{:U('article/autoSave')}" target-form="horizontal-form" id="autoSave">
+							<button class="btn yellow" url="{:U('article/autoSave')}" target-form="horizontal-form" id="autoSave">
 								存草稿
 							</button>
 							</if>
@@ -178,7 +280,6 @@ textarea{
 Index.setValue("type", {$data.type|default='""'});
 Index.setValue("display", {$data.display|default=0});
 
-
 $(function(){
 	BootstrapSelect.init();
 	$('input[type="checkbox"],input[type="radio"]').iCheck({
@@ -197,6 +298,55 @@ $(function(){
         minView:2,
         autoclose:true
     });
+    
+    <if condition="C('OPEN_DRAFTBOX') and (ACTION_NAME eq 'add' or $data['status'] eq 3)">
+	//保存草稿
+	var interval;
+	$('#autoSave').click(function(){
+        var target_form = $(this).attr('target-form');
+        var target = $(this).attr('url')
+        var form = $('.'+target_form);
+        var query = form.serialize();
+        var that = this;
+
+        $.post(target,query).success(function(data){
+            if (data.status==1) {
+                $('input[name=id]').val(data.data.id);
+                Message.success({message:data.info});
+            }else{
+                Message.error({message:data.info});
+            }
+        })
+
+        //重新开始定时器
+        clearInterval(interval);
+        autoSaveDraft();
+        return false;
+    });
+
+	//Ctrl+S保存草稿
+	$('body').keydown(function(e){
+		if(e.ctrlKey && e.which == 83){
+			$('#autoSave').click();
+			return false;
+		}
+	});
+
+	//每隔一段时间保存草稿
+	function autoSaveDraft(){
+		interval = setInterval(function(){
+			//只有基础信息填写了，才会触发
+			var title = $('input[name=title]').val();
+			var name = $('input[name=name]').val();
+			var des = $('textarea[name=description]').val();
+			if(title != '' || name != '' || des != ''){
+				$('#autoSave').click();
+			}
+		}, 1000*parseInt({:C('DRAFT_AOTOSAVE_INTERVAL')}));
+	}
+	autoSaveDraft();
+
+	</if>
 })
 $(".nav-tabs a").click(function(){
 	$(this).parent().siblings().removeClass("active");

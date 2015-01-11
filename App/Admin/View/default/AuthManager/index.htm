@@ -53,10 +53,10 @@
 						<input onchange="Index.checkAll(this,'id[]')" value="" type="checkbox">
 					</th>
 					<td width="150">用户组</td>
-					<td width="100">描述</td>
+					<td width="300">描述</td>
 					<td width="300">授权</td>
-					<td width="150">状态</td>
-					<td>操作</td>
+					<td>状态</td>
+					<td width="150">操作</td>
 				</tr>
 				<notempty name="_list">
 					<volist name="_list" id="vo">
@@ -71,10 +71,11 @@
 							</td>
 							<td><span class="badge <if condition='$vo[status_text] == "正常"'>badge-success<else />badge-error</if>">{$vo.status_text}</span></td>
 							<td>
+								<a class="badge badge-success" href="{:U('AuthManager/editgroup?id='.$vo['id'])}">编辑</a>
 								<eq name="vo.status" value="1">
-									<a class="badge badge-error ajax-get" href="{:U('AuthManager/changeStatus?method=forbidGroup&id='.$vo['id'])}">禁用</a>
+									<a class="badge badge-warning ajax-get" href="{:U('AuthManager/changeStatus?method=forbidGroup&id='.$vo['id'])}">禁用</a>
 								<else/>
-									<a class="badge badge-success ajax-get" href="{:U('AuthManager/changeStatus?method=resumeGroup&id='.$vo['id'])}">启用</a>
+									<a class="badge badge-info ajax-get" href="{:U('AuthManager/changeStatus?method=resumeGroup&id='.$vo['id'])}">启用</a>
 								</eq>
 									<a class="badge badge-error ajax-get" ajax-confirm="您确定要删除这项么?" href="{:U('AuthManager/changeStatus?method=deleteGroup&id='.$vo['id'])}">删除</a>
 				            </td>

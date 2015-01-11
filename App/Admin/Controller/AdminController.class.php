@@ -446,7 +446,7 @@ class AdminController extends Controller {
                         }elseif('date'==$type){ // 日期型
                             $data[$key]    =   date('Y-m-d',$val);
                         }elseif('datetime' == $type){ // 时间型
-                            $data[$key]    =   date('Y-m-d H:i',$val);
+                            $data[$key]    =   date('Y-m-d H:i:s',$val);
                         }
                     }
                 }

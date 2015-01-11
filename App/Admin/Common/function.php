@@ -50,6 +50,7 @@ function get_list_field($data, $grid){
                 $val[]  =   $data2[$matches[1]];
             }else{
                 $show   =   isset($array[1])?$array[1]:$value;
+				$show   =   explode('-', $show);
                 // 替换系统特殊字符串
                 $href   =   str_replace(
                     array('[DELETE]','[EDIT]','[LIST]'),
@@ -60,8 +61,10 @@ function get_list_field($data, $grid){
 
                 // 替换数据变量
                 $href   =   preg_replace_callback('/\[([a-z_]+)\]/', function($match) use($data){return $data[$match[1]];}, $href);
-
-                $val[]  =   '<a href="'.U($href).'">'.$show.'</a>';
+				
+				$class  = isset($show[1])?"badge badge-".$show[1]:"";
+				
+                $val[]  =   '<a class="'.$class.'" href="'.U($href).'">'.$show[0].'</a>';
             }
         }
         $value  =   implode(' ',$val);

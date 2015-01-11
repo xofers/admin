@@ -4,10 +4,14 @@
 <link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/css/plugins.css"/>
 <link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.css"/>
 <link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/plugins/bootstrap-icheck/skins/all.css" />
+<link rel="stylesheet" type="text/css" href="__STATIC__/uploadify/uploadify.css" />
+//加载Fancybox插件
+{:hook('Fancybox')}
+
 <style>
-	textarea{
-		resize: none;	
-	}
+textarea{
+	resize: none;	
+}
 </style>
 </block>
 
@@ -25,6 +29,7 @@
 
 <block name="content">
 	<div class="row">
+		<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
 		<div class="col-md-12">
 			<div class="tabbable tabbable-custom boxless tabbable-reversed">
 				<form action="{:U()}" method="post" class="category-form">
@@ -111,8 +116,50 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label class="control-label">分类图标</label>
-										<div>待完善..</div>
+										<div class="controls">
+											<input type="file" id="upload_picture">
+											<input type="hidden" name="icon" id="icon" value="{$info['icon']|default=''}"/>
+											<div class="upload-img-box">
+												<notempty name="info['icon']">
+													<div class="upload-pre-item"><a rel="group" href="{$info.icon|get_cover='path'}" title="图片地址:{$info.icon|get_cover='path'}"><img src="{$info.icon|get_cover='path'}"/></a></div>
+												</notempty>
+											</div>
+										</div>
 									</div>
+									<script type="text/javascript">
+										//上传图片
+									    /* 初始化上传插件 */
+										$("#upload_picture").uploadify({
+									        "height"          : 30,
+									        "swf"             : "__STATIC__/uploadify/uploadify.swf",
+									        "fileObjName"     : "download",
+									        "buttonText"      : "上传图片",
+									        "uploader"        : "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
+									        "width"           : 120,
+									        'removeTimeout'	  : 1,
+									        'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
+									        "onUploadSuccess" : uploadPicture,
+									        'multi'           : false,
+									        'onFallback' : function() {
+									            alert('未检测到兼容版本的Flash.');
+									        }
+									    });
+										function uploadPicture(file, data){
+									    	var data = $.parseJSON(data);
+									    	var src = '';
+									        if(data.status){
+									        	$("#icon").val(data.id);
+									        	src = data.url || '__ROOT__' + data.path;
+									        	$("#icon").parent().find('.upload-img-box').html(
+									        		'<div class="upload-pre-item"><a rel="group" href="'+src+'" title="图片地址:'+src+'"><img src="' + src + '"/></a></div>'
+									        	);
+									        	//重新加载Fancybox插件
+									        	Fancybox.group();
+									        } else {
+									        	Message.error({message:data.info});
+									        }
+									    }
+									</script>
 								</div>
 							</div>
 						</div>
@@ -207,10 +254,13 @@
 <present name="info.id">
 	Index.setValue("allow_publish", {$info.allow_publish|default=1});
 	Index.setValue("check", {$info.check|default=0});
-	Index.setValue("model[]", {$info.model|json_encode} || [1]);
-	Index.setValue("model_sub[]", {$info.model_sub|json_encode} || [1]);
-	Index.setValue("type[]", {$info.type|json_encode} || [2]);
 	Index.setValue("display", {$info.display|default=1});
+//	Index.setValue("model[]", {$info.model|json_encode} || [1]);
+//	Index.setValue("model_sub[]", {$info.model_sub|json_encode} || [1]);
+//	Index.setValue("type[]", {$info.type|json_encode} || [2]);
+	Index.setValue("model[]", {$info.model|json_encode});
+	Index.setValue("model_sub[]", {$info.model_sub|json_encode});
+	Index.setValue("type[]", {$info.type|json_encode});
 	Index.setValue("reply", {$info.reply|default=0});
 	Index.setValue("reply_model[]", {$info.reply_model|json_encode} || [1]);
 </present>

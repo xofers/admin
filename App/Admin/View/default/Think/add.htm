@@ -6,6 +6,17 @@
 <link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/plugins/bootstrap-icheck/skins/all.css" />
 <link rel="stylesheet" type="text/css" href="__STATIC__/datetimepicker/css/datetimepicker.css" />
 <php>if(C('COLOR_STYLE')=='blue_color') echo '<link href="__STATIC__/datetimepicker/css/datetimepicker_blue.css" rel="stylesheet" type="text/css">';</php>
+<link rel="stylesheet" type="text/css" href="__STATIC__/uploadify/uploadify.css" />
+
+//加载Fancybox 插件
+{:hook('Fancybox')}
+<script>
+$(function(){
+	$(".page-header-fixed .page-container").css({"margin-top": "23px"})
+})
+</script>
+
+
 <style>
 [class^="icon-"], [class*=" icon-"] {
     display: inline-block;
@@ -43,6 +54,7 @@ textarea{
 </block>
 
 <block name="content">
+	<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="tabbable tabbable-custom boxless tabbable-reversed">
@@ -128,37 +140,35 @@ textarea{
 																			<script type="text/javascript">
 																			//上传图片
 																		    /* 初始化上传插件 */
-	//																		$("#upload_picture_{$field.name}").uploadify({
-	//																	        "height"          : 30,
-	//																	        "swf"             : "__STATIC__/uploadify/uploadify.swf",
-	//																	        "fileObjName"     : "download",
-	//																	        "buttonText"      : "上传图片",
-	//																	        "uploader"        : "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
-	//																	        "width"           : 120,
-	//																	        'removeTimeout'	  : 1,
-	//																	        'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
-	//																	        "onUploadSuccess" : uploadPicture{$field.name},
-	//										                                    'onFallback' : function() {
-	//										                                        alert('未检测到兼容版本的Flash.');
-	//										                                    }
-	//																	    });
-	//																		function uploadPicture{$field.name}(file, data){
-	//																	    	var data = $.parseJSON(data);
-	//																	    	var src = '';
-	//																	        if(data.status){
-	//																	        	$("#cover_id_{$field.name}").val(data.id);
-	//																	        	src = data.url || '__ROOT__' + data.path;
-	//																	        	$("#cover_id_{$field.name}").parent().find('.upload-img-box').html(
-	//																	        		'<div class="upload-pre-item"><img src="' + src + '"/></div>'
-	//																	        	);
-	//																	        } else {
-	//																	        	updateAlert(data.info);
-	//																	        	setTimeout(function(){
-	//																	                $('#top-alert').find('button').click();
-	//																	                $(that).removeClass('disabled').prop('disabled',false);
-	//																	            },1500);
-	//																	        }
-	//																	    }
+																			$("#upload_picture_{$field.name}").uploadify({
+																		        "height"          : 30,
+																		        "swf"             : "__STATIC__/uploadify/uploadify.swf",
+																		        "fileObjName"     : "download",
+																		        "buttonText"      : "上传图片",
+																		        "uploader"        : "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
+																		        "width"           : 120,
+																		        'removeTimeout'	  : 1,
+																		        'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
+																		        "onUploadSuccess" : uploadPicture{$field.name},
+											                                    'onFallback' : function() {
+											                                        alert('未检测到兼容版本的Flash.');
+											                                    }
+																		    });
+																			function uploadPicture{$field.name}(file, data){
+																		    	var data = $.parseJSON(data);
+																		    	var src = '';
+																		        if(data.status){
+																		        	$("#cover_id_{$field.name}").val(data.id);
+																		        	src = data.url || '__ROOT__' + data.path;
+																		        	$("#cover_id_{$field.name}").parent().find('.upload-img-box').html(
+																		        		'<div class="upload-pre-item"><a rel="group" href="'+src+'" title="图片地址:'+src+'"><img src="' + src + '"/></a></div>'
+																		        	);
+																		        	//重新加载Fancybox插件
+																	        		Fancybox.group();
+																		        } else {
+																		        	Message.error({message:data.info});
+																		        }
+																		    }
 																			</script>
 											                            </case>
 											                            <case value="file">
@@ -167,42 +177,39 @@ textarea{
 																				<input type="hidden" name="{$field.name}" value="{$data[$field['name']]}"/>
 																				<div class="upload-img-box">
 																					<present name="data[$field['name']]">
-																						<div class="upload-pre-file"><span class="upload_icon_all"></span>{$data[$field['name']]}</div>
+																						<div class="upload-pre-file"><i class="fa fa-paperclip"> {$data[$field['name']]}</i></div>
 																					</present>
 																				</div>
 																			</div>
 																			<script type="text/javascript">
-																			//上传图片
-																		    /* 初始化上传插件 */
-																			$("#upload_file_{$field.name}").uploadify({
-																		        "height"          : 30,
-																		        "swf"             : "__STATIC__/uploadify/uploadify.swf",
-																		        "fileObjName"     : "download",
-																		        "buttonText"      : "上传附件",
-																		        "uploader"        : "{:U('File/upload',array('session_id'=>session_id()))}",
-																		        "width"           : 120,
-																		        'removeTimeout'	  : 1,
-																		        "onUploadSuccess" : uploadFile{$field.name},
-											                                    'onFallback' : function() {
-											                                        alert('未检测到兼容版本的Flash.');
-											                                    }
-																		    });
-																			function uploadFile{$field.name}(file, data){
-																				var data = $.parseJSON(data);
-																		        if(data.status){
-																		        	var name = "{$field.name}";
-																		        	$("input[name="+name+"]").val(data.data);
-																		        	$("input[name="+name+"]").parent().find('.upload-img-box').html(
-																		        		"<div class=\"upload-pre-file\"><span class=\"upload_icon_all\"></span>" + data.info + "</div>"
-																		        	);
-																		        } else {
-																		        	updateAlert(data.info);
-																		        	setTimeout(function(){
-																		                $('#top-alert').find('button').click();
-																		                $(that).removeClass('disabled').prop('disabled',false);
-																		            },1500);
-																		        }
-																		    }
+																				//上传图片
+																			    /* 初始化上传插件 */
+																				$("#upload_file_{$field.name}").uploadify({
+																			        "height"          : 30,
+																			        "swf"             : "__STATIC__/uploadify/uploadify.swf",
+																			        "fileObjName"     : "download",
+																			        "buttonText"      : "上传附件",
+																			        "uploader"        : "{:U('File/upload',array('session_id'=>session_id()))}",
+																			        "width"           : 120,
+																			        'removeTimeout'	  : 1,
+																			        'multi'           : false,
+																			        "onUploadSuccess" : uploadFile{$field.name},
+																			        'onFallback' : function() {
+																			            alert('未检测到兼容版本的Flash.');
+																			        }
+																			    });
+																				function uploadFile{$field.name}(file, data){
+																					var data = $.parseJSON(data);
+																			        if(data.status){
+																			        	var name = "{$field.name}";
+																			        	$("input[name="+name+"]").val(data.data);
+																			        	$("input[name="+name+"]").parent().find('.upload-img-box').html(
+																			        		"<div class=\"upload-pre-file\"><i class=\"fa fa-paperclip\"> " + data.info + "</i></div>"
+																			        	);
+																			        } else {
+																			        	Message.error({message:data.info});
+																			        }
+																			    }
 																			</script>
 											                            </case>
 											                            <default/>

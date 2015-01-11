@@ -1,4 +1,4 @@
 <?php
- define('iswaf_connenct_key','428a29d9e27cae060bc3745c9e1c5985');
+ define('iswaf_connenct_key','8b8a61cff37a47689d4ff4e82aa525b8');
  define('iswaf_connenct_api','http://www.fanghuyun.com/client.php');
  ?>

@@ -1,0 +1,277 @@
+<extend name="Public:base" />
+
+<block name="style">
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/css/plugins.css"/>
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.css"/>
+<link rel="stylesheet" type="text/css" href="__STATIC__/datetimepicker/css/datetimepicker.css" />
+<php>if(C('COLOR_STYLE')=='blue_color') echo '<link href="__STATIC__/datetimepicker/css/datetimepicker_blue.css" rel="stylesheet" type="text/css">';</php>
+<style>
+[class^="icon-"], [class*=" icon-"] {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-top: 1px;
+    line-height: 14px;
+    vertical-align: text-top;
+    background-image: url("__STATIC__/datetimepicker/img/glyphicons-halflings.png");
+    background-position: 14px 14px;
+    background-repeat: no-repeat;
+}
+.icon-arrow-right {
+	background-position: -264px -96px;
+}
+.icon-arrow-left {
+    background-position: -240px -96px;
+}
+.table-bordered > thead > tr > td,
+.table-bordered > tbody > tr > td,
+.table-bordered > tfoot > tr > td {
+	border: none;
+	border-bottom: 1px solid #DDD;
+}
+</style>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-4" style="padding-right: 0px;">
+			<notempty name="rightNav">
+				<span class="btn purple">分类 <i class="fa fa-arrow-circle-right"></i></span>
+				<volist name="rightNav" id="nav">
+					<a class="btn <if condition='$Think.get.cate_id eq $nav[id]'>yellow<else />blue</if>" href="{:U('index','cate_id='.$nav['id'])}">{$nav.title}</a>
+					<if condition="count($rightNav) gt $i">
+						<a style="padding-right: 5px;padding-left: 3px;" class="btn" disabled="">
+							<i class="fa fa-angle-right"></i>
+						</a>
+					</if>
+				</volist>
+				<present name="article"><a class="btn blue" href="{:U('index','cate_id='.$cate_id.'&pid='.$article['id'])}">{$article.title}</a></present>
+			<else/>
+				<div class="btn-group btn-group-solid">
+					<span class="btn purple">定位 <i class="fa fa-arrow-circle-right"></i></span>
+					<empty name="position">
+						<a class="btn yellow">全部</a>
+					<else/>
+						<a class="btn blue" href="{:U('Article/index')}">全部</a>
+					</empty>
+					<foreach name="Think.config.DOCUMENT_POSITION" item="vo">
+						<neq name="position" value="$key">
+							<a class="btn blue" href="{:U('index',array('position'=>$key))}">{$vo}</a>
+						<else/>
+							<a class="btn yellow">{$vo}</a>
+						</neq>
+					</foreach>
+				</div>
+			</notempty>
+		</div>
+		<div class="col-md-4" style="padding-right: 0px;">
+			<div class="btn-group btn-group-solid">
+				<if condition="count($model) gt 1">
+					<span class="btn purple">模型 <i class="fa fa-arrow-circle-right"></i></span>
+					<empty name="model_id">
+						<a class="btn yellow">全部</a>
+					<else/>
+						<a class="btn blue" href="{:U('index',array('pid'=>$pid,'cate_id'=>$cate_id))}">全部</a>
+					</empty>
+					<volist name="model" id="vo">
+						<neq name="model_id" value="$vo">
+							<a class="btn blue" href="{:U('index',array('pid'=>$pid,'cate_id'=>$cate_id,'model_id'=>$vo))}">{$vo|get_document_model='title'}</a>
+						<else/>
+							<a class="btn yellow">{$vo|get_document_model='title'}</a>
+						</neq>
+					</volist>
+				</if>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<notempty name="groups">
+				<div class="btn-group btn-group-solid">
+					<span class="btn purple">分组 <i class="fa fa-arrow-circle-right"></i></span>
+					<empty name="group_id">
+						<span class="btn yellow">全部</span>
+					<else/>
+						<a class="btn blue" href="{:U('index',array('pid'=>$pid,'cate_id'=>$cate_id))}">全部</a>
+					</empty>
+					<foreach name="groups" item="vo">
+						<neq name="group_id" value="$key">
+							<a href="{:U('index',array('pid'=>$pid,'cate_id'=>$cate_id,'model_id'=>$model_id,'group_id'=>$key))}">{$vo}</a>
+						<else/>
+							<span class="btn yellow">{$vo}</span>
+						</neq>
+					</foreach>
+				</div>
+			</notempty>
+		</div>
+		<div class="col-md-12 margin-top-10">
+			<gt name="allow" value="0">
+				<if condition="count($model) gt 1">
+					<select style="display: none;" class="bs-select form-control input-xsmall select-add" data-style="green">
+						<volist name="model" id="vo">
+							<option value="{:U('article/add',array('cate_id'=>$cate_id,'model_id'=>$vo,'pid'=>I('pid',0),'group_id'=>$group_id))}">{$vo|get_document_model='title'}</option>
+						</volist>
+					</select>
+				<else />
+					<a class="btn red ajax-get" <if condition="count($model) eq 1">href="{:U('article/add',array('cate_id'=>$cate_id,'pid'=>I('pid',0),'model_id'=>$model[0],'group_id'=>$group_id))}"</if>><i class="fa fa-plus"> 新增</i></a>
+				</if>
+			<else/>
+				<a class="btn red disabled">新 增</a>
+			</gt>
+			<button class="btn blue ajax-post" target-form="ids" url="{:U('Article/setStatus',array('status'=>1))}"><i class="fa fa-check"> 启用</i></button>
+			<button class="btn yellow ajax-post" target-form="ids" url="{:U('Article/setStatus',array('status'=>0))}"><i class="fa fa-minus-circle"> 禁用</i></button>
+			<button class="btn blue ajax-post" target-form="ids" url="{:U('Article/move')}"><i class="fa fa-location-arrow"> 移 动</i></button>
+			<button class="btn green ajax-post" target-form="ids" url="{:U('Article/copy')}"><i class="fa fa-copy"> 复制</i></button>
+			<button class="btn yellow ajax-post" hide-data="true" target-form="ids" url="{:U('Article/paste')}"><i class="fa fa-paste"> 粘贴</i></button>
+			<input type="hidden" class="hide-data" name="cate_id" value="{$cate_id}"/>
+			<input type="hidden" class="hide-data" name="pid" value="{$pid}"/>
+			<button class="btn red ajax-post" target-form="ids" ajax-confirm="您确定要删除这些选项么?" url="{:U('Article/setStatus',array('status'=>-1))}"><i class="fa fa-trash-o"> 删除</i></button>
+			<a class="btn blue" href="{:U('article/batchOperate',array('cate_id'=>$cate_id,'pid'=>I('pid',0)))}"><i class="fa fa-external-link-square"> 导入</i></a>
+			<a class="btn yellow" href="{:U('sort',array('cate_id'=>$cate_id,'pid'=>I('pid',0)),'')}"><i class="fa fa-sort"> 排序</i></a>
+			
+			<div class="search-form pull-right">
+				<ul class="nav pull-right btn-group">
+					<li>
+						<a style="padding: 7px 8px 7px 12px" href="javascript:void(0);" class="btn blue dropdown-toggle" data-toggle="dropdown" data-click="dropdown" data-close-others="true">高级&emsp;<i class="fa fa-angle-down"></i></a>
+						<ul class="dropdown-menu">
+							<li id="gao" style="width: 586px; padding: 5px 0px 20px 0px;">
+								<div class="col-md-12" style="padding-right: 0px;">
+									<div class="col-md-4" style="padding-right: 0px; padding-left: 0px;">
+										<label class="pull-left" style="line-height: 34px;">更新时间：</label>
+										<input class="form-control input-small date" type="text" name="time-start" value="" placeholder="起始时间" />
+									</div>
+									<div class="col-md-4" style="padding-left: 0px; padding-right: 0px;">
+										<label class="pull-left" style="line-height: 34px;">--</label>
+										<input class="form-control input-small date" type="text" name="time-end" value="" placeholder="结束时间" />
+									</div>
+									<div class="col-md-4" style="padding-left: 0px; padding-right: 0px;">
+										<label class="pull-left" style="line-height: 34px;">创建者：</label>
+										<input class="form-control input-small" type="text" name="nickname" value="" placeholder="请输入用户名" />
+									</div>
+								</div>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				
+				<select name="status" style="display: none;" class="bs-select form-control input-xsmall select-search pull-right" data-style="blue">
+					<option value="">所有</option>
+					<option value="1">正常</option>
+					<option value="0">禁用</option>
+					<option value="2">待审核</option>
+				</select>
+				
+				<div class="input-group input-medium pull-right">
+					<input class="form-control input-small input-search pull-right" name="title" value="{:I('title')}" placeholder="请输入标题文档" type="text">
+					<button class="btn blue pull-right" type="button" id="search" url="{:U('article/index','pid='.I('pid',0).'&cate_id='.$cate_id,false)}"><i class="fa fa-search"></i></button>
+				</div>
+			
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<form class="config-form" action="{:U('Config/del')}"  method="post">
+				<table class="table table-advance table-bordered margin-top-10">
+					<tr class="bg-grey">
+						<th colspan="8">
+							<i class="fa fa-file-text-o"></i>&nbsp;文档列表 ( 数量 : <font color="#FF0000">{$_total}</font> )&emsp;<eq name="allow" value="0"><font color="#FF0000">注意！该分类不允许发布内容</font></eq>
+						</th>
+					</tr>
+					<tr class="bg-grey">
+						<th width="20">
+							<input onchange="Index.checkAll(this,'ids[]')" value="" type="checkbox">
+						</th>
+						<volist name="list_grids" id="field">
+	                        <td>{$field.title}</td>
+	                    </volist>
+					</tr>
+					<notempty name="list">
+						<volist name="list" id="data">
+		                    <tr>
+		                        <th><input class="ids" type="checkbox" value="{$data['id']}" name="ids[]"></th>
+		                        <volist name="list_grids" id="grid">
+		                            <td>
+		                            	<if condition='array_key_exists("href",$grid)'>
+		                            		{:get_list_field($data,$grid)}
+		                            	<else />
+		                            		<span class="badge badge-{$grid.class}">{:get_list_field($data,$grid)}</span>
+		                            	</if>
+		                           	</td>
+		                        </volist>
+		                    </tr>
+		                </volist>
+					<else/>
+						<td colspan="6" class="text-center">暂时还没有内容! </td>
+					</notempty>
+				</table>
+			    <div class="page">
+			        {$_page}
+			    </div>
+			</form>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+<script type="text/javascript" src="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="__SCRIPTS__/metroinc/scripts/custom/bootstrapSelect.js"></script>
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script>
+Index.setValue("status", "{$status|default=''}");
+$(function(){
+	BootstrapSelect.init();
+	$(".select-add").next().find("button .filter-option").html("<i class='fa fa-plus'> 新增</i>");
+	$(".select-add").next().find("ul li").on("click",function(){
+		$(".select-add").removeClass("open");
+		location.href=$(".select-add").find("option").eq($(this).index()).val();
+		return false;
+	})
+	$("#gao").on("click",function(){
+		return false;
+	})
+	$('.date').datetimepicker({
+        format: 'yyyy-mm-dd',
+        language:"zh-CN",
+        minView:2,
+        autoclose:true
+    });
+})
+//搜索功能
+$("#search").click(function(){
+	var url = $(this).attr('url');
+	var status = $(".select-search").find("option:selected").val();
+    var query  = $('.search-form').find('input').serialize();
+    query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+    query = query.replace(/^&/g,'');
+	if(status != ''){
+		query = 'status=' + status + "&" + query;
+    }
+    if( url.indexOf('?')>0 ){
+        url += '&' + query;
+    }else{
+        url += '?' + query;
+    }
+	window.location.href = url;
+});
+//回车搜索
+$(".input-search").keyup(function(e){
+	if(e.keyCode === 13){
+		$("#search").click();
+		return false;
+	}
+});
+
+</script>
+</block>

@@ -116,8 +116,8 @@ class ChannelController extends AdminController {
      */
     public function del(){
         $id = array_unique((array)I('id',0));
-
-        if ( empty($id) ) {
+		
+        if ( empty($id) || $id == array(0)) {
             $this->error('请选择要操作的数据!');
         }
 
