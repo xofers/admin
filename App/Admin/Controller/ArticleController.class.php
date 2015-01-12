@@ -120,19 +120,13 @@ class ArticleController extends AdminController {
                 }
             }
         }
+
         $this->assign('nodes',      $cate);
         $this->assign('cate_id',    $this->cate_id);
 
         //获取面包屑信息
         $nav = get_parent_category($cate_id);
         $this->assign('rightNav',   $nav);
-
-        //获取回收站权限
-        $this->assign('show_recycle', IS_ROOT || $this->checkRule('Admin/article/recycle'));
-        //获取草稿箱权限
-        $this->assign('show_draftbox', C('OPEN_DRAFTBOX'));
-        //获取审核列表权限
-        $this->assign('show_examine', IS_ROOT || $this->checkRule('Admin/article/examine'));
     }
 
     /**

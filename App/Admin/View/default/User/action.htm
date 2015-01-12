@@ -67,10 +67,11 @@
 							<td><span class="badge badge-info">{$vo.remark}</span></td>
 							<td><span <if condition='$vo.status eq 1'>class="badge badge-success"<else />class="badge badge-error"</if>>
 								{$vo.status_text}</span></td>
-							<td><a class="badge badge-success" href="{:U('User/editAction?id='.$vo['id'])}">编辑</a>
+							<td>
+								<a class="badge badge-success" href="{:U('User/editAction?id='.$vo['id'])}">编辑</a>
 								<a class="badge <if condition='$vo.status eq 1'>badge-warning<else />badge-info</if> ajax-get" href="{:U('User/setStatus?Model=action&ids='.$vo['id'].'&status='.abs(1-$vo['status']))}">{$vo.status|show_status_op}</a>
 								<a class="badge badge-error ajax-get" ajax-confirm="您确定要删除该项么？" href="{:U('User/setStatus?Model=action&status=-1&ids='.$vo['id'])}">删除</a>
-				                </td>
+				            </td>
 						</tr>
 					</volist>
 				<else/>
@@ -84,4 +85,7 @@
 	</div>
 </block>
 <block name="script">
+<script>
+highlight_subnav("{:U('User/action')}")
+</script>
 </block>

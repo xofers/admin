@@ -259,6 +259,9 @@ textarea{
 																												$("#cover_id_{$o_tab_key}").parent().find('.upload-img-box').append(
 																													'<div class="upload-pre-item" val="' + data.id + '"><a rel="group" href="'+src+'" title="图片地址:'+src+'"><img src="' + src + '"/></a><div onclick="removePicture{$o_tab_key}(this)" class="upload-pre-item-remove"><i class="fa fa-trash-o"> 删除</i></div></div>'
 																												);
+																												//重新加载Fancybox插件
+																	        									Fancybox.group();
+																	        									
 																												setPictureIds{$o_tab_key}();
 																											} else {
 																												Message.error({message:data.info});

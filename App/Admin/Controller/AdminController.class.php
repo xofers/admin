@@ -243,7 +243,7 @@ class AdminController extends Controller {
                     continue;//继续循环
                 }
                 if(strtolower(CONTROLLER_NAME.'/'.ACTION_NAME)  == strtolower($item['url'])){
-                    $menus['main'][$key]['class']='current';
+//                  $menus['main'][$key]['class']='active';
                 }
             }
 
@@ -257,8 +257,8 @@ class AdminController extends Controller {
                 }
                 foreach ($menus['main'] as $key => $item) {
                     // 获取当前主菜单的子菜单项
-                    if($item['id'] == $nav['id']){
-                        $menus['main'][$key]['class']='current';
+//                  if($item['id'] == $nav['id']){
+//                      $menus['main'][$key]['class']='active';
                         //生成child树
                         $groups = M('Menu')->where(array('group'=>array('neq',''),'pid' =>$item['id']))->distinct(true)->getField("group",true);
                         //获取二级分类的合法url
@@ -283,26 +283,28 @@ class AdminController extends Controller {
                                 	$to_check_urls[] = $to_check_url;
                             }
                         }
-                        // 按照分组生成子菜单树
-                        foreach ($groups as $g) {
-                            $map = array('group'=>$g);
-                            if(isset($to_check_urls)){
-                                if(empty($to_check_urls)){
-                                    // 没有任何权限
-                                    continue;
-                                }else{
-                                    $map['url'] = array('in', $to_check_urls);
-                                }
-                            }
-                            $map['pid']     =   $item['id'];
-                            $map['hide']    =   0;
-                            if(!C('DEVELOP_MODE')){ // 是否开发者模式
-                                $map['is_dev']  =   0;
-                            }
-                            $menuList = M('Menu')->where($map)->field('id,pid,title,url,tip')->order('sort asc')->select();
-                            $menus['child'][$g] = list_to_tree($menuList, 'id', 'pid', 'operater', $item['id']);
-                        }
-                    }
+						if(is_array($groups)){
+							// 按照分组生成子菜单树
+	                        foreach ($groups as $g) {
+	                            $map = array('group'=>$g);
+	                            if(isset($to_check_urls)){
+	                                if(empty($to_check_urls)){
+	                                    // 没有任何权限
+	                                    continue;
+	                                }else{
+	                                    $map['url'] = array('in', $to_check_urls);
+	                                }
+	                            }
+	                            $map['pid']     =   $item['id'];
+	                            $map['hide']    =   0;
+	                            if(!C('DEVELOP_MODE')){ // 是否开发者模式
+	                                $map['is_dev']  =   0;
+	                            }
+	                            $menuList = M('Menu')->where($map)->field('id,pid,title,url,tip')->order('sort asc')->select();
+	                            $menus['child'][$g] = list_to_tree($menuList, 'id', 'pid', 'operater', $item['id']);
+	                        }
+						}
+//                  }
                 }
             }
             session('ADMIN_MENU_LIST.'.$controller,$menus);
