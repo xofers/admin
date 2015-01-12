@@ -1,0 +1,82 @@
+<div class="page-sidebar-wrapper">
+	<div class="page-sidebar navbar-collapse collapse">
+		<!-- add "navbar-no-scroll" class to disable the scrolling of the sidebar menu -->
+		<!-- BEGIN SIDEBAR MENU -->
+		<ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+			{:print_r()}
+			<volist name="__MENU__" id="menu">
+                <li>
+                	<a href="javascript:;">
+						<i class="fa fa-home"></i>
+						<span class="title">{$menu_main.title}</span>
+						<span class="selected"></span>
+					</a>
+					<if condition="$menu_main['id'] eq 2">
+						<ul class="sub-menu">
+							<li>
+								<a href="{:U('Article/index')}"><i class="fa fa-file-text-o"></i> 文档列表</a>
+							</li>
+							<li>
+								<a href="javascript:;">
+									<i class="fa fa-renren"></i> 个人中心
+									<span class="arrow"></span>
+								</a>
+								<ul class="sub-menu">
+									<li><a href="{:U('Article/mydocument')}"><i class="fa fa-file-text-o"></i> 我的文档</a></li>
+									<li><a href="{:U('Article/draftbox')}"><i class="fa fa-briefcase"></i> 草稿存档</a></li>
+									<li><a href="{:U('Article/examine')}"><i class="fa fa-cloud"></i> 等待审核</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="{:U('Article/recycle')}">
+									<i class="fa fa-random"></i> 回收站
+								</a>
+							</li>
+						</ul>
+					<else />
+                		<volist name="__MENU__.child" id="sub_menu">
+						    <notempty name="sub_menu">
+						        <notempty name="key">
+		                			<if condition="$sub_menu[0]['pid'] eq $menu_main['id']">
+										<ul class="sub-menu">
+								        	<li>
+								        		<a href="javascript:;">
+													<i class="fa fa-cogs"></i>
+													<span class="title">{$key}</span>
+													<span class="arrow"></span>
+												</a>
+												<ul class="sub-menu">
+													<volist name="sub_menu" id="menu">
+											        	<li>
+															<a href="{$menu.url|U}">
+																<i class="fa fa-home"></i>
+																<span class="title">{$menu.title}</span>
+																<span class="selected"></span>
+															</a>
+														</li>
+											        </volist>
+												</ul>
+								        	</li>
+					                	</ul>
+								    </if>
+						        </notempty>
+						    </notempty>
+						</volist>
+					</if>
+                </li>
+            </volist>
+		</ul>
+		<!-- END SIDEBAR MENU -->
+	</div>
+</div>
+<script>
+	function highlight_subnav(url){
+		var nowLi = $('.page-sidebar').find('a[href="'+url+'"]').parent("li");
+	    nowLi.addClass("active");
+	    nowLi.parent("ul").parent("li").find("a").find(".arrow").eq(0).addClass("open");
+	    nowLi.parent("ul").parent("li").addClass("open");
+	    nowLi.parent("ul").parent("li").find("ul").eq(0).css({"display":"block"});
+	    nowLi.parent("ul").parent("li").parent("ul").parent("li").find("a").find(".arrow").eq(0).addClass("open");
+	    nowLi.parent("ul").parent("li").parent("ul").parent("li").addClass("active");
+	}
+</script>

@@ -3,67 +3,51 @@
 		<!-- add "navbar-no-scroll" class to disable the scrolling of the sidebar menu -->
 		<!-- BEGIN SIDEBAR MENU -->
 		<ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
-			{:print_r($__MENU__)}
-			<volist name="__MENU__.main" id="menu_main">
+			<volist name="__MENU__" id="menu">
                 <li>
-                	<a href="javascript:;">
+                	<if condition='array_key_exists("child",$menu)'>
+                		<a href="javascript:;">
+                	<else />
+                		<a href="{$menu.url|U}">
+                	</if>
 						<i class="fa fa-home"></i>
-						<span class="title">{$menu_main.title}</span>
+						<span class="title">{$menu.title}</span>
 						<span class="selected"></span>
+						<span class="arrow"></span>
 					</a>
-					<if condition="$menu_main['id'] eq 2">
+					<if condition='array_key_exists("child",$menu)'>
 						<ul class="sub-menu">
-							<li>
-								<a href="{:U('Article/index')}"><i class="fa fa-file-text-o"></i> 文档列表</a>
-							</li>
-							<li>
-								<a href="javascript:;">
-									<i class="fa fa-renren"></i> 个人中心
-									<span class="arrow"></span>
-								</a>
-								<ul class="sub-menu">
-									<li><a href="{:U('Article/mydocument')}"><i class="fa fa-file-text-o"></i> 我的文档</a></li>
-									<li><a href="{:U('Article/draftbox')}"><i class="fa fa-briefcase"></i> 草稿存档</a></li>
-									<li><a href="{:U('Article/examine')}"><i class="fa fa-cloud"></i> 等待审核</a></li>
-								</ul>
-							</li>
-							<li>
-								<a href="{:U('Article/recycle')}">
-									<i class="fa fa-random"></i> 回收站
-								</a>
-							</li>
-						</ul>
-					<else />
-                		<volist name="__MENU__.child" id="sub_menu">
-						    <notempty name="sub_menu">
-						        <notempty name="key">
-		                			<if condition="$sub_menu[0]['pid'] eq $menu_main['id']">
+							<foreach name="menu.child" item="vo" >
+								<li>
+									<if condition="!array_key_exists('id',$vo)">
+										<a href="javascript:;">
+									<else />
+										<a href="{$vo.url|U}">
+									</if>
+										<i class="fa fa-home"></i>
+										<span class="title">{$key}</span>
+										<span class="selected"></span>
+										<if condition="!array_key_exists('id',$vo)">
+											<span class="arrow"></span>
+										</if>
+									</a>
+									<if condition="!array_key_exists('id',$vo)">
 										<ul class="sub-menu">
-								        	<li>
-								        		<a href="javascript:;">
-													<i class="fa fa-cogs"></i>
-													<span class="title">{$key}</span>
-													<span class="arrow"></span>
-												</a>
-												<ul class="sub-menu">
-													<volist name="sub_menu" id="menu">
-											        	<li>
-															<a href="{$menu.url|U}">
-																<i class="fa fa-home"></i>
-																<span class="title">{$menu.title}</span>
-																<span class="selected"></span>
-															</a>
-														</li>
-											        </volist>
-												</ul>
-								        	</li>
-					                	</ul>
-								    </if>
-						        </notempty>
-						    </notempty>
-						</volist>
+											<volist name="vo" id="item">
+												<li>
+													<a href="{$item.url|U}">
+														<i class="fa fa-home"></i>
+														<span class="title">{$item.title}</span>
+													</a>
+												</li>
+											</volist>
+										</ul>
+									</if>
+								</li>
+							</foreach>
+						</ul>
 					</if>
-                </li>
+				</li>
             </volist>
 		</ul>
 		<!-- END SIDEBAR MENU -->
