@@ -3,7 +3,7 @@ namespace Admin\Controller;
 
 /**
  * 扩展后台管理页面
- * @author 游川江 <1518140867@qq.com>
+ * 
  */
 class AddonsController extends AdminController {
 

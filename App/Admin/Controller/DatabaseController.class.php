@@ -6,14 +6,14 @@ use OT\Database;
 
 /**
  * 数据库备份还原控制器
- * @author 游川江 <1518140867@qq.com>
+ * 
  */
 class DatabaseController extends AdminController{
 
     /**
      * 数据库备份/还原列表
      * @param  String $type import-还原，export-备份
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function index($type = null){
         switch ($type) {
@@ -76,7 +76,7 @@ class DatabaseController extends AdminController{
     /**
      * 优化表
      * @param  String $tables 表名
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function optimize($tables = null){
         if($tables) {
@@ -106,7 +106,7 @@ class DatabaseController extends AdminController{
     /**
      * 修复表
      * @param  String $tables 表名
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function repair($tables = null){
         if($tables) {
@@ -136,7 +136,7 @@ class DatabaseController extends AdminController{
     /**
      * 删除备份文件
      * @param  Integer $time 备份时间
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function del($time = 0){
         if($time){
@@ -158,7 +158,7 @@ class DatabaseController extends AdminController{
      * @param  String  $tables 表名
      * @param  Integer $id     表ID
      * @param  Integer $start  起始行数
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function export($tables = null, $id = null, $start = null){
         if(IS_POST && !empty($tables) && is_array($tables)){ //初始化
@@ -236,7 +236,7 @@ class DatabaseController extends AdminController{
 
     /**
      * 还原数据库
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function import($time = 0, $part = null, $start = null){
         if(is_numeric($time) && is_null($part) && is_null($start)){ //初始化

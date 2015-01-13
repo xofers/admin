@@ -1,7 +1,5 @@
 <div class="page-sidebar-wrapper">
 	<div class="page-sidebar navbar-collapse collapse">
-		<!-- add "navbar-no-scroll" class to disable the scrolling of the sidebar menu -->
-		<!-- BEGIN SIDEBAR MENU -->
 		<ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
 			<volist name="__MENU__" id="menu">
                 <li>
@@ -50,17 +48,20 @@
 				</li>
             </volist>
 		</ul>
-		<!-- END SIDEBAR MENU -->
 	</div>
 </div>
 <script>
 	function highlight_subnav(url){
-		var nowLi = $('.page-sidebar').find('a[href="'+url+'"]').parent("li");
-	    nowLi.addClass("active");
-	    nowLi.parent("ul").parent("li").find("a").find(".arrow").eq(0).addClass("open");
-	    nowLi.parent("ul").parent("li").addClass("open");
-	    nowLi.parent("ul").parent("li").find("ul").eq(0).css({"display":"block"});
-	    nowLi.parent("ul").parent("li").parent("ul").parent("li").find("a").find(".arrow").eq(0).addClass("open");
-	    nowLi.parent("ul").parent("li").parent("ul").parent("li").addClass("active");
+		var now=$('.page-sidebar').find('a[href="'+url+'"]');
+		console.log(now.parents("li").addClass("active"));
+		now.parents("li").find("")
+//		nowLink.removeClass("arrow");
+//		nowLi.addClass("active");
+//	    nowLi.parent("ul").parent("li").find("a").find(".arrow").eq(0).addClass("open");
+//	    nowLi.parent("ul").parent("li").addClass("open");
+//	    nowLi.parent("ul").parent("li").find("ul").eq(0).css({"display":"block"});
+//	    nowLi.parent("ul").parent("li").parent("ul").parent("li").find("a").find(".arrow").eq(0).addClass("open");
+//	    nowLi.parent("ul").parent("li").parent("ul").parent("li").addClass("active");
+		
 	}
 </script>

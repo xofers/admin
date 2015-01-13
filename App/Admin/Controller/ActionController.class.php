@@ -3,13 +3,13 @@ namespace Admin\Controller;
 
 /**
  * 行为控制器
- * @author 游川江 <1518140867@qq.com>
+ * 
  */
 class ActionController extends AdminController {
 
     /**
      * 行为日志列表
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function actionLog(){
         //获取列表数据
@@ -27,7 +27,7 @@ class ActionController extends AdminController {
 
     /**
      * 查看行为日志
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function edit($id = 0){
         empty($id) && $this->error('参数错误！');
@@ -42,7 +42,7 @@ class ActionController extends AdminController {
     /**
      * 删除日志
      * @param mixed $ids
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function remove($ids = 0){
         empty($ids) && $this->error('参数错误！');

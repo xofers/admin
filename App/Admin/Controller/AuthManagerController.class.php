@@ -6,14 +6,14 @@ use Admin\Model\AuthGroupModel;
 /**
  * 权限管理控制器
  * Class AuthManagerController
- * @author 游川江 <1518140867@qq.com>
+ * @author 
  */
 class AuthManagerController extends AdminController{
 
     /**
      * 后台节点配置的url作为规则存入auth_rule
      * 执行新节点的插入,已有节点的更新,无效规则的删除三项任务
-     * @author 游川江 <1518140867@qq.com>
+     * @author 
      */
     public function updateRules(){
         //需要新增的节点必然位于$nodes
@@ -79,7 +79,7 @@ class AuthManagerController extends AdminController{
 
     /**
      * 权限管理首页
-     * @author 游川江 <1518140867@qq.com>
+     * @author 
      */
     public function index(){
         $list = $this->lists('AuthGroup',array('module'=>'admin'),'id asc');
@@ -92,7 +92,7 @@ class AuthManagerController extends AdminController{
 
     /**
      * 创建管理员用户组
-     * @author 游川江 <1518140867@qq.com>
+     * @author 
      */
     public function createGroup(){
         if ( empty($this->auth_group) ) {
@@ -104,7 +104,7 @@ class AuthManagerController extends AdminController{
 
     /**
      * 编辑管理员用户组
-     * @author 游川江 <1518140867@qq.com>
+     * @author 
      */
     public function editGroup(){
         $auth_group = M('AuthGroup')->where( array('module'=>'admin','type'=>AuthGroupModel::TYPE_ADMIN) )
@@ -117,7 +117,7 @@ class AuthManagerController extends AdminController{
 
     /**
      * 访问授权页面
-     * @author 游川江 <1518140867@qq.com>
+     * @author 
      */
     public function access(){
         $this->updateRules();
@@ -140,7 +140,7 @@ class AuthManagerController extends AdminController{
 
     /**
      * 管理员用户组数据写入/更新
-     * @author 游川江 <1518140867@qq.com>
+     * @author 
      */
     public function writeGroup(){
         if(isset($_POST['rules'])){
@@ -169,7 +169,7 @@ class AuthManagerController extends AdminController{
 
     /**
      * 状态修改
-     * @author 游川江 <1518140867@qq.com>
+     * @author 
      */
     public function changeStatus($method=null){
         if ( empty($_REQUEST['id']) ) {
@@ -192,7 +192,7 @@ class AuthManagerController extends AdminController{
 
     /**
      * 用户组授权用户列表
-     * @author 游川江 <1518140867@qq.com>
+     * @author 
      */
     public function user($group_id){
         if(empty($group_id)){
@@ -217,7 +217,7 @@ class AuthManagerController extends AdminController{
 
     /**
      * 将分类添加到用户组的编辑页面
-     * @author 游川江 <1518140867@qq.com>
+     * @author 
      */
     public function category(){
         $auth_group     =   M('AuthGroup')->where( array('status'=>array('egt','0'),'module'=>'admin','type'=>AuthGroupModel::TYPE_ADMIN) )
@@ -248,7 +248,7 @@ class AuthManagerController extends AdminController{
 
     /**
      * 将用户添加到用户组的编辑页面
-     * @author 游川江 <1518140867@qq.com>
+     * @author 
      */
     public function group(){
         $uid            =   I('uid');
@@ -268,7 +268,7 @@ class AuthManagerController extends AdminController{
 
     /**
      * 将用户添加到用户组,入参uid,group_id
-     * @author 游川江 <1518140867@qq.com>
+     * @author 
      */
     public function addToGroup(){
         $uid = I('uid');
@@ -298,7 +298,7 @@ class AuthManagerController extends AdminController{
 
     /**
      * 将用户从用户组中移除  入参:uid,group_id
-     * @author 游川江 <1518140867@qq.com>
+     * @author 
      */
     public function removeFromGroup(){
         $uid = I('uid');
@@ -322,7 +322,7 @@ class AuthManagerController extends AdminController{
 
     /**
      * 将分类添加到用户组  入参:cid,group_id
-     * @author 游川江 <1518140867@qq.com>
+     * @author 
      */
     public function addToCategory(){
         $cid = I('cid');

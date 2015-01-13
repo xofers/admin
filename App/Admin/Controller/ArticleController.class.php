@@ -5,7 +5,7 @@ use Think\Page;
 
 /**
  * 后台内容控制器
- * @author 游川江 <1518140867@qq.com>
+ * 
  */
 class ArticleController extends AdminController {
 
@@ -56,7 +56,7 @@ class ArticleController extends AdminController {
 
     /**
      * 显示左边菜单，进行权限控制
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     protected function getMenu(){
         //获取动态分类
@@ -305,7 +305,7 @@ class ArticleController extends AdminController {
 
     /**
      * 设置一条或者多条数据的状态
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function setStatus($model='Document'){
         return parent::setStatus('Document');
@@ -313,7 +313,7 @@ class ArticleController extends AdminController {
 
     /**
      * 文档新增页面初始化
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function add(){
         //获取左边菜单
@@ -357,7 +357,7 @@ class ArticleController extends AdminController {
 
     /**
      * 文档编辑页面初始化
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function edit(){
         //获取左边菜单
@@ -401,7 +401,7 @@ class ArticleController extends AdminController {
 
     /**
      * 更新一条数据
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function update(){
         $document   =   D('Document');
@@ -444,7 +444,7 @@ class ArticleController extends AdminController {
 
     /**
      * 回收站列表
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function recycle(){
         //获取左边菜单
@@ -475,7 +475,7 @@ class ArticleController extends AdminController {
 
     /**
      * 写文章时自动保存至草稿箱
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function autoSave(){
         $res = D('Document')->autoSave();
@@ -491,7 +491,7 @@ class ArticleController extends AdminController {
 
     /**
      * 草稿箱
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function draftBox(){
         //获取左边菜单
@@ -510,7 +510,7 @@ class ArticleController extends AdminController {
 
     /**
      * 我的文档
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function mydocument($status = null, $title = null){
         //获取左边菜单
@@ -548,7 +548,7 @@ class ArticleController extends AdminController {
 
     /**
      * 还原被删除的数据
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function permit(){
         /*参数过滤*/
@@ -570,7 +570,7 @@ class ArticleController extends AdminController {
 
     /**
      * 清空回收站
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function clear(){
         $res = D('Document')->remove();
@@ -583,7 +583,7 @@ class ArticleController extends AdminController {
 
     /**
      * 移动文档
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function move() {
         if(empty($_POST['ids'])) {
@@ -596,7 +596,7 @@ class ArticleController extends AdminController {
 
     /**
      * 拷贝文档
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function copy() {
         if(empty($_POST['ids'])) {
@@ -609,7 +609,7 @@ class ArticleController extends AdminController {
 
     /**
      * 粘贴文档
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function paste() {
         $moveList = session('moveArticle');
@@ -687,7 +687,7 @@ class ArticleController extends AdminController {
 
     /**
      * 检查数据是否符合粘贴的要求
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     protected function checkPaste($list, $cate_id, $pid){
         $return     =   array('status'=>1);
@@ -739,7 +739,7 @@ class ArticleController extends AdminController {
 
     /**
      * 文档排序
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function sort(){
         if(IS_GET){

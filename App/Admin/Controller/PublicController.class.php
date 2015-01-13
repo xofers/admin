@@ -5,13 +5,13 @@ use User\Api\UserApi;
 
 /**
  * 后台首页控制器
- * @author 游川江 <1518140867@qq.com>
+ * 
  */
 class PublicController extends Controller {
 
     /**
      * 后台用户登录
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function login($username = null, $password = null, $verify = null){
         if(IS_POST){

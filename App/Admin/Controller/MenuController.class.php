@@ -3,7 +3,7 @@ namespace Admin\Controller;
 
 /**
  * 后台菜单控制器
- * @author 游川江 <1518140867@qq.com>
+ * 
  */
 class MenuController extends AdminController {
 
@@ -42,7 +42,7 @@ class MenuController extends AdminController {
 
     /**
      * 新增菜单
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function add(){
         if(IS_POST){
@@ -74,7 +74,7 @@ class MenuController extends AdminController {
 
     /**
      * 编辑配置
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function edit($id = 0){
         if(IS_POST){
@@ -114,7 +114,7 @@ class MenuController extends AdminController {
 
     /**
      * 删除后台菜单
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function del(){
         $id = array_unique((array)I('id'));

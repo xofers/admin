@@ -3,13 +3,13 @@ namespace Admin\Controller;
 
 /**
  * 后台分类管理控制器
- * @author 游川江 <1518140867@qq.com>
+ * 
  */
 class CategoryController extends AdminController {
 
     /**
      * 分类管理列表
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function index(){
         $tree = D('Category')->getTree(0,'id,name,title,sort,pid,allow_publish,status');
@@ -22,7 +22,7 @@ class CategoryController extends AdminController {
     /**
      * 显示分类树，仅支持内部调
      * @param  array $tree 分类树
-     * @author 游川江 <1518140867@qq.com>
+     * 
      */
     public function tree($tree = null){
         C('_SYS_GET_CATEGORY_TREE_') || $this->_empty();
