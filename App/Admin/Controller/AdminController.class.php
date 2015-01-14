@@ -55,6 +55,8 @@ class AdminController extends Controller {
             }
         }
         $this->assign('__MENU__', $this->getMenus());
+		$this->assign('__MENU__CATEGORY__', $this->getCategoryMenu());
+		
     }
 
     /**
@@ -220,6 +222,29 @@ class AdminController extends Controller {
                 break;
         }
     }
+	
+	//获取分类菜单
+	final public function getCategoryMenu($controller=CONTROLLER_NAME){
+		$cate  =   session('ADMIN_CATEGORY_MENU_LIST.'.$controller);
+		if(empty($cate)){
+			//获取动态分类
+	        $cate_auth  =   AuthGroupModel::getAuthCategories(UID); //获取当前用户所有的内容权限节点
+	        $cate_auth  =   $cate_auth == null ? array() : $cate_auth;
+	        $cate       =   M('Category')->where(array('status'=>1))->field('id,title,pid,allow_publish')->order('pid,sort')->select();	
+			//没有权限的分类则不显示
+	        if(!IS_ROOT){
+	            foreach ($cate as $key=>$value){
+	                if(!in_array($value['id'], $cate_auth)){
+	                    unset($cate[$key]);
+	                }
+	            }
+	        }
+			$cate  =  list_to_tree($cate);    //生成分类树
+			session('ADMIN_CATEGORY_MENU_LIST.'.$controller,$cate);
+		}
+		return $cate;
+	}
+	
 	/**
      * 获取控制器菜单数组,二级菜单元素位于一级菜单的'_child'元素中
      * @author 朱亚杰  <xcoolcc@gmail.com>
@@ -272,7 +297,6 @@ class AdminController extends Controller {
 					}
 				}
 			}
-			
             session('ADMIN_MENU_LIST.'.$controller,$menus);
         }
         return $menus;

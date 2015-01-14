@@ -24,7 +24,6 @@
 									</if>
 										<i class="fa fa-home"></i>
 										<span class="title">{$key}</span>
-										<span class="selected"></span>
 										<if condition="!array_key_exists('id',$vo)">
 											<span class="arrow"></span>
 										</if>
@@ -47,21 +46,16 @@
 					</if>
 				</li>
             </volist>
+    		<include file="Public/categorymenu" />
 		</ul>
 	</div>
 </div>
 <script>
 	function highlight_subnav(url){
 		var now=$('.page-sidebar').find('a[href="'+url+'"]');
-		console.log(now.parents("li").addClass("active"));
-		now.parents("li").find("")
-//		nowLink.removeClass("arrow");
-//		nowLi.addClass("active");
-//	    nowLi.parent("ul").parent("li").find("a").find(".arrow").eq(0).addClass("open");
-//	    nowLi.parent("ul").parent("li").addClass("open");
-//	    nowLi.parent("ul").parent("li").find("ul").eq(0).css({"display":"block"});
-//	    nowLi.parent("ul").parent("li").parent("ul").parent("li").find("a").find(".arrow").eq(0).addClass("open");
-//	    nowLi.parent("ul").parent("li").parent("ul").parent("li").addClass("active");
-		
+		now.parents("li").addClass("active");
+		var isTwo = now.parents("li").find("a span.arrow:first");
+		isTwo.addClass("open");
+		$(".page-sidebar-menu li.active a:first span.open").removeClass("arrow");
 	}
 </script>

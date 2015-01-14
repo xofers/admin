@@ -49,6 +49,7 @@
 <block name="script">
 <script type="text/javascript" src="__SCRIPTS__/metroinc/plugins/jquery-nestable/jquery.nestable.js"></script>
 <script>
+highlight_subnav("{:U('Channel/index')}");
 $(function(){
 	//初始化排序值
 	var obj = {:json_encode($list)};
