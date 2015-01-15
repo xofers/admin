@@ -67,6 +67,7 @@ class CategoryController extends AdminController {
 
         if(IS_POST){ //提交表单
             if(false !== $Category->update()){
+            	session('__MENU__CATEGORY__',null);
                 $this->success('新增成功！', U('index'));
             } else {
                 $error = $Category->getError();
@@ -89,7 +90,7 @@ class CategoryController extends AdminController {
             $this->display('edit');
         }
     }
-
+	
     /**
      * 删除一个分类
      * @author huajie <banhuajie@163.com>

@@ -32,17 +32,7 @@
 			<a href="javascript:;" class="btn red ajax-post" ajax-confirm="你确定要批量删除嘛?" target-form="config-form">
 				<i class="fa fa-trash-o"> 删除</i>
   			</a>
-			<div class="btn-group">
-				<button type="button" class="btn yellow dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
-					<i class="fa fa-sort"> 排序</i> <i class="fa fa-angle-down"></i>
-				</button>
-				<ul class="dropdown-menu" role="menu">
-					<li><a href="javascript:;">ID排序</a></li>
-					<li><a href="javascript:;">名称排序</a></li>
-					<li><a href="javascript:;">序列排序</a></li>
-					<li><a href="javascript:;">分组排序</a></li>
-				</ul>
-			</div>
+  			<a class="btn yellow" href="{:U('sort?group='.I('group'),'','')}"><i class="fa fa-sort"> 排序</i></a>
 		</div>
 		<div class="col-md-8">
 			<div class="input-group input-medium search-form pull-right">

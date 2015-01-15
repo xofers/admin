@@ -20,6 +20,20 @@
 				</div>
 			</li>
 		</ul>
+		<!--<notempty name="_show_nav">
+	            <div class="breadcrumb">
+	                <span>您的位置:</span>
+	                <assign name="i" value="1" />
+	                <foreach name="_nav" item="v" key="k">
+	                    <if condition="$i eq count($_nav)">
+	                    <span>{$v}</span>
+	                    <else />
+	                    <span><a href="{$k}">{$v}</a>&gt;</span>
+	                    </if>
+	                    <assign name="i" value="$i+1" />
+	                </foreach>
+	            </div>
+	            </notempty>-->
 		<!-- 地址栏结束 -->
 	</div>
 </div>

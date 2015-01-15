@@ -50,7 +50,7 @@
 			<notempty name="rightNav">
 				<span class="btn purple">分类 <i class="fa fa-arrow-circle-right"></i></span>
 				<volist name="rightNav" id="nav">
-					<a class="btn <if condition='$Think.get.cate_id eq $nav[id]'>yellow<else />blue</if>" href="{:U('index','cate_id='.$nav['id'])}">{$nav.title}</a>
+					<a class="btn <if condition='$Think.get.cate_id eq $nav["id"]'>yellow<else />blue</if>" href="{:U('index',array('cate_id'=>$nav['id']))}">{$nav.title}</a>
 					<if condition="count($rightNav) gt $i">
 						<a style="padding-right: 5px;padding-left: 3px;" class="btn" disabled="">
 							<i class="fa fa-angle-right"></i>
@@ -229,7 +229,12 @@
 <script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 <script>
+<present name="Think.get.cate_id">
+highlight_subnav("{:U('Article/index',array('cate_id'=>$_GET['cate_id']))}");
+<else />
 highlight_subnav("{:U('article/index')}");
+</present>
+
 Index.setValue("status", "{$status|default=''}");
 $(function(){
 	BootstrapSelect.init();

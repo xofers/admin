@@ -1,0 +1,51 @@
+<notempty name="__MENU__CATEGORY__">
+    <li>
+    	<a href="javascript:void(0);">
+    		<i class="fa fa-home"></i>
+    		<span class="title">分类列表</span>
+    		<span class="selected"></span>
+    		<span class="arrow"></span>
+    	</a>
+    	<ul class="sub-menu">
+        	<volist name="__MENU__CATEGORY__" id="main">
+            	<li>
+					<a href="{:U('Article/index',array('cate_id'=>$main['id']))}">
+						<i class="fa fa-home"></i>
+						<span class="title">{$main.title}</span>
+						<if condition='array_key_exists("_child",$main)'>
+							<span class="arrow"></span>
+						</if>
+					</a>
+					<if condition='array_key_exists("_child",$main)'>
+						<ul class="sub-menu">
+							<volist name="main._child" id="childfirst">
+								<li>
+									<a href="{:U('Article/index',array('cate_id'=>$childfirst['id']))}">
+										<i class="fa fa-home"></i>
+										<span class="title">{$childfirst.title}</span>
+										<if condition='array_key_exists("_child",$childfirst)'>
+											<span class="arrow"></span>
+										</if>
+									</a>
+									<if condition='array_key_exists("_child",$childfirst)'>
+										<ul class="sub-menu">
+											<volist name="childfirst._child" id="childsecond">
+												<li>
+													<a href="{:U('Article/index',array('cate_id'=>$childsecond['id']))}">
+														<i class="fa fa-home"></i>
+														<span class="title">{$childsecond.title}</span>
+													</a>
+												</li>
+											</volist>
+										</ul>
+									</if>
+								</li>
+							</volist>
+						</ul>
+					</if>
+				</li>
+        	</volist>
+    	</ul>
+	</li>
+</notempty>
+		

@@ -103,6 +103,8 @@
 <script type="text/javascript" src="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.js"></script>
 <script type="text/javascript" src="__SCRIPTS__/metroinc/scripts/custom/bootstrapSelect.js"></script>
 <script>
+//导航高亮
+highlight_subnav('{:U("User/action")}');
 Index.setValue('type',{$data.type|default=1});
 $(function(){
 	BootstrapSelect.init();

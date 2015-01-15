@@ -25,7 +25,7 @@
 	<div class="row">
 		<form action="{:U('sort')}" method="post" class="horizontal-form">
 			<div class="col-md-12">
-				<span class="btn blue"><i class="fa fa-sort"> 导航排序</i></span><a class="btn green" href="{:U('index',array('pid'=>I('pid')))}"><i class="fa fa-mail-reply-all"> 返回列表</i></a>
+				<span class="btn blue"><i class="fa fa-sort"> 配置排序</i></span><a class="btn green" href="{$Think.cookie.__forward__}"><i class="fa fa-mail-reply-all"> 返回列表</i></a>
 				<div class="dd" id="nestable_list">
 					<ol class="dd-list">
 						<volist name="list" id="vo">
@@ -49,7 +49,7 @@
 <block name="script">
 <script type="text/javascript" src="__SCRIPTS__/metroinc/plugins/jquery-nestable/jquery.nestable.js"></script>
 <script>
-highlight_subnav("{:U('Channel/index')}");
+highlight_subnav('{:U("article/index")}');
 $(function(){
 	//初始化排序值
 	var obj = {:json_encode($list)};

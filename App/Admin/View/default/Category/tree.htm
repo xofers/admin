@@ -13,13 +13,13 @@
 				<input type="text" name="title" class="form-control" style="padding: 2px 4px; height: 22px;" value="{$list.title}">
 				<span style="padding: 0px 1px;" 
 				<php>
-					if($level==4){
+					if($level==3){
 						echo 'class="input-group-btn tooltips" data-placement="left" data-original-title="该分类已经不能再添加下级分类了">';
 					}else{
 						echo 'class="input-group-btn">';
 					}
 				</php>
-				<button <php>if($level==4){echo 'class="btn red" disabled';}else{echo 'class="btn blue"';}</php> onclick='location.href="{:U('add?pid='.$list['id'])}"' type="button" style="padding: 1px 5px;">
+				<button <php>if($level==3){echo 'class="btn red" disabled';}else{echo 'class="btn blue"';}</php> onclick='location.href="{:U('add?pid='.$list['id'])}"' type="button" style="padding: 1px 5px;">
 					<i class="fa fa-plus"></i>
 				</button>
 				</span>

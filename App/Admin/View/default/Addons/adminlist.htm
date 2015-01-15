@@ -26,68 +26,65 @@
 <block name="content">
 	<div class="row">
 		<div class="col-md-4">
-			<empty name="model.extend">
-				<a href="{:U('add?model='.$model['id'])}" class="btn green">
+			<eq name="model.extend" value="1">
+				<a href="{:U('edit',array('name'=>$name))}" class="btn green">
 					<i class="fa fa-plus"> 新增</i>
 	  			</a>
-				<a href="javascript:void(0);" class="btn red ajax-post" ajax-confirm="你确定要批量删除嘛?" url="{:U('del?model='.$model['id'])}" target-form="ids">
+				<a href="javascript:void(0);" class="btn red ajax-post" ajax-confirm="你确定要批量删除嘛?" url="{:U('del?name='.$name)}" target-form="ids">
 					<i class="fa fa-trash-o"> 删除</i>
 	  			</a>
-  			</empty>
-  			<a href="javascript:void(0);" class="btn yellow ajax-post">[{$model['title']}] 列表</a>
+  			</eq>
 		</div>
 		<div class="col-md-8">
 			<div class="input-group input-medium search-form pull-right">
 				<input class="form-control pull-right input-search" name="{$model['search_key']|default='title'}" value="{:I('title')}" placeholder="请输入关键字" type="text">
 				<span class="input-group-btn">
-					<button class="btn blue" type="button" id="search" url="{:U('Think/lists','model='.$model['name'],false)}"><i class="fa fa-search"></i></button>
+					<button class="btn blue" type="button" id="search" url="{:U('adminList','name='.$name,false)}"><i class="fa fa-search"></i></button>
 				</span>
 			</div>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-md-12">
-			<form class="config-form" action="{:U('Config/del')}"  method="post">
+			<empty name="custom_adminlist">
 				<table class="table table-advance table-bordered margin-top-10">
 					<tr class="bg-grey">
 						<th colspan="8">
-							<i class="fa fa-puzzle-piece"></i>&nbsp;列表信息
+							<i class="fa fa-puzzle-piece"></i>&nbsp;{$title}内容列表
 						</th>
 					</tr>
 					<tr class="bg-grey">
 						<th width="20">
 							<input onchange="Index.checkAll(this,'ids[]')" value="" type="checkbox">
 						</th>
-						<volist name="list_grids" id="field">
-                            <td>{$field.title}</td>
-                        </volist>
+	                    <volist name="list_grid" id="vo">
+							<td>{$vo.title}</td>
+						</volist>
 					</tr>
-					<volist name="list_data" id="data">
-                        <tr>
-                            <th><input class="ids" type="checkbox" value="{$data['id']}" name="ids[]"></th>
-                            <volist name="list_grids" id="grid">
-                                <td>
-                                	<if condition='array_key_exists("href",$grid)'>
-	                            		{:get_list_field($data,$grid)}
-	                            	<else />
-	                            		<span class="badge badge-{$grid.class}">{:get_list_field($data,$grid)}</span>
-	                            	</if>
-                                </td>
-                            </volist>
-                        </tr>
-                    </volist>
+					<volist name="_list" id="lv" key="vo">
+						<tr>
+							<td><input class="ids" type="checkbox" value="{$lv.id}" name="ids[]">{$lv.id}</td>
+							<volist name="list_grid" id="lk">
+								<td>{:get_addonlist_field($lv, $lk, $name)}</td>
+							</volist>
+						</tr>
+					</volist>
 				</table>
-			    <div class="page">
-			        {$_page|default=''}
-			    </div>
-			</form>
+			<else />
+				<present name="custom_adminlist">
+					{$custom_adminlist}
+				</present>
+			</empty>
+		    <div class="page">
+		        {$_page|default=''}
+		    </div>
 		</div>
 	</div>
 </block>
 
 <block name="script">
 <script>
-	highlight_subnav("{:U('Model/index')}")
+	highlight_subnav("{:U('Addons/adminList',array('name'=>$_GET['name']))}")
 	//搜索功能
 	$("#search").click(function(){
 		var url = $(this).attr('url');
