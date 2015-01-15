@@ -277,6 +277,11 @@ textarea{
 <script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 <script>
+<present name="Think.get.cate_id">
+highlight_subnav("{:U('Article/index',array('cate_id'=>$_GET['cate_id']))}");
+<else />
+highlight_subnav("{:U('article/index')}");
+</present>
 Index.setValue("type", {$data.type|default='""'});
 Index.setValue("display", {$data.display|default=0});
 

@@ -10,7 +10,7 @@ use Think\Page;
 class ArticleController extends AdminController {
 
     /* 保存允许访问的公共方法 */
-    static protected $allow = array( 'draftbox','mydocument');
+    static protected $allow = array('draftbox','mydocument');
 
     private $cate_id        =   null; //文档分类id
 

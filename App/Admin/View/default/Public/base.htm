@@ -10,8 +10,9 @@
 <title>{$meta_title}-后台管理系统</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<meta content="" name="description"/>
-<meta content="" name="author"/>
+<meta content="{:C('WEB_SITE_DESCRIPTION')}" name="description"/>
+<meta content="{:C('WEB_SITE_KEYWORD')}" name="keywords"/>
+<meta content="{:C('WEB_SITE_TITLE')}" name="author"/>
 
 <!-- 主要管理样式开始 -->
 <link href="__SCRIPTS__/metroinc/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -79,7 +80,9 @@
 <!-- 页面中部结束 -->
 
 <!-- 底部开始 -->
-<!--<include file="Public:footer" />-->
+<if condition="C('SHOW_PAGE_TRACE') eq 0">
+	<include file="Public:footer" />
+</if>
 <!-- 底部结束 -->
 
 <!--[if lt IE 9]>

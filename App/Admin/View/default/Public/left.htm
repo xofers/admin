@@ -58,5 +58,17 @@
 		var isTwo = now.parents("li").find("a span.arrow:first");
 		isTwo.addClass("open");
 		$(".page-sidebar-menu li.active a:first span.open").removeClass("arrow");
+		
+		//面包屑
+		var willappend = "";
+		now.parents("li").each(function(index,element){
+			var a = $(element).find("a:first");
+			var classI = $(a).find("i").attr("class");
+			var title = $(a).find(".title").html();
+			var href = $(a).attr("href");
+			var aa = "<li><i class='"+classI+"'></i><a href='"+href+"'>"+title+"</a><li>&nbsp;<i class='fa fa-angle-right' style='color: #AAA;'></i>";
+			willappend = aa+willappend;
+		})
+		$(".page-breadcrumb").find("li.meta-title").before(willappend);
 	}
 </script>

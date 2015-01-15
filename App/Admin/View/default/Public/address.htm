@@ -3,11 +3,7 @@
 	<div class="col-md-12">
 		<!-- 地址栏开始 -->
 		<ul class="page-breadcrumb breadcrumb">
-			<li>
-				<i class="fa fa-home"></i>
-				<a href="index.html">首页</a>
-			</li>
-			&nbsp;<i class="fa fa-angle-right"></i>
+			<li class="meta-title"><span href="javascript:;" style="color: #28B779;">{$meta_title}</span></li>
 			<li class="pull-right">
 				<div id="dashboard-report-range" class="dashboard-date-range tooltips" data-placement="left" data-original-title="当前时间">
 					<i class="fa fa-calendar"></i>
@@ -20,20 +16,6 @@
 				</div>
 			</li>
 		</ul>
-		<!--<notempty name="_show_nav">
-	            <div class="breadcrumb">
-	                <span>您的位置:</span>
-	                <assign name="i" value="1" />
-	                <foreach name="_nav" item="v" key="k">
-	                    <if condition="$i eq count($_nav)">
-	                    <span>{$v}</span>
-	                    <else />
-	                    <span><a href="{$k}">{$v}</a>&gt;</span>
-	                    </if>
-	                    <assign name="i" value="$i+1" />
-	                </foreach>
-	            </div>
-	            </notempty>-->
 		<!-- 地址栏结束 -->
 	</div>
 </div>
