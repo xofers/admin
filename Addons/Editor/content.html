@@ -7,7 +7,6 @@
 		{// 富文本 }
 		<input type="hidden" name="parse" value="0">
 		<eq name="addons_config.editor_wysiwyg" value="1">
-			<link rel="stylesheet" href="__STATIC__/kindeditor/default/default.css" />
 			<script charset="utf-8" src="__STATIC__/kindeditor/kindeditor-min.js"></script>
 			<script charset="utf-8" src="__STATIC__/kindeditor/zh_CN.js"></script>
 			<script type="text/javascript">
@@ -21,9 +20,13 @@
 						resizeType: <eq name="addons_config.editor_resize_type" value="1">1<else />0</eq>,
 						pasteType : 2,
 						urlType : 'absolute',
-						fileManagerJson : '{:U('fileManagerJson')}',
-						//uploadJson : '{:U('uploadJson')}' }
-						uploadJson : '{:addons_url("Editor://Upload/ke_upimg")}'
+						cssPath : K.basePath+'default/code.css',
+						items     : ['undo', 'redo','code', 'justifyleft', 'justifycenter', 'insertorderedlist',
+									 'clearhtml', 'quickformat', 'fullscreen',
+							         'formatblock', 'fontname', 'fontsize', 'forecolor', 'hilitecolor', 'bold',
+							         'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat','table',
+							         'emoticons','link',
+									]
 					});
 				});
 

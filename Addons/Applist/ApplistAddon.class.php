@@ -1,6 +1,7 @@
 <?php
-
 namespace Addons\Applist;
+use Think\Db;
+use OT\Database;
 use Common\Controller\Addon;
 
 /**
@@ -48,6 +49,31 @@ SQL;
 
         public function uninstall(){
         	$db_prefix = C('DB_PREFIX');
+			
+			$path = C('DATA_BACKUP_PATH');
+			echo F('Addons://Applist@config');
+			return false;
+
+            if(!is_dir($path)){
+                mkdir($path, 0755, true);
+            }
+            //读取备份配置
+            $config = array(
+                'path'     => realpath($path) . DIRECTORY_SEPARATOR,
+                'part'     => C('DATA_BACKUP_PART_SIZE'),
+                'compress' => C('DATA_BACKUP_COMPRESS'),
+                'level'    => C('DATA_BACKUP_COMPRESS_LEVEL'),
+            );
+
+            //检查是否有正在执行的任务
+            $lock = "{$config['path']}backup.lock";
+            if(is_file($lock)){
+                $this->error('检测到有一个备份任务正在执行，请稍后再试！');
+            } else {
+                //创建锁文件
+                file_put_contents($lock, NOW_TIME);
+            }
+			
             $sql = "DROP TABLE IF EXISTS `{$db_prefix}applist`;";
             D()->execute($sql);
             return true;

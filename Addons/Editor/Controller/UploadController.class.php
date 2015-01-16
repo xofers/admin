@@ -28,9 +28,16 @@ class UploadController extends AddonsController{
 			$url = C('EDITOR_UPLOAD.rootPath').$info['imgFile']['savepath'].$info['imgFile']['savename'];
 			$url = str_replace('./', '/', $url);
 			$info['fullpath'] = __ROOT__.$url;
+			$return['status'] = 1;
+			$return['info'] = '上传成功';
+			$return['files'] =  __ROOT__.$url;
+		}else{
+			$return['status'] = 0;
+			$return['info'] = '上传失败!'.$this->uploader->getError();
 		}
 		session('upload_error', $this->uploader->getError());
-		return $info;
+		
+		$this->ajaxReturn($return);
 	}
 
 	//keditor编辑器上传图片处理
