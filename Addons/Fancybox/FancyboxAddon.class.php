@@ -13,7 +13,7 @@ use Common\Controller\Addon;
         public $info = array(
             'name'=>'Fancybox',
             'title'=>'Fancybox',
-            'description'=>'可以加载DIV，图片、图片集、Ajax数据，还能加载SWF影片，iframe页面',
+            'description'=>'可以加载DIV,图片,图片集,Ajax数据,还能加载SWF影片,iframe页面',
             'status'=>1,
             'author'=>'游川江',
             'version'=>'0.1'
@@ -31,6 +31,7 @@ use Common\Controller\Addon;
         public function Fancybox($param){
 			 $config = $this->getConfig();
 			 $this->assign('addons_config', $config);
+			 $this->assign('addons_config_json', json_encode($config));
              if($config['display']){
                 $this->display('widget');
              }

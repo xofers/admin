@@ -32,30 +32,6 @@ class UploadController extends AddonsController{
 		return $info;
 	}
 	
-	/* markdown上传处理 */
-	  public function markdown_upload(){
-		session('upload_error', null);
-		/* 上传配置 */
-		$setting = C('EDITOR_UPLOAD');
-		
-		/* 调用文件上传组件上传文件 */
-		$this->uploader = new Upload($setting, 'Local');
-		$info   = $this->uploader->upload($_FILES);
-		if(!empty($info)){
-			foreach($info as $key=>$value){
-		    $value['rootpath'] = C('EDITOR_UPLOAD.rootPath');
-			$return['files'][] = $value;
-		}
-			$return['status'] = 1;
-			$return['info'] = '上传成功';
-		}else{
-			$return['status'] = 0;
-			$return['info'] = '上传失败!'.$this->uploader->getError();
-		}
-		session('upload_error', $this->uploader->getError());
-		$this->ajaxReturn($return);
-	  }
-
 	//keditor编辑器上传图片处理
 	public function ke_upimg(){
 		/* 返回标准数据 */
