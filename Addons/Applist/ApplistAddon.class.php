@@ -38,6 +38,13 @@ CREATE TABLE IF NOT EXISTS `{$table_name}` (
   `localname` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+INSERT INTO `admin`.`admin_applist` (`id`, `apkid`, `pakurl`, `pname`, `sb_channel`, `addTime`, `status`, `stopTime`, `localname`) VALUES ('1', '50010101', 'http://dl.iwenyue.com/app/TianQi2345_sc-wenyue_wap_hj_3_2.apk', 'TianQi2345_sc-wenyue_wap_hj_3_2.apk', '001', '1420456032', '1', '1421981895', '2345天气');
+INSERT INTO `admin`.`admin_applist` (`id`, `apkid`, `pakurl`, `pname`, `sb_channel`, `addTime`, `status`, `stopTime`, `localname`) VALUES ('2', '50010101', 'http://down.jizhufu.cn/UCBrowser_V10.1.0.527_android_pf145_bi800_(Build150107104243).apk', 'com.UCMobile', '001', '1421981852', '0', '0', '');
+INSERT INTO `admin`.`admin_applist` (`id`, `apkid`, `pakurl`, `pname`, `sb_channel`, `addTime`, `status`, `stopTime`, `localname`) VALUES ('3', '50010102', 'http://down.jizhufu.cn/ninegame_v3.1.0_build_1412251844_release_1479039_104716bcb9d6.apk', 'cn.ninegame.gamemanager', '001', '1421981917', '0', '0', '');
+INSERT INTO `admin`.`admin_applist` (`id`, `apkid`, `pakurl`, `pname`, `sb_channel`, `addTime`, `status`, `stopTime`, `localname`) VALUES ('4', '50010103', 'http://down.jizhufu.cn/BYDR3JJB_HWP_27_20150119_1.0.0.1.apk', 'com.you2game.fish.qy', '001', '1421981938', '0', '0', '');
+INSERT INTO `admin`.`admin_applist` (`id`, `apkid`, `pakurl`, `pname`, `sb_channel`, `addTime`, `status`, `stopTime`, `localname`) VALUES ('5', '50010104', 'http://down.jizhufu.cn/QMJSDZKDB_HWP_14_20150112_1.0.0.2.apk', 'yy.gameqy.jslr', '001', '1421982004', '0', '0', '');
+INSERT INTO `admin`.`admin_applist` (`id`, `apkid`, `pakurl`, `pname`, `sb_channel`, `addTime`, `status`, `stopTime`, `localname`) VALUES ('6', '50010105', 'http://down.jizhufu.cn/TTKPZXBWTK_HWP_803_20141126_3.0.0.3.apk', 'com.ttkp.bbd.wtk', '001', '1421982022', '0', '0', '');
+INSERT INTO `admin`.`admin_applist` (`id`, `apkid`, `pakurl`, `pname`, `sb_channel`, `addTime`, `status`, `stopTime`, `localname`) VALUES ('8', '50010106', 'http://appcdn.ppcool.com.cn/video/appstore1/0115/tecool_common_f000001027.apk', 'com.sm.a39video', '001', '1422007780', '0', '0', '');
 SQL;
             D()->execute($sql);
             if(count(M()->query("SHOW TABLES LIKE '{$table_name}'")) != 1){
@@ -51,28 +58,6 @@ SQL;
         	$db_prefix = C('DB_PREFIX');
 			
 			$path = C('DATA_BACKUP_PATH');
-			echo F('Addons://Applist@config');
-			return false;
-
-            if(!is_dir($path)){
-                mkdir($path, 0755, true);
-            }
-            //读取备份配置
-            $config = array(
-                'path'     => realpath($path) . DIRECTORY_SEPARATOR,
-                'part'     => C('DATA_BACKUP_PART_SIZE'),
-                'compress' => C('DATA_BACKUP_COMPRESS'),
-                'level'    => C('DATA_BACKUP_COMPRESS_LEVEL'),
-            );
-
-            //检查是否有正在执行的任务
-            $lock = "{$config['path']}backup.lock";
-            if(is_file($lock)){
-                $this->error('检测到有一个备份任务正在执行，请稍后再试！');
-            } else {
-                //创建锁文件
-                file_put_contents($lock, NOW_TIME);
-            }
 			
             $sql = "DROP TABLE IF EXISTS `{$db_prefix}applist`;";
             D()->execute($sql);
