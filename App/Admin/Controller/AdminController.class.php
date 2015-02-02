@@ -268,7 +268,7 @@ class AdminController extends Controller {
             if(!C('DEVELOP_MODE')){ // 是否开发者模式
                 $where['is_dev']    =   0;
             }
-			$menus = M('Menu')->where($where)->field('id,pid,url,title,group')->select();
+			$menus = M('Menu')->where($where)->field('id,pid,url,icon,title,group')->select();
 			foreach ($menus as $key => $item) {
 				if($item['pid'] == 0){
 					 if ( !IS_ROOT && !$this->checkRule(strtolower(MODULE_NAME.'/'.$item['url']),AuthRuleModel::RULE_MAIN,null) ) {

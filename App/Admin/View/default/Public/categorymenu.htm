@@ -1,7 +1,7 @@
 <notempty name="__MENU__CATEGORY__">
     <li>
     	<a href="javascript:void(0);">
-    		<i class="fa fa-home"></i>
+    		<i class="fa fa-list"></i>
     		<span class="title">分类列表</span>
     		<span class="selected"></span>
     		<span class="arrow"></span>
@@ -10,7 +10,7 @@
         	<volist name="__MENU__CATEGORY__" id="main">
             	<li>
 					<a href="{:U('Article/index',array('cate_id'=>$main['id']))}">
-						<i class="fa fa-home"></i>
+						<i class="fa fa-tag"></i>
 						<span class="title">{$main.title}</span>
 						<if condition='array_key_exists("_child",$main)'>
 							<span class="arrow"></span>
@@ -21,7 +21,7 @@
 							<volist name="main._child" id="childfirst">
 								<li>
 									<a href="{:U('Article/index',array('cate_id'=>$childfirst['id']))}">
-										<i class="fa fa-home"></i>
+										<i class="fa fa-tag"></i>
 										<span class="title">{$childfirst.title}</span>
 										<if condition='array_key_exists("_child",$childfirst)'>
 											<span class="arrow"></span>

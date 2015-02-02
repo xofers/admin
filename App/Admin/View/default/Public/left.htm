@@ -8,7 +8,7 @@
                 	<else />
                 		<a href="{$menu.url|U}">
                 	</if>
-						<i class="fa fa-home"></i>
+						<i class="{$menu.icon}"></i>
 						<span class="title">{$menu.title}</span>
 						<span class="selected"></span>
 						<span class="arrow"></span>
@@ -19,10 +19,11 @@
 								<li>
 									<if condition="!array_key_exists('id',$vo)">
 										<a href="javascript:;">
+										<i class="fa fa-rss"></i>
 									<else />
 										<a href="{$vo.url|U}">
+										<i class="{$vo.icon}"></i>
 									</if>
-										<i class="fa fa-home"></i>
 										<span class="title">{$key}</span>
 										<if condition="!array_key_exists('id',$vo)">
 											<span class="arrow"></span>
@@ -33,7 +34,7 @@
 											<volist name="vo" id="item">
 												<li>
 													<a href="{$item.url|U}">
-														<i class="fa fa-home"></i>
+														<i class="{$item.icon}"></i>
 														<span class="title">{$item.title}</span>
 													</a>
 												</li>
