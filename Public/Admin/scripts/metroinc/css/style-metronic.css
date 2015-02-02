@@ -20,6 +20,9 @@ li {
      -moz-border-radius: 0 !important;
           border-radius: 0 !important;
 }
+td{
+	word-break: break-all;
+}
 
 /***
 Buttons & Dropdown Buttons

@@ -89,7 +89,7 @@
 							        'removeTimeout'	  : 1,
 							        'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
                                     'onFallback' : function() {
-                                        alert('未检测到兼容版本的Flash.');
+                                        Message.error({message:'未检测到兼容版本的Flash'});
                                     },
 							        "onUploadSuccess" : uploadPicture{$field.name}
 							    });
@@ -103,7 +103,7 @@
 							        		'<div class="upload-pre-item"><img src="' + src + '"/></div>'
 							        	);
 							        } else {
-							        	updateAlert(data.info);
+							        	Message.error({message:data.info});
 							        	setTimeout(function(){
 							                $('#top-alert').find('button').click();
 							                $(that).removeClass('disabled').prop('disabled',false);
@@ -134,7 +134,7 @@
 							        "width"           : 120,
 							        'removeTimeout'	  : 1,
                                     'onFallback' : function() {
-                                        alert('未检测到兼容版本的Flash.');
+                                        Message.error({message:'未检测到兼容版本的Flash'});
                                     },
 							        "onUploadSuccess" : uploadFile{$field.name}
 							    });
@@ -147,7 +147,7 @@
 							        		"<div class=\"upload-pre-file\"><span class=\"upload_icon_all\"></span>" + data.info + "</div>"
 							        	);
 							        } else {
-							        	updateAlert(data.info);
+							        	Message.error({message:data.info});
 							        	setTimeout(function(){
 							                $('#top-alert').find('button').click();
 							                $(that).removeClass('disabled').prop('disabled',false);
