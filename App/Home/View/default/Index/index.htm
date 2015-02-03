@@ -1,13 +1,5 @@
 <extend name="Public:base" />
-
-<block name="style">
-<style>
-	.xubox_main{
-		min-height: 100px;
-	}
-</style>
-</block>
-
+<block name="style"></block>
 <block name="content">
 <button onclick="Index.success();">成功</button>
 <button onclick="Index.error();">失败</button>
@@ -17,8 +9,25 @@
 <button onclick="Index.tipsx('带关闭的tips',this)">tips2</button>
 <button onclick="Index.login('{:U("User/login")}')">登陆框</button>
 <button onclick="Index.register('{:U("User/register")}')">注册框</button>
+<input placeholder="YYYY-MM-DD hh:mm:ss" class="date" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" >
+<label class="laydate-icon"></label>
+<form class="jqtransform" action="#" method="post">
+		<input type="text" />
+		<input type="password" />
+		<input type="radio" name="sex" />
+		<input type="radio" name="sex" />
+		<select>
+			<option value="1">博士</option>
+			<option value="2">硕士</option>
+			<option value="3">大学本科</option>
+			<option value="4">大专</option>
+			<option value="5">中技</option>
+		</select>
+		<input type="checkbox" />
+		<label>备注：</label>
+		<textarea name="note" rows="6" cols="40"></textarea>
+		<input type="submit" value="提交" />
+		<input type="reset" value="重置" />
+</form>
 </block>
-
-<block name="script">
-<script></script>
-</block>
+<block name="script"></block>

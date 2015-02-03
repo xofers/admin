@@ -101,8 +101,18 @@ class UserController extends HomeController {
 
 	/* 验证码，用于登录和注册 */
 	public function verify(){
-		$verify = new \Think\Verify();
-		$verify->entry(1);
+		$config =    array(    
+    		'fontSize'    =>   12,    // 验证码字体大小    
+    		'length'      =>    4,     // 验证码位数    
+    		'useNoise'    =>    false, // 关闭验证码杂点
+    		'useCurve'    =>    true, // 关闭混淆曲线
+    		'imageW'      =>    90,   // 验证码宽度
+    		'imageH'      =>    38,    // 验证码高度    
+//  		'useImgBg'    =>    false  // 验证码背景图片
+//			'codeSet'     =>    '0123456789' //验证码指定字符
+    	);
+        $verify = new \Think\Verify($config);
+        $verify->entry(1);
 	}
 
 	/**

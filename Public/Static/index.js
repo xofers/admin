@@ -78,6 +78,7 @@ var Index  = function () {
                 border: [0],
                 shift: 'top',
                 zIndex: 999,
+                time:3,
                 dialog: {
 				    type: 1,
 				    btns: 0,
@@ -93,6 +94,7 @@ var Index  = function () {
                 area: ['auto', 'auto'],
                 border: [0],
                 shift: 'top',
+                time:3,
                 zIndex: 999,
                 dialog: {
 				    type: 5,
@@ -110,6 +112,7 @@ var Index  = function () {
                 border: [0],
                 shift: 'top',
                 zIndex: 999,
+                time:3,
                 dialog: {
 				    type: 9,
 				    btns: 0,
@@ -126,6 +129,7 @@ var Index  = function () {
                 border: [0],
                 shift: 'top',
                 zIndex: 999,
+                time:3,
                 dialog: {
 				    type: 8,
 				    btns: 0,
