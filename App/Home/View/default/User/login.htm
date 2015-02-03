@@ -1,0 +1,49 @@
+<style>
+/* 登录窗口 */
+.formLib{padding:10px 0px 20px 0px; clear:both;}
+.formLib input{padding:0 10px; height:36px; border:1px solid #ccc; background: #fff repeat-x;}
+.formLib .form_lilib{position:relative; margin-bottom:20px; font-size:0;}
+.form_lilib *{display:inline-block; *display:inline; *zoom:1; vertical-align:top; font-size:14px; line-height:36px;}
+.form_lilib label{width:100px; height:36px; text-align:right; padding-right:5px; overflow:hidden; text-overflow: ellipsis; white-space:nowrap;}
+.form_lilib span{padding:0 5px;}
+.from_msg{padding-left:10px; font-size:12px; color:#999;}
+.from_msg a{color:#3595CC; text-decoration: none;}
+.from_msg a:hover{text-decoration: underline;}
+.form_libtn{padding-left:105px; font-size:12px; color:#999;}
+.formLib .BB_button{line-height:30px; padding:0 28px; border:none; background:#FF6C00; font-weight: bold; color:#fff; font-size: 20px; cursor: pointer; }
+.formLib .BB_button:hover{background:#f40;}
+</style>
+<form id="loginForm" method="post">
+	<ul class="formLib">
+		<li class="form_lilib">
+			<label>用户名：</label>
+			<input type="text" id="login_name" name="login_name" placeholder="请输入用户名" autocomplete="off">
+			<span></span>
+		</li>
+		<li class="form_lilib">
+			<label>密码：</label>
+			<input type="password" id="login_pass" name="login_pass" placeholder="请输入密码">
+		</li>
+		<li class="form_lilib">
+			<label>验证码：</label>
+			<input type="text" id="login_yan" name="login_yan" placeholder="验证码" autocomplete="off" style="width:60px;">
+			<img class="verifyimg reloadverify" src="{:U('verify')}" title="换一张"/>
+		</li>
+		<li class="form_libtn form_regtn">
+			<button type="submit" class="BB_button">登 录</button>
+			<span class="from_msg"><a href="" target="_blank">忘记密码？</a>&emsp;<a href="javascript:;" onclick="Index.register('{:U("User/register")}')">注册账号</a></span>
+		</li>
+	</ul>
+</form>
+<script>
+$(function(){
+	var verifyimg = $(".verifyimg").attr("src");
+    $(".reloadverify").click(function(){
+        if( verifyimg.indexOf('?')>0){
+            $(".verifyimg").attr("src", verifyimg+'&random='+Math.random());
+        }else{
+            $(".verifyimg").attr("src", verifyimg.replace(/\?.*$/,'')+'?'+Math.random());
+        }
+    });
+});
+</script>

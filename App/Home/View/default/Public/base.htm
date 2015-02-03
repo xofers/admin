@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>{$meta_title}-广告系统</title>
+		<meta content="{:C('WEB_SITE_DESCRIPTION')}" name="description"/>
+		<meta content="{:C('WEB_SITE_KEYWORD')}" name="keywords"/>
+		<meta content="{:C('WEB_SITE_TITLE')}" name="author"/>
+		<!-- 主要管理样式开始 -->
+		<!-- 主要管理样式结束 -->
+		<!-- 自定义样式开始 -->
+		<block name="style"></block>
+		<!-- 自定义样式结束 -->
+		<!-- jQuery插件-->
+		<script src="__STATIC__/jquery-2.0.3.min.js" type="text/javascript"></script>
+		<!-- jQuery应用迁移辅助插件 -->
+		<script src="__STATIC__/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+		<!-- layer插件 -->
+		<script src="__STATIC__/layer/layer.min.js"></script>
+	</head>
+	<body>
+		<!-- 页面头部开始 -->
+		<block name="header"></block>
+		<!-- 页面头部结束 -->
+		<!-- 主要内容开始 -->
+		<block name="content"></block>
+		<!-- 主要内容结束 -->
+		<!-- 页面底部开始 -->
+		<include file="Public:footer" />
+		<!-- 页面底部结束 -->
+		<!-- javascript开始 -->
+		<script src="__SCRIPTS__/index.js" type="text/javascript"></script>
+		<script>
+			Index.init();
+		</script>
+		<block name="script"></block>
+		<!-- javascript结束 -->
+	</body>
+</html>

@@ -1,12 +1,24 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
-"http://www.w3.org/TR/html4/strict.dtd">
+<extend name="Public:base" />
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
-		<title></title>
-	</head>
-	<body>
-	</body>
-</html>
+<block name="style">
+<style>
+	.xubox_main{
+		min-height: 100px;
+	}
+</style>
+</block>
+
+<block name="content">
+<button onclick="Index.success();">成功</button>
+<button onclick="Index.error();">失败</button>
+<button onclick="Index.info();">信息</button>
+<button onclick="Index.warning();">注意</button>
+<button onclick="Index.tips('不带关闭的tips',this)">tips1</button>
+<button onclick="Index.tipsx('带关闭的tips',this)">tips2</button>
+<button onclick="Index.login('{:U("User/login")}')">登陆框</button>
+<button onclick="Index.register('{:U("User/register")}')">注册框</button>
+</block>
+
+<block name="script">
+<script></script>
+</block>
