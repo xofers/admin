@@ -89,6 +89,70 @@ class AuthManagerController extends AdminController{
         $this->meta_title = '权限管理';
         $this->display();
     }
+	
+	/**
+     * 权限管理节点列表
+     * @author ycj<1518140867@qq.com>
+     */
+    public function auth_rule_lists(){
+    	$map = I('request.');
+		$list = $this->lists(M('AuthRule'),$map);
+		$this->assign( 'list', $list );
+		$this->meta_title ="权限节点列表";
+        $this->display();
+    }
+	
+	/**
+     * 编辑权限节点
+     * @author ycj<1518140867@qq.com>
+     */
+    public function edit_rule(){
+        $auth_rule = M('AuthRule')->where(I('request.'))
+                                    ->find( (int)$_GET['id'] );
+        $this->assign('info',$auth_rule);
+        $this->meta_title = isset($auth_rule['id'])?'编辑节点':'添加节点';
+        $this->display();
+    }
+	
+	/**
+     * 删除权限节点
+	 * @author ycj<1518140867@qq.com>
+     */
+    public function del_rule(){
+        $id = array_unique((array)I('id'));
+        if ( empty($id) || $id == array(0) ) {
+            $this->error('请选择要操作的数据!');
+        }
+        $map = array('id' => array('in', $id) );
+        if(M('AuthRule')->where($map)->delete()){
+            $this->success('删除成功');
+        } else {
+            $this->error('删除失败！');
+        }
+    }
+	
+	/**
+     * 权限节点数据写入/更新
+     * @author ycj<1518140867@qq.com>
+     */
+    public function writeRule(){
+        $AuthRule       =  D('AuthRule');
+        $data = $AuthRule->create();
+        if ( $data ) {
+            if ( empty($data['id']) ) {
+                $r = $AuthRule->add();
+            }else{
+                $r = $AuthRule->save();
+            }
+            if($r===false){
+                $this->error('操作失败'.$AuthRule->getError());
+            } else{
+                $this->success('操作成功!',U('auth_rule_lists'));
+            }
+        }else{
+            $this->error('操作失败'.$AuthRule->getError());
+        }
+    }
 
     /**
      * 创建管理员用户组
