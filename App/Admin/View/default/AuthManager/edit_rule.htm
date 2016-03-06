@@ -1,0 +1,107 @@
+<extend name="Public:base" />
+
+<block name="style">
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/css/plugins.css"/>
+<link rel="stylesheet" type="text/css" href="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.css"/>
+<style>
+	textarea{
+		resize: none;	
+	}
+</style>
+</block>
+
+<block name="header">
+	<include file="Public:header" />
+</block>
+
+<block name="left">
+	<include file="Public:left" />
+</block>
+
+<block name="address">
+	<include file="Public:address" />
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="tab-content">
+				<div class="tab-pane active">
+					<div class="portlet box light-grey">
+						<div class="portlet-title">
+							<i class="fa fa-edit"></i> {$info['id']?'编辑':'新增'}权限节点
+						</div>
+						<div class="portlet-body form">
+							<form class="horizontal-form" action="{:U('writeRule')}" method="post">
+								<div class="form-body">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">节点中文描述</label>
+												<div class="controls">
+													<input type="text" class="form-control input-xlarge" name="title" value="{$info.title}">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">节点唯一英文标识</label>
+												<div class="controls">
+													<input type="text" class="form-control input-xlarge" name="name" value="{$info.name}">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">节点所属模块</label>
+												<div class="controls">
+													<input type="text" class="form-control input-xlarge" name="module" value="{$info.module}">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">节点类型<span class="check-tips">（1-url;2-主菜单）</span></label>
+												<div class="controls">
+													<select name="type" style="display: none;" class="bs-select form-control input-small" data-style="blue">
+														<option value="1">url</option>
+														<option value="2">主菜单</option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">规则附加条件</label>
+												<div class="controls"><textarea class="form-control" name="condition"></textarea></div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="form-group">
+												<input type="hidden" name="id" value="{$info.id|default=''}">
+												<button class="btn green ajax-post" type="submit" target-form="horizontal-form">确 定</button>
+												<button class="btn blue" onclick="javascript:history.back(-1);return false;">返 回</button>		
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+<script type="text/javascript" src="__SCRIPTS__/metroinc/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="__SCRIPTS__/metroinc/scripts/custom/bootstrapSelect.js"></script>
+<script>
+highlight_subnav("{:U('AuthManager/auth_rule_lists')}")
+$(function(){
+	BootstrapSelect.init();
+})
+Index.setValue("type", {$info.type|default=0});
+</script>
+</block>
