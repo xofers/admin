@@ -135,10 +135,10 @@
 <script type="text/javascript" src="__SCRIPTS__/metroinc/scripts/custom/bootstrapSelect.js"></script>
 <script type="text/javascript" src="__SCRIPTS__/metroinc/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 <script>
-Index.setValue("pid", {$info.pid|default = 0});
 highlight_subnav("{:U('Menu/index')}")
 $(function(){
 	BootstrapSelect.init();
+	Index.setValue("pid", {$info.pid|default = 0});
 })
 </script>
 </block>
