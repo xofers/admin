@@ -121,11 +121,7 @@ textarea{
 											<div class="row">
 									            <volist name="fields[$key]" id="field">
 									                <if condition="$field['is_show'] == 1 || $field['is_show'] == 2">
-									                	<if condition="$field.type eq editor">
-										                	<div class="col-md-12">
-										                <else />
-										                	<div class="col-md-6">
-									                	</if>
+										                <div class="col-md-6">
 										                	<div class="form-group">
 											                    <label class="control-label">{$field['title']}<span class="check-tips"><notempty name="field['remark']">（{$field['remark']}）</notempty></span></label>
 											                    <div class="controls">
