@@ -38,9 +38,6 @@
   			<a url="{:U('changestatus?method=deleteGroup')}" class="btn red ajax-post" ajax-confirm="你确定要批量删除嘛?" target-form="ids">
 				<i class="fa fa-trash-o"> 删除</i>
   			</a>
-  			<a href="{:U('AuthManager/auth_rule_lists',array('module'=>'home'))}" class="btn green">
-				<i class="fa fa-tag"> 前台节点</i>
-  			</a>
 		</div>
 	</div>
 	<div class="row">
@@ -55,7 +52,7 @@
 					<th width="20">
 						<input onchange="Index.checkAll(this,'id[]')" value="" type="checkbox">
 					</th>
-					<td width="150">模型</td>
+					<td width="150">用户组</td>
 					<td width="300">描述</td>
 					<td width="300">授权</td>
 					<td>状态</td>
